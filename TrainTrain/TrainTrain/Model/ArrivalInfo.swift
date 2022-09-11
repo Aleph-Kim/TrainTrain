@@ -1,6 +1,6 @@
 import Foundation
 
-struct RealtimeArrivalList: Decodable {
+struct ArrivalInfo: Decodable, Identifiable {
 
   /// 지하철 호선 ID
   let subwayLineID: String
@@ -30,6 +30,11 @@ struct RealtimeArrivalList: Decodable {
   let secondMessage: String
   /// 도착코드 (0:진입, 1:도착, 2:출발, 3:전역출발, 4:전역진입, 5:전역도착, 99:운행중)
   let arrivalCode: String
+
+  /// Identifier
+  var id: String {
+    "\(stationName)-\(eta)"
+  }
 
   init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
