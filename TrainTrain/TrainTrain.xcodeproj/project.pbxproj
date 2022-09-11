@@ -14,6 +14,7 @@
 		C18E716A28CDBD24000C9BA5 /* TrainType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716928CDBD24000C9BA5 /* TrainType.swift */; };
 		C18E716C28CDC177000C9BA5 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716B28CDC177000C9BA5 /* NetworkManager.swift */; };
 		C18E716E28CDCD57000C9BA5 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716D28CDCD57000C9BA5 /* APIError.swift */; };
+		C18E717128CE3172000C9BA5 /* TestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E717028CE3172000C9BA5 /* TestingView.swift */; };
 		CF137AB728CDA8A10022B6AF /* TrainTrainApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */; };
 		CF137AB928CDA8A10022B6AF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF137AB828CDA8A10022B6AF /* ContentView.swift */; };
 		CF137ABB28CDA8A20022B6AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF137ABA28CDA8A20022B6AF /* Assets.xcassets */; };
@@ -28,6 +29,7 @@
 		C18E716B28CDC177000C9BA5 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		C18E716D28CDCD57000C9BA5 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		C18E716F28CDD5F2000C9BA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		C18E717028CE3172000C9BA5 /* TestingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingView.swift; sourceTree = "<group>"; };
 		CF137AB328CDA8A10022B6AF /* TrainTrain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrainTrain.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainTrainApp.swift; sourceTree = "<group>"; };
 		CF137AB828CDA8A10022B6AF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				C18E716428CDAFC7000C9BA5 /* Model */,
 				C18E716128CDAEE4000C9BA5 /* Network */,
 				CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */,
+				C18E717028CE3172000C9BA5 /* TestingView.swift */,
 				CF137AB828CDA8A10022B6AF /* ContentView.swift */,
 				CF137ABA28CDA8A20022B6AF /* Assets.xcassets */,
 				CF137ABC28CDA8A20022B6AF /* Preview Content */,
@@ -186,6 +189,7 @@
 				C18E716628CDB2C6000C9BA5 /* ErrorMessage.swift in Sources */,
 				CF137AB928CDA8A10022B6AF /* ContentView.swift in Sources */,
 				C18E716328CDAFB9000C9BA5 /* ArrivalInfo.swift in Sources */,
+				C18E717128CE3172000C9BA5 /* TestingView.swift in Sources */,
 				C18E716E28CDCD57000C9BA5 /* APIError.swift in Sources */,
 				C18E716A28CDBD24000C9BA5 /* TrainType.swift in Sources */,
 				CF137AB728CDA8A10022B6AF /* TrainTrainApp.swift in Sources */,
