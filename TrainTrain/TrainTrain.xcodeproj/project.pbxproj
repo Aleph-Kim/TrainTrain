@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C18E716028CDAEB0000C9BA5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = C18E715F28CDAEB0000C9BA5 /* Alamofire */; };
+		C18E716328CDAFB9000C9BA5 /* RealtimeArrivalList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716228CDAFB9000C9BA5 /* RealtimeArrivalList.swift */; };
+		C18E716628CDB2C6000C9BA5 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716528CDB2C6000C9BA5 /* ErrorMessage.swift */; };
+		C18E716828CDB8ED000C9BA5 /* TrainInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716728CDB8ED000C9BA5 /* TrainInfo.swift */; };
 		CF137AB728CDA8A10022B6AF /* TrainTrainApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */; };
 		CF137AB928CDA8A10022B6AF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF137AB828CDA8A10022B6AF /* ContentView.swift */; };
 		CF137ABB28CDA8A20022B6AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF137ABA28CDA8A20022B6AF /* Assets.xcassets */; };
@@ -14,6 +18,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C18E716228CDAFB9000C9BA5 /* RealtimeArrivalList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeArrivalList.swift; sourceTree = "<group>"; };
+		C18E716528CDB2C6000C9BA5 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
+		C18E716728CDB8ED000C9BA5 /* TrainInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainInfo.swift; sourceTree = "<group>"; };
 		CF137AB328CDA8A10022B6AF /* TrainTrain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrainTrain.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainTrainApp.swift; sourceTree = "<group>"; };
 		CF137AB828CDA8A10022B6AF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -26,12 +33,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C18E716028CDAEB0000C9BA5 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C18E716128CDAEE4000C9BA5 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		C18E716428CDAFC7000C9BA5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C18E716728CDB8ED000C9BA5 /* TrainInfo.swift */,
+				C18E716228CDAFB9000C9BA5 /* RealtimeArrivalList.swift */,
+				C18E716528CDB2C6000C9BA5 /* ErrorMessage.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		CF137AAA28CDA8A10022B6AF = {
 			isa = PBXGroup;
 			children = (
@@ -51,6 +76,8 @@
 		CF137AB528CDA8A10022B6AF /* TrainTrain */ = {
 			isa = PBXGroup;
 			children = (
+				C18E716428CDAFC7000C9BA5 /* Model */,
+				C18E716128CDAEE4000C9BA5 /* Network */,
 				CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */,
 				CF137AB828CDA8A10022B6AF /* ContentView.swift */,
 				CF137ABA28CDA8A20022B6AF /* Assets.xcassets */,
@@ -83,6 +110,9 @@
 			dependencies = (
 			);
 			name = TrainTrain;
+			packageProductDependencies = (
+				C18E715F28CDAEB0000C9BA5 /* Alamofire */,
+			);
 			productName = TrainTrain;
 			productReference = CF137AB328CDA8A10022B6AF /* TrainTrain.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +141,9 @@
 				Base,
 			);
 			mainGroup = CF137AAA28CDA8A10022B6AF;
+			packageReferences = (
+				C18E715E28CDAEB0000C9BA5 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = CF137AB428CDA8A10022B6AF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -137,7 +170,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C18E716828CDB8ED000C9BA5 /* TrainInfo.swift in Sources */,
+				C18E716628CDB2C6000C9BA5 /* ErrorMessage.swift in Sources */,
 				CF137AB928CDA8A10022B6AF /* ContentView.swift in Sources */,
+				C18E716328CDAFB9000C9BA5 /* RealtimeArrivalList.swift in Sources */,
 				CF137AB728CDA8A10022B6AF /* TrainTrainApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,6 +381,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C18E715E28CDAEB0000C9BA5 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C18E715F28CDAEB0000C9BA5 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C18E715E28CDAEB0000C9BA5 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CF137AAB28CDA8A10022B6AF /* Project object */;
 }
