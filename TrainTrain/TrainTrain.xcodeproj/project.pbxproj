@@ -11,6 +11,7 @@
 		C18E716328CDAFB9000C9BA5 /* RealtimeArrivalList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716228CDAFB9000C9BA5 /* RealtimeArrivalList.swift */; };
 		C18E716628CDB2C6000C9BA5 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716528CDB2C6000C9BA5 /* ErrorMessage.swift */; };
 		C18E716828CDB8ED000C9BA5 /* TrainInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716728CDB8ED000C9BA5 /* TrainInfo.swift */; };
+		C18E716A28CDBD24000C9BA5 /* TrainType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716928CDBD24000C9BA5 /* TrainType.swift */; };
 		CF137AB728CDA8A10022B6AF /* TrainTrainApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */; };
 		CF137AB928CDA8A10022B6AF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF137AB828CDA8A10022B6AF /* ContentView.swift */; };
 		CF137ABB28CDA8A20022B6AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF137ABA28CDA8A20022B6AF /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 		C18E716228CDAFB9000C9BA5 /* RealtimeArrivalList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeArrivalList.swift; sourceTree = "<group>"; };
 		C18E716528CDB2C6000C9BA5 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
 		C18E716728CDB8ED000C9BA5 /* TrainInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainInfo.swift; sourceTree = "<group>"; };
+		C18E716928CDBD24000C9BA5 /* TrainType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainType.swift; sourceTree = "<group>"; };
 		CF137AB328CDA8A10022B6AF /* TrainTrain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrainTrain.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainTrainApp.swift; sourceTree = "<group>"; };
 		CF137AB828CDA8A10022B6AF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 				C18E716728CDB8ED000C9BA5 /* TrainInfo.swift */,
 				C18E716228CDAFB9000C9BA5 /* RealtimeArrivalList.swift */,
 				C18E716528CDB2C6000C9BA5 /* ErrorMessage.swift */,
+				C18E716928CDBD24000C9BA5 /* TrainType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -174,6 +177,7 @@
 				C18E716628CDB2C6000C9BA5 /* ErrorMessage.swift in Sources */,
 				CF137AB928CDA8A10022B6AF /* ContentView.swift in Sources */,
 				C18E716328CDAFB9000C9BA5 /* RealtimeArrivalList.swift in Sources */,
+				C18E716A28CDBD24000C9BA5 /* TrainType.swift in Sources */,
 				CF137AB728CDA8A10022B6AF /* TrainTrainApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

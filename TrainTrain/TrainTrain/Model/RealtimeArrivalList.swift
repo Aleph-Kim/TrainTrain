@@ -15,13 +15,13 @@ struct RealtimeArrivalList: Decodable {
   /// - Note: 지하철역명
   let stationName: String
   /// - Note: 열차 종류 (급행, ITX) - 일반 지하철인 경우, nil 나옵니다.
-  let trainType: String?
-  /// - Note: 열차 도착 예정 시간 (단위:초)
+  let trainType: TrainType
+  /// - Note: 열차 도착 예정 시간 (단위:초) - Estimated Time of Arrival
   let eta: String
   /// - Note: 종착 지하철역ID
-  let lastStationID: String
+  let terminusStationID: String
   /// - Note: 종착 지하철역명
-  let lastStationName: String
+  let terminusStationName: String
   /// - Note: 열차 도착정보를 생성한 시각
   let createdAt: String
   /// - Note: 첫 번째 도착 메세지 (전역 진입, 전역 도착 등)
@@ -30,6 +30,34 @@ struct RealtimeArrivalList: Decodable {
   let secondMessage: String
   /// - Note: 도착코드 (0:진입, 1:도착, 2:출발, 3:전역출발, 4:전역진입, 5:전역도착, 99:운행중)
   let arrivalCode: String
+
+  init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    subwayLineID = try container.decode(String.self, forKey: .subwayLineID)
+    trainDestination = try container.decode(String.self, forKey: .trainDestination)
+    previousStationID = try container.decode(String.self, forKey: .previousStationID)
+    nextStationID = try container.decode(String.self, forKey: .nextStationID)
+    stationID = try container.decode(String.self, forKey: .stationID)
+    stationName = try container.decode(String.self, forKey: .stationName)
+    eta = try container.decode(String.self, forKey: .eta)
+    terminusStationID = try container.decode(String.self, forKey: .terminusStationID)
+    terminusStationName = try container.decode(String.self, forKey: .terminusStationName)
+    createdAt = try container.decode(String.self, forKey: .createdAt)
+    firstMessage = try container.decode(String.self, forKey: .firstMessage)
+    secondMessage = try container.decode(String.self, forKey: .secondMessage)
+    arrivalCode = try container.decode(String.self, forKey: .arrivalCode)
+
+    let trainTypeString = try container.decode(String.self, forKey: .trainType)
+    trainType = convertTrainType(of: trainTypeString)
+
+    func convertTrainType(of string: String?) -> TrainType {
+      switch string {
+      case "급행": return .express
+      case "itx": return .itx
+      default: return .normal
+      }
+    }
+  }
 
   private enum CodingKeys: String, CodingKey {
     case subwayLineID = "subwayId"
@@ -40,8 +68,8 @@ struct RealtimeArrivalList: Decodable {
     case stationName = "statnNm"
     case trainType = "btrainSttus"
     case eta = "barvlDt"
-    case lastStationID = "bstatnId"
-    case lastStationName = "bstatnNm"
+    case terminusStationID = "bstatnId"
+    case terminusStationName = "bstatnNm"
     case createdAt = "recptnDt"
     case firstMessage = "arvlMsg2"
     case secondMessage = "arvlMsg3"
