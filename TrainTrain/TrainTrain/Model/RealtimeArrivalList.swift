@@ -47,7 +47,7 @@ struct RealtimeArrivalList: Decodable {
     secondMessage = try container.decode(String.self, forKey: .secondMessage)
     arrivalCode = try container.decode(String.self, forKey: .arrivalCode)
 
-    let trainTypeString = try container.decode(String.self, forKey: .trainType)
+    let trainTypeString = try container.decode(String?.self, forKey: .trainType)
     trainType = convertTrainType(of: trainTypeString)
 
     func convertTrainType(of string: String?) -> TrainType {

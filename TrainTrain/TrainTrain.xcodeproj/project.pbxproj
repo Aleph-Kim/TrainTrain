@@ -12,6 +12,8 @@
 		C18E716628CDB2C6000C9BA5 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716528CDB2C6000C9BA5 /* ErrorMessage.swift */; };
 		C18E716828CDB8ED000C9BA5 /* TrainInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716728CDB8ED000C9BA5 /* TrainInfo.swift */; };
 		C18E716A28CDBD24000C9BA5 /* TrainType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716928CDBD24000C9BA5 /* TrainType.swift */; };
+		C18E716C28CDC177000C9BA5 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716B28CDC177000C9BA5 /* NetworkManager.swift */; };
+		C18E716E28CDCD57000C9BA5 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716D28CDCD57000C9BA5 /* APIError.swift */; };
 		CF137AB728CDA8A10022B6AF /* TrainTrainApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */; };
 		CF137AB928CDA8A10022B6AF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF137AB828CDA8A10022B6AF /* ContentView.swift */; };
 		CF137ABB28CDA8A20022B6AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF137ABA28CDA8A20022B6AF /* Assets.xcassets */; };
@@ -23,6 +25,9 @@
 		C18E716528CDB2C6000C9BA5 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
 		C18E716728CDB8ED000C9BA5 /* TrainInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainInfo.swift; sourceTree = "<group>"; };
 		C18E716928CDBD24000C9BA5 /* TrainType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainType.swift; sourceTree = "<group>"; };
+		C18E716B28CDC177000C9BA5 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		C18E716D28CDCD57000C9BA5 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		C18E716F28CDD5F2000C9BA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CF137AB328CDA8A10022B6AF /* TrainTrain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrainTrain.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainTrainApp.swift; sourceTree = "<group>"; };
 		CF137AB828CDA8A10022B6AF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -45,6 +50,8 @@
 		C18E716128CDAEE4000C9BA5 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				C18E716B28CDC177000C9BA5 /* NetworkManager.swift */,
+				C18E716D28CDCD57000C9BA5 /* APIError.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -79,6 +86,7 @@
 		CF137AB528CDA8A10022B6AF /* TrainTrain */ = {
 			isa = PBXGroup;
 			children = (
+				C18E716F28CDD5F2000C9BA5 /* Info.plist */,
 				C18E716428CDAFC7000C9BA5 /* Model */,
 				C18E716128CDAEE4000C9BA5 /* Network */,
 				CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */,
@@ -174,9 +182,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C18E716828CDB8ED000C9BA5 /* TrainInfo.swift in Sources */,
+				C18E716C28CDC177000C9BA5 /* NetworkManager.swift in Sources */,
 				C18E716628CDB2C6000C9BA5 /* ErrorMessage.swift in Sources */,
 				CF137AB928CDA8A10022B6AF /* ContentView.swift in Sources */,
 				C18E716328CDAFB9000C9BA5 /* RealtimeArrivalList.swift in Sources */,
+				C18E716E28CDCD57000C9BA5 /* APIError.swift in Sources */,
 				C18E716A28CDBD24000C9BA5 /* TrainType.swift in Sources */,
 				CF137AB728CDA8A10022B6AF /* TrainTrainApp.swift in Sources */,
 			);
@@ -310,6 +320,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TrainTrain/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -342,6 +353,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TrainTrain/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
