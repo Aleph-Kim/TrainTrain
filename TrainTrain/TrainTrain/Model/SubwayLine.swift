@@ -2,15 +2,15 @@ import SwiftUI
 
 enum SubwayLine: String, CaseIterable, Identifiable {
 
-  case line1 = "1"
-  case line2 = "2"
-  case line3 = "3"
-  case line4 = "4"
-  case line5 = "5"
-  case line6 = "6"
-  case line7 = "7"
-  case line8 = "8"
-  case line9 = "9"
+  case line1 = "1 호선"
+  case line2 = "2 호선"
+  case line3 = "3 호선"
+  case line4 = "4 호선"
+  case line5 = "5 호선"
+  case line6 = "6 호선"
+  case line7 = "7 호선"
+  case line8 = "8 호선"
+  case line9 = "9 호선"
 
   var color: Color {
     switch self {

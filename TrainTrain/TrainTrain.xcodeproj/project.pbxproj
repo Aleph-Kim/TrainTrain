@@ -95,6 +95,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		C1F91BD728CF071800FC8DE9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C18E717028CE3172000C9BA5 /* TestingView.swift */,
+				C18E717328CEBCA7000C9BA5 /* SelectionView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		CF137AAA28CDA8A10022B6AF = {
 			isa = PBXGroup;
 			children = (
@@ -114,12 +123,11 @@
 		CF137AB528CDA8A10022B6AF /* TrainTrain */ = {
 			isa = PBXGroup;
 			children = (
+				C1F91BD728CF071800FC8DE9 /* View */,
 				C1F91BD228CEF7E400FC8DE9 /* Model */,
 				C18E716128CDAEE4000C9BA5 /* Network */,
 				C1F91BCD28CEF53400FC8DE9 /* Extension */,
 				CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */,
-				C18E717028CE3172000C9BA5 /* TestingView.swift */,
-				C18E717328CEBCA7000C9BA5 /* SelectionView.swift */,
 				CF137AB828CDA8A10022B6AF /* ContentView.swift */,
 				C18E716F28CDD5F2000C9BA5 /* Info.plist */,
 				CF137ABA28CDA8A20022B6AF /* Assets.xcassets */,
