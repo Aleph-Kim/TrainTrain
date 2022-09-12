@@ -5,6 +5,7 @@ struct TestingView: View {
   @State private var realtime: [ArrivalInfo] = []
   @State private var target: String = ""
   @State private var next: String = ""
+  @State private var isLoading: Bool = false
 
   private let networkManager = NetworkManager()
 
@@ -13,8 +14,16 @@ struct TestingView: View {
       VStack {
         if let stationName = realtime.first?.stationName {
           HStack {
-            Text("\(stationName)역 도착 정보")
-              .font(.largeTitle)
+            Text("🚉 \(stationName)역 도착 정보")
+              .font(.title)
+              .fontWeight(.thin)
+            Spacer()
+          }
+        } else {
+          HStack {
+            Text("🚇 실시간 도착 정보 검색")
+              .font(.title)
+              .fontWeight(.thin)
             Spacer()
           }
         }
@@ -39,12 +48,19 @@ struct TestingView: View {
       TextField("그 다음 역의 이름", text: $next)
         .textFieldStyle(.roundedBorder)
 
-      Button("불러오기") {
+      Button {
         Task {
+          isLoading = true
           realtime = await networkManager.fetch(targetStationName: target, nextStationName: next) ?? []
+          isLoading = false
+        }
+      } label: {
+        HStack(spacing: 10) {
+          Text("불러오기")
         }
       }
-      .buttonStyle(.borderedProminent)
+      .disabled(isLoading)
+      .buttonStyle(.bordered)
       .keyboardShortcut(.defaultAction)
     }
     .padding()
