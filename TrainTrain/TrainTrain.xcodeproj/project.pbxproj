@@ -58,22 +58,10 @@
 		C18E716128CDAEE4000C9BA5 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				C18E716428CDAFC7000C9BA5 /* Model */,
 				C18E716B28CDC177000C9BA5 /* NetworkManager.swift */,
 				C18E716D28CDCD57000C9BA5 /* APIError.swift */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		C18E716428CDAFC7000C9BA5 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				C18E716728CDB8ED000C9BA5 /* ArrivalInfo.swift */,
-				C18E716228CDAFB9000C9BA5 /* TrainInfo.swift */,
-				C18E716528CDB2C6000C9BA5 /* ErrorMessage.swift */,
-				C18E716928CDBD24000C9BA5 /* TrainType.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		C1F91BCD28CEF53400FC8DE9 /* Extension */ = {
@@ -87,6 +75,10 @@
 		C1F91BD228CEF7E400FC8DE9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C18E716728CDB8ED000C9BA5 /* ArrivalInfo.swift */,
+				C18E716228CDAFB9000C9BA5 /* TrainInfo.swift */,
+				C18E716528CDB2C6000C9BA5 /* ErrorMessage.swift */,
+				C18E716928CDBD24000C9BA5 /* TrainType.swift */,
 				C1F91BD328CEF80600FC8DE9 /* SubwayLine.swift */,
 			);
 			path = Model;
@@ -99,6 +91,31 @@
 				C18E717328CEBCA7000C9BA5 /* SelectionView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		CC40B97828E9717600F784A7 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				CF137AB828CDA8A10022B6AF /* ContentView.swift */,
+				C1F91BD728CF071800FC8DE9 /* View */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		CC40B97928E9718100F784A7 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				C1F91BD228CEF7E400FC8DE9 /* Model */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		CC40B97A28E9719500F784A7 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				C18E716128CDAEE4000C9BA5 /* Network */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		CF137AAA28CDA8A10022B6AF = {
@@ -120,12 +137,11 @@
 		CF137AB528CDA8A10022B6AF /* TrainTrain */ = {
 			isa = PBXGroup;
 			children = (
-				C1F91BD728CF071800FC8DE9 /* View */,
-				C1F91BD228CEF7E400FC8DE9 /* Model */,
-				C18E716128CDAEE4000C9BA5 /* Network */,
-				C1F91BCD28CEF53400FC8DE9 /* Extension */,
 				CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */,
-				CF137AB828CDA8A10022B6AF /* ContentView.swift */,
+				CC40B97A28E9719500F784A7 /* Repository */,
+				CC40B97928E9718100F784A7 /* Domain */,
+				CC40B97828E9717600F784A7 /* Presentation */,
+				C1F91BCD28CEF53400FC8DE9 /* Extension */,
 				C18E716F28CDD5F2000C9BA5 /* Info.plist */,
 				CF137ABA28CDA8A20022B6AF /* Assets.xcassets */,
 				CF137ABC28CDA8A20022B6AF /* Preview Content */,
