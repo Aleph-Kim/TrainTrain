@@ -2,7 +2,7 @@ import SwiftUI
 
 struct TestingView: View {
 
-  @State private var realtime: [ArrivalInfo] = []
+  @State private var realtime: [TrainInfo] = []
   @State private var target: String = ""
   @State private var next: String = ""
   @State private var isLoading: Bool = false
