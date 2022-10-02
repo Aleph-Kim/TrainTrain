@@ -138,9 +138,9 @@
 			isa = PBXGroup;
 			children = (
 				CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */,
+				CC40B97828E9717600F784A7 /* Presentation */,
 				CC40B97A28E9719500F784A7 /* Repository */,
 				CC40B97928E9718100F784A7 /* Domain */,
-				CC40B97828E9717600F784A7 /* Presentation */,
 				C1F91BCD28CEF53400FC8DE9 /* Extension */,
 				C18E716F28CDD5F2000C9BA5 /* Info.plist */,
 				CF137ABA28CDA8A20022B6AF /* Assets.xcassets */,
