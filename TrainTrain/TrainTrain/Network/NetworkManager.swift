@@ -8,7 +8,7 @@ struct NetworkManager {
   /// - Parameter targetStationName: 실시간 도착정보의 기준이 되는 지하철역의 이름
   /// - Parameter nextStationName: 다음 지하철역의 이름 - 이동 방향을 파악하기 위해 필요합니다.
   /// - Returns: 실시간 도착정보의 배열
-  func fetch(targetStationName: String, nextStationName: String) async -> [ArrivalInfo]? {
+  func fetch(targetStationName: String, nextStationName: String) async -> [ArrivalInfo] {
     var targetStationName = targetStationName
     var nextStationName = nextStationName
 
@@ -28,7 +28,7 @@ struct NetworkManager {
       return filteredList
     } catch {
       print("⚠️ 통신 중 에러 발생 -> \(error)")
-      return nil
+      return []
     }
   }
 

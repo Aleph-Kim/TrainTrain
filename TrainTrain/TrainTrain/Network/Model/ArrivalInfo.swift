@@ -14,7 +14,7 @@ struct ArrivalInfo: Decodable, Identifiable {
   let stationID: String
   /// 지하철역명
   let stationName: String
-  /// 열차 종류 (급행, ITX) - 일반 지하철인 경우, nil 나옵니다.
+  /// 열차 종류 (급행, ITX) - 일반 지하철인 경우, 'normal' 이 나옵니다.
   let trainType: TrainType
   /// 열차 도착 예정 시간 (단위:초) - Estimated Time of Arrival
   let eta: String

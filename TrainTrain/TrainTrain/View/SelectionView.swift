@@ -3,7 +3,7 @@ import UIKit
 
 struct SelectionView: View {
 
-  @State private var selectionStep: SelectionStep = .one
+  @State private var selectionStep: SelectionStep = .preSelection
   @State private var selectedLine: SubwayLine? // 나중에 View 합쳐질 때 @Binding 으로 외부와 연결시킬 듯
 
   // MARK: - body
@@ -15,10 +15,6 @@ struct SelectionView: View {
     }
     .tabViewStyle(.page(indexDisplayMode: .never))
     .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.4) // 화면 높이의 40% 사용
-//    .onAppear {
-//      UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(.primary)
-//      UIPageControl.appearance().pageIndicatorTintColor = UIColor(.secondary)
-//    }
   }
 
   // MARK: - page1
@@ -42,7 +38,7 @@ struct SelectionView: View {
               withAnimation {
                 print("🚂 \(line.rawValue) 선택")
                 selectedLine = line
-                selectionStep = .two
+                selectionStep = .station
               }
             } label: {
               Capsule()
@@ -68,7 +64,7 @@ struct SelectionView: View {
       .background(.quaternary)
       .cornerRadius(20)
     }
-    .tag(SelectionStep.one)
+    .tag(SelectionStep.lineNumber)
     .padding(.horizontal)
   }
 
@@ -107,15 +103,22 @@ struct SelectionView: View {
       .background(selectedLine?.color)
       .cornerRadius(20)
     }
-    .tag(SelectionStep.two)
+    .tag(SelectionStep.station)
     .padding(.horizontal)
   }
 
   // MARK: - page3
   var page3: some View {
     Text("Page 3")
-      .tag(SelectionStep.three)
+      .tag(SelectionStep.direction)
   }
+}
+
+fileprivate enum SelectionStep {
+  case preSelection
+  case lineNumber
+  case station
+  case direction
 }
 
 struct SelectionView_Previews: PreviewProvider {

@@ -51,7 +51,7 @@ struct TestingView: View {
       Button {
         Task {
           isLoading = true
-          realtime = await networkManager.fetch(targetStationName: target, nextStationName: next) ?? []
+          realtime = await networkManager.fetch(targetStationName: target, nextStationName: next)
           isLoading = false
         }
       } label: {
