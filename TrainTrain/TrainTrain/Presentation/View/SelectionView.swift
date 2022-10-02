@@ -5,6 +5,8 @@ struct SelectionView: View {
 
   @State private var selectionStep: SelectionStep = .preSelection
   @State private var selectedLine: SubwayLine? // 나중에 View 합쳐질 때 @Binding 으로 외부와 연결시킬 듯
+  @State private var selectedStation: StationInfo?
+  @State private var stationList: [StationInfo] = []
 
   // MARK: - body
   var body: some View {
@@ -23,7 +25,7 @@ struct SelectionView: View {
   }
 
   // MARK: - page1
-  var page1: some View {
+  private var page1: some View {
     VStack(spacing: 10) {
       HStack {
         Text("Pre Selection Page")
@@ -44,14 +46,13 @@ struct SelectionView: View {
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .background(.quaternary)
-//      .background(selectedLine?.color)
       .cornerRadius(20)
     }
     .padding(.horizontal)
   }
 
   // MARK: - page2
-  var page2: some View {
+  private var page2: some View {
     VStack(spacing: 10) {
       HStack {
         Text("몇 호선 인가요?")
@@ -68,9 +69,9 @@ struct SelectionView: View {
           ForEach(SubwayLine.allCases) { line in
             Button {
               withAnimation {
-                print("🚂 \(line.rawValue) 선택")
                 selectedLine = line
                 selectionStep = .station
+                stationList = fetchStationList(of: line)
               }
             } label: {
               Capsule()
@@ -100,7 +101,7 @@ struct SelectionView: View {
   }
 
   // MARK: - page3
-  var page3: some View {
+  private var page3: some View {
     VStack(spacing: 10) {
       HStack {
         if let selectedLine = selectedLine {
@@ -136,8 +137,22 @@ struct SelectionView: View {
   }
 
   // MARK: - page4
-  var page4: some View {
+  private var page4: some View {
     Text("Page 4")
+  }
+
+  // MARK: - 역정보 가져오기
+  private func fetchStationList(of line: SubwayLine) -> [StationInfo] {
+    let path = Bundle.main.path(forResource: "StationList220622", ofType: "plist")!
+    let arrOfDict = NSArray(contentsOfFile: path)! as! [[String: Any]]
+    let stations = arrOfDict.map {
+      StationInfo(
+        subwayLineID: $0["SUBWAY_ID"]!,
+        stationID: $0["STATN_ID"]!,
+        stationName: $0["STATN_NM"]!)
+    }
+    let filtered = stations.filter { $0.stationID == line.id }
+    return filtered
   }
 }
 
