@@ -3,7 +3,7 @@ import UIKit
 
 struct SelectionView: View {
 
-  @State private var selectionStep: SelectionStep = .preSelection
+  @State private var selectionStep: SelectionStep = .pre
   @State private var selectedLine: SubwayLine? // 나중에 View 합쳐질 때 @Binding 으로 외부와 연결시킬 듯
   @State private var selectedStation: StationInfo?
   @State private var stationList: [StationInfo] = []
@@ -11,21 +11,22 @@ struct SelectionView: View {
   // MARK: - body
   var body: some View {
     TabView(selection: $selectionStep) {
-      page1.tag(SelectionStep.preSelection)
+      preSelectionPage.tag(SelectionStep.pre)
 //        .gesture(DragGesture())
-      page2.tag(SelectionStep.lineNumber)
+      lineNumberSelectionPage.tag(SelectionStep.lineNumber)
 //        .gesture(DragGesture())
-      page3.tag(SelectionStep.station)
+      stationSelectionPage.tag(SelectionStep.station)
 //        .gesture(DragGesture())
-      page4.tag(SelectionStep.direction)
+      directionSelectionPage.tag(SelectionStep.direction)
 //        .gesture(DragGesture())
     }
     .tabViewStyle(.page(indexDisplayMode: .never))
     .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.4) // 화면 높이의 40% 사용
+    .border(.red, width: 1)
   }
 
-  // MARK: - page1
-  private var page1: some View {
+  // MARK: - preSelectionPage
+  private var preSelectionPage: some View {
     VStack(spacing: 10) {
       HStack {
         Text("Pre Selection Page")
@@ -51,8 +52,8 @@ struct SelectionView: View {
     .padding(.horizontal)
   }
 
-  // MARK: - page2
-  private var page2: some View {
+  // MARK: - lineNumberSelectionPage
+  private var lineNumberSelectionPage: some View {
     VStack(spacing: 10) {
       HStack {
         Text("몇 호선 인가요?")
@@ -100,8 +101,8 @@ struct SelectionView: View {
     .padding(.horizontal)
   }
 
-  // MARK: - page3
-  private var page3: some View {
+  // MARK: - stationSelectionPage
+  private var stationSelectionPage: some View {
     VStack(spacing: 10) {
       HStack {
         if let selectedLine = selectedLine {
@@ -116,7 +117,7 @@ struct SelectionView: View {
             )
         }
 
-        Text("어느 역인가요?")
+        Text("어느 역에서 탑승하시나요?")
           .bold()
           .padding(.horizontal, 16)
           .padding(.vertical, 10)
@@ -126,7 +127,24 @@ struct SelectionView: View {
       }
 
       VStack {
-        Spacer()
+        List(stationList, id: \.stationID) { station in
+          Button {
+            withAnimation {
+              selectedStation = station
+              selectionStep = .direction
+            }
+          } label: {
+            HStack {
+              Text(station.stationName + "역")
+              Spacer()
+              Image(systemName: "chevron.right")
+                .fontWeight(.light)
+            }
+          }
+        }
+        .listStyle(.plain)
+        .cornerRadius(20)
+        .padding(10)
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .background(.quaternary)
@@ -136,8 +154,8 @@ struct SelectionView: View {
     .padding(.horizontal)
   }
 
-  // MARK: - page4
-  private var page4: some View {
+  // MARK: - directionSelectionPage
+  private var directionSelectionPage: some View {
     Text("Page 4")
   }
 
@@ -151,18 +169,19 @@ struct SelectionView: View {
         stationID: $0["STATN_ID"]!,
         stationName: $0["STATN_NM"]!)
     }
-    let filtered = stations.filter { $0.stationID == line.id }
+    let filtered = stations.filter { $0.subwayLineID == line.id }
     return filtered
   }
 }
 
 fileprivate enum SelectionStep {
-  case preSelection
+  case pre
   case lineNumber
   case station
   case direction
 }
 
+// 필요 없어지면 삭제할 예정! -- modifier 를 조건문에 따라 적용하기 위한 메서드임
 extension View {
   @ViewBuilder func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
     if condition {
