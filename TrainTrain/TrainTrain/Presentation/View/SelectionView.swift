@@ -22,7 +22,6 @@ struct SelectionView: View {
     }
     .tabViewStyle(.page(indexDisplayMode: .never))
     .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.4) // 화면 높이의 40% 사용
-    .border(.red, width: 1)
   }
 
   // MARK: - preSelectionPage
@@ -157,49 +156,21 @@ struct SelectionView: View {
   // MARK: - directionSelectionPage
   private var directionSelectionPage: some View {
     VStack(spacing: 10) {
-      VStack(spacing: 5) {
-        HStack {
-          if let selectedLine {
-            Text(selectedLine.rawValue)
-              .bold()
-              .padding(.horizontal, 16)
-              .padding(.vertical, 10)
-              .background(
-                Capsule()
-                  .inset(by: 2)
-                  .stroke(selectedLine.color, lineWidth: 2)
-              )
-          }
-
-          if let selectedStation {
-            Text(selectedStation.stationName + "역")
-              .bold()
-              .padding(.horizontal, 16)
-              .padding(.vertical, 10)
-              .background(
-                Capsule()
-                  .inset(by: 2)
-                  .stroke(selectedLine?.color ?? .clear, lineWidth: 2)
-              )
-          }
-
-          Spacer()
-        }
-        HStack {
-          Text("어느 방향으로 가시나요?")
-            .bold()
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
-            .background(.quaternary)
-            .clipShape(Capsule())
-          Spacer()
-        }
+      HStack {
+        Text("어느 방향으로 가시나요?")
+          .bold()
+          .padding(.horizontal, 16)
+          .padding(.vertical, 10)
+          .background(.quaternary)
+          .clipShape(Capsule())
+        Spacer()
       }
 
       HStack(spacing: .zero) {
-        Button(action: { print("왼쪽 눌림") }) {
-          Text("왼쪽!")
+        Button(action: { print("✅ \(previousStationName) 눌림!") }) {
+          Text(previousStationName)
             .bold()
+            .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
 
@@ -208,9 +179,10 @@ struct SelectionView: View {
           .stroke(style: .init(lineWidth: 2, dash: [5]))
           .frame(width: 2)
 
-        Button(action: { print("오른쪽 눌림") }) {
-          Text("오른쪽!")
+        Button(action: { print("✅ \(nextStationName) 눌림!") }) {
+          Text(nextStationName)
             .bold()
+            .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
       }
@@ -231,6 +203,22 @@ struct SelectionView: View {
       }
     }
     .padding(.horizontal)
+  }
+
+  // MARK: - 이전(왼쪽) 역
+  private var previousStationName: String {
+    guard let selectedStation else { return "" }
+    guard let index = stationList.firstIndex(where: { $0.stationID == selectedStation.stationID }) else { return "" }
+    guard index < (stationList.count - 1) else { return "" }
+    return stationList[index + 1].stationName
+  }
+
+  // MARK: - 다음(오른쪽) 역
+  private var nextStationName: String {
+    guard let selectedStation else { return "" }
+    guard let index = stationList.firstIndex(where: { $0.stationID == selectedStation.stationID }) else { return "" }
+    guard index > 0 else { return "" }
+    return stationList[index - 1].stationName
   }
 
   // MARK: - 역정보 가져오기
