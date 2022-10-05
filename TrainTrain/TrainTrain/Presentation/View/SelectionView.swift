@@ -195,6 +195,7 @@ struct SelectionView: View {
       .overlay(alignment: .top) {
         Text(selectedStation?.stationName ?? "" + "역")
           .bold()
+          .foregroundColor(.black)
           .padding(.horizontal, 20)
           .padding(.vertical, 12)
           .background(.white)
