@@ -7,6 +7,7 @@ struct SelectionView: View {
   @State private var selectedLine: SubwayLine? // 나중에 View 합쳐질 때 @Binding 으로 외부와 연결시킬 듯
   @State private var selectedStation: StationInfo?
   @State private var stationList: [StationInfo] = []
+  @State private var searchText = ""
 
   // MARK: - body
   var body: some View {
@@ -46,7 +47,7 @@ struct SelectionView: View {
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .background(.quaternary)
-      .cornerRadius(20)
+      .cornerRadius(16)
     }
     .padding(.horizontal)
   }
@@ -95,7 +96,7 @@ struct SelectionView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
       }
       .background(.quaternary)
-      .cornerRadius(20)
+      .cornerRadius(16)
     }
     .padding(.horizontal)
   }
@@ -125,8 +126,18 @@ struct SelectionView: View {
         Spacer()
       }
 
-      VStack {
-        List(stationList, id: \.stationID) { station in
+      VStack(spacing: .zero) {
+        TextField("➡️ 탑승역 검색", text: $searchText)
+          .textFieldStyle(.roundedBorder)
+          .cornerRadius(10)
+          .padding(.horizontal, 8)
+          .padding(.top, 8)
+          .submitLabel(.search)
+
+        List(searchText.isEmpty
+             ? stationList
+             : stationList.filter { $0.stationName.contains(searchText) }
+             , id: \.stationID) { station in
           Button {
             withAnimation {
               selectedStation = station
@@ -140,15 +151,16 @@ struct SelectionView: View {
                 .fontWeight(.light)
             }
           }
+          .listRowInsets(.init(top: .zero, leading: 7, bottom: .zero, trailing: 16))
         }
         .listStyle(.plain)
-        .cornerRadius(20)
-        .padding(10)
+        .cornerRadius(10)
+        .padding(8)
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .background(.quaternary)
       .background(selectedLine?.color)
-      .cornerRadius(20)
+      .cornerRadius(16)
     }
     .padding(.horizontal)
   }
@@ -191,7 +203,7 @@ struct SelectionView: View {
       .foregroundColor(.white)
       .background(.quaternary)
       .background(selectedLine?.color)
-      .cornerRadius(20)
+      .cornerRadius(16)
       .overlay(alignment: .top) {
         Text(selectedStation?.stationName ?? "" + "역")
           .bold()
