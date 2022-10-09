@@ -12,6 +12,8 @@ struct SelectionView: View {
   @State private var searchText = ""
   @State private var confetti: Int = .zero
 
+  @FocusState private var isKeyboardUp: Bool?
+
   // MARK: - body
   var body: some View {
     VStack {
@@ -32,7 +34,7 @@ struct SelectionView: View {
       HStack(spacing: 10) {
         ForEach(SelectionStep.allCases.indices, id: \.self) { index in
           Circle()
-            .fill(isCurrentPage(for: index) ? .secondary : Color.bg)
+            .fill(isCurrentPage(for: index) ? .secondary : .quaternary)
             .frame(width: 8, height: 8)
         }
       }
@@ -171,6 +173,7 @@ struct SelectionView: View {
           .padding(.horizontal, 8)
           .padding(.top, 8)
           .submitLabel(.search)
+          .focused($isKeyboardUp, equals: true)
           .onChange(of: searchText) { newValue in
             searchText = newValue.cleaned
           }
@@ -183,6 +186,8 @@ struct SelectionView: View {
             withAnimation {
               selectedStation = station
               selectionStep = .direction
+              searchText = ""
+              isKeyboardUp = nil // 키보드 내리기
             }
           } label: {
             HStack {
