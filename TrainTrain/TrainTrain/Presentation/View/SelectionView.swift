@@ -93,7 +93,11 @@ struct SelectionView: View {
                     .padding(.vertical, 5)
                     .background(.white)
                     .clipShape(Capsule())
-                    .padding(.leading, 10)
+                    .padding(.leading, 8)
+                }
+                .overlay(alignment: .trailing) {
+                  line.color
+                    .frame(width: 20)
                 }
                 .padding(.leading, 20)
             }
