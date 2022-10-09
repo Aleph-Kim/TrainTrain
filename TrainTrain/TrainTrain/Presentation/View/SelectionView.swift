@@ -1,5 +1,5 @@
 import SwiftUI
-import UIKit
+import ConfettiSwiftUI
 
 struct SelectionView: View {
 
@@ -9,6 +9,7 @@ struct SelectionView: View {
   @State private var selectedDirection: String? // "OO방면"
   @State private var stationList: [StationInfo] = []
   @State private var searchText = ""
+  @State private var confetti = 0
 
   // MARK: - body
   var body: some View {
@@ -24,6 +25,12 @@ struct SelectionView: View {
     }
     .tabViewStyle(.page(indexDisplayMode: .never))
     .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.4) // 화면 높이의 40% 사용
+    .confettiCannon(
+      counter: $confetti,
+      rainHeight: 400,
+      openingAngle: .degrees(45),
+      closingAngle: .degrees(135),
+      repetitions: 1)
   }
 
   // MARK: - preSelectionPage
@@ -184,6 +191,7 @@ struct SelectionView: View {
           withAnimation {
             selectedDirection = previousStationName + "방면"
             selectionStep = .pre
+            confetti += 1
           }
         } label: {
           Text(previousStationName)
@@ -201,6 +209,7 @@ struct SelectionView: View {
           withAnimation {
             selectedDirection = nextStationName + "방면"
             selectionStep = .pre
+            confetti += 1
           }
         } label: {
           Text(nextStationName)
