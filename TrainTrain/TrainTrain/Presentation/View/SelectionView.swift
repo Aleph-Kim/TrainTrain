@@ -133,6 +133,9 @@ struct SelectionView: View {
           .padding(.horizontal, 8)
           .padding(.top, 8)
           .submitLabel(.search)
+          .onChange(of: searchText) { newValue in
+            searchText = newValue.cleaned
+          }
 
         List(searchText.isEmpty
              ? stationList

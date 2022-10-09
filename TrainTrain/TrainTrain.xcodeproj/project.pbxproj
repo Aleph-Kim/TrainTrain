@@ -15,6 +15,7 @@
 		C18E716E28CDCD57000C9BA5 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716D28CDCD57000C9BA5 /* APIError.swift */; };
 		C18E717128CE3172000C9BA5 /* TestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E717028CE3172000C9BA5 /* TestingView.swift */; };
 		C18E717428CEBCA7000C9BA5 /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E717328CEBCA7000C9BA5 /* SelectionView.swift */; };
+		C1D22DF428F29C0B00BE3368 /* String+cleaned.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D22DF328F29C0B00BE3368 /* String+cleaned.swift */; };
 		C1E04BBA28E987E700FAD6D1 /* StationList220622.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1E04BB928E987E700FAD6D1 /* StationList220622.plist */; };
 		C1E04BBC28E9AEC600FAD6D1 /* StationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E04BBB28E9AEC600FAD6D1 /* StationInfo.swift */; };
 		C1F91BCF28CEF55700FC8DE9 /* Color+subwayLines.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F91BCE28CEF55700FC8DE9 /* Color+subwayLines.swift */; };
@@ -35,6 +36,7 @@
 		C18E716F28CDD5F2000C9BA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C18E717028CE3172000C9BA5 /* TestingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingView.swift; sourceTree = "<group>"; };
 		C18E717328CEBCA7000C9BA5 /* SelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
+		C1D22DF328F29C0B00BE3368 /* String+cleaned.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+cleaned.swift"; sourceTree = "<group>"; };
 		C1E04BB928E987E700FAD6D1 /* StationList220622.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = StationList220622.plist; sourceTree = "<group>"; };
 		C1E04BBB28E9AEC600FAD6D1 /* StationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationInfo.swift; sourceTree = "<group>"; };
 		C1F91BCE28CEF55700FC8DE9 /* Color+subwayLines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+subwayLines.swift"; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				C1F91BCE28CEF55700FC8DE9 /* Color+subwayLines.swift */,
+				C1D22DF328F29C0B00BE3368 /* String+cleaned.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				C18E716A28CDBD24000C9BA5 /* TrainType.swift in Sources */,
 				CF137AB728CDA8A10022B6AF /* TrainTrainApp.swift in Sources */,
 				C1E04BBC28E9AEC600FAD6D1 /* StationInfo.swift in Sources */,
+				C1D22DF428F29C0B00BE3368 /* String+cleaned.swift in Sources */,
 				C18E717428CEBCA7000C9BA5 /* SelectionView.swift in Sources */,
 				C1F91BCF28CEF55700FC8DE9 /* Color+subwayLines.swift in Sources */,
 			);
