@@ -228,6 +228,7 @@ struct SelectionView: View {
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+        .disabled(previousStationName.isEmpty)
 
         Rectangle()
           .trim(from: 0, to: 0.5)
@@ -246,6 +247,7 @@ struct SelectionView: View {
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+        .disabled(nextStationName.isEmpty)
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .font(.largeTitle)
