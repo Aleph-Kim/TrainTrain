@@ -9,22 +9,34 @@ struct SelectionView: View {
   @State private var selectedDirection: String? // "OO방면"
   @State private var stationList: [StationInfo] = []
   @State private var searchText = ""
-  @State private var confetti = 0
+  @State private var confetti: Int = .zero
 
   // MARK: - body
   var body: some View {
-    TabView(selection: $selectionStep) {
-      preSelectionPage.tag(SelectionStep.pre)
-//        .gesture(DragGesture())
-      lineNumberSelectionPage.tag(SelectionStep.lineNumber)
-//        .gesture(DragGesture())
-      stationSelectionPage.tag(SelectionStep.station)
-//        .gesture(DragGesture())
-      directionSelectionPage.tag(SelectionStep.direction)
-//        .gesture(DragGesture())
+    VStack {
+      TabView(selection: $selectionStep) {
+        preSelectionPage.tag(SelectionStep.pre)
+  //        .gesture(DragGesture())
+        lineNumberSelectionPage.tag(SelectionStep.lineNumber)
+  //        .gesture(DragGesture())
+        stationSelectionPage.tag(SelectionStep.station)
+  //        .gesture(DragGesture())
+        directionSelectionPage.tag(SelectionStep.direction)
+  //        .gesture(DragGesture())
+      }
+      .tabViewStyle(.page(indexDisplayMode: .never))
+      .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.4) // 화면 높이의 40% 사용
+
+      // MARK: - 커스텀 페이지 인디케이터
+      HStack(spacing: 10) {
+        ForEach(SelectionStep.allCases.indices, id: \.self) { index in
+          Circle()
+            .fill(isCurrentPage(for: index) ? .secondary : Color.bg)
+            .frame(width: 8, height: 8)
+        }
+      }
+      .animation(nil, value: selectionStep)
     }
-    .tabViewStyle(.page(indexDisplayMode: .never))
-    .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.4) // 화면 높이의 40% 사용
     .confettiCannon(
       counter: $confetti,
       rainHeight: 400,
@@ -33,7 +45,7 @@ struct SelectionView: View {
       repetitions: 1)
   }
 
-  // MARK: - preSelectionPage
+  // MARK: - 선택해주세요 / 완료 페이지
   private var preSelectionPage: some View {
     VStack(alignment: .leading, spacing: 10) {
       Spacer()
@@ -57,7 +69,7 @@ struct SelectionView: View {
           selectionStep = .lineNumber
         }
       } label: {
-        Text(selectedDirection == nil ? "선택 시작" : "다시 선택하기")
+        Text(selectedDirection == nil ? "선택 시작 →" : "다시 선택하기 →")
           .font(.title3)
           .frame(maxWidth: .infinity)
       }
@@ -70,7 +82,7 @@ struct SelectionView: View {
     .padding(.horizontal)
   }
 
-  // MARK: - lineNumberSelectionPage
+  // MARK: - 호선 선택 페이지
   private var lineNumberSelectionPage: some View {
     VStack(spacing: 10) {
       HStack {
@@ -119,7 +131,7 @@ struct SelectionView: View {
     .padding(.horizontal)
   }
 
-  // MARK: - stationSelectionPage
+  // MARK: - 역 선택 페이지
   private var stationSelectionPage: some View {
     VStack(spacing: 10) {
       HStack {
@@ -177,7 +189,7 @@ struct SelectionView: View {
     .padding(.horizontal)
   }
 
-  // MARK: - directionSelectionPage
+  // MARK: - 방향 선택 페이지
   private var directionSelectionPage: some View {
     VStack(spacing: 10) {
       HStack {
@@ -267,17 +279,27 @@ struct SelectionView: View {
     let filtered = stations.filter { $0.subwayLineID == line.id }
     return filtered
   }
+
+  // MARK: 커스텀 인디케이터를 위한 페이지 판단 메서드
+  private func isCurrentPage(`for` index: Int) -> Bool {
+    let safeIndex = index.clamped(to: 0...SelectionStep.maxIndex)
+    return selectionStep == SelectionStep.allCases[safeIndex]
+  }
 }
 
-fileprivate enum SelectionStep {
+fileprivate enum SelectionStep: CaseIterable {
   case pre
   case lineNumber
   case station
   case direction
+
+  static var maxIndex: Int {
+    SelectionStep.allCases.count - 1
+  }
 }
 
-// 필요 없어지면 삭제할 예정! -- modifier 를 조건문에 따라 적용하기 위한 메서드임
 extension View {
+  // 필요 없어지면 삭제할 예정! -- modifier 를 조건문에 따라 적용하기 위한 메서드임
   @ViewBuilder func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
     if condition {
       transform(self)
