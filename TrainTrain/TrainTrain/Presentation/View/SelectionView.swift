@@ -53,13 +53,30 @@ struct SelectionView: View {
       if let selectedLine, let selectedStation, let selectedDirection {
         Text("완료됐습니다! 🎉\n이제 미리보기로\n확인해보세요.")
           .font(.title)
-          .lineSpacing(10)
-          .padding(20)
+          .lineSpacing(6)
+          .minimumScaleFactor(0.6)
+
+        Spacer()
+
+        VStack(alignment: .leading, spacing: 4) {
+          Text(selectedLine.rawValue)
+            .colorCapsule(selectedLine.color)
+
+          HStack {
+            Text(selectedStation.stationName)
+              .colorCapsule(selectedLine.color)
+
+            Image(systemName: "arrow.right")
+
+            Text(selectedDirection.replacingOccurrences(of: "방면", with: ""))
+              .colorCapsule(selectedLine.color)
+          }
+        }
       } else {
-        Text("영차열차로\n확인하고 싶은\n역을 선택해주세요.")
+        Text("영차열차로\n확인하고 싶은\n역을 선택해주세요. 👀")
           .font(.title)
-          .lineSpacing(10)
-          .padding(20)
+          .lineSpacing(6)
+          .minimumScaleFactor(0.6)
       }
 
       Spacer()
@@ -74,8 +91,8 @@ struct SelectionView: View {
           .frame(maxWidth: .infinity)
       }
       .buttonStyle(.borderedProminent)
-      .padding(20)
     }
+    .padding(12)
     .frame(maxWidth: .infinity, maxHeight: .infinity)
     .background(Color.bg)
     .cornerRadius(16)
