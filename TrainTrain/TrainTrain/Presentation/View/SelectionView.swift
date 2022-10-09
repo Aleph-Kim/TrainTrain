@@ -58,7 +58,7 @@ struct SelectionView: View {
       .padding(20)
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)
-    .background(.quaternary)
+    .background(Color.bg)
     .cornerRadius(16)
     .padding(.horizontal)
   }
@@ -102,7 +102,7 @@ struct SelectionView: View {
         .padding(.vertical, 20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
       }
-      .background(.quaternary)
+      .background(Color.bg)
       .cornerRadius(16)
     }
     .padding(.horizontal)
@@ -152,13 +152,14 @@ struct SelectionView: View {
             }
           }
           .listRowInsets(.init(top: .zero, leading: 7, bottom: .zero, trailing: 16))
+          .listRowBackground(Color.bg)
         }
         .listStyle(.plain)
         .cornerRadius(10)
         .padding(8)
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
-      .background(.quaternary)
+      .background(Color.bg)
       .background(selectedLine?.color)
       .cornerRadius(16)
     }
@@ -207,7 +208,7 @@ struct SelectionView: View {
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .font(.largeTitle)
       .foregroundColor(.white)
-      .background(.quaternary)
+      .background(Color.bg)
       .background(selectedLine?.color)
       .cornerRadius(16)
       .overlay(alignment: .top) {

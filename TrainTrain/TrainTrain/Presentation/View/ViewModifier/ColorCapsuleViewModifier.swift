@@ -14,6 +14,10 @@ struct ColorCapsuleViewModifier: ViewModifier {
           .inset(by: 2)
           .stroke(color, lineWidth: 2)
       )
+      .background(
+        Capsule()
+          .fill(Color.bg)
+      )
   }
 }
 
