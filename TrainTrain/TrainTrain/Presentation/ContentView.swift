@@ -1,26 +1,27 @@
-//
-//  ContentView.swift
-//  TrainTrain
-//
-//  Created by coda on 2022/09/11.
-//
-
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
+  
+  @State private var selectedStation: StationInfo?
+  @State private var selectedDirection: String? // "OO방면"
+
+  var body: some View {
+    ScrollView {
+      SimplifiedArrivalView(
+        selectedStation: $selectedStation,
+        selectedDirection: $selectedDirection)
+
+      Divider()
+
+      SelectionView(
+        selectedStation: $selectedStation,
+        selectedDirection: $selectedDirection)
     }
+  }
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+  static var previews: some View {
+    ContentView()
+  }
 }

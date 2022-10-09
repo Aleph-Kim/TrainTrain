@@ -20,6 +20,7 @@
 		C1D22DF928F2A41600BE3368 /* AskCapsuleViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D22DF828F2A41600BE3368 /* AskCapsuleViewModifier.swift */; };
 		C1D22DFC28F2B73600BE3368 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = C1D22DFB28F2B73600BE3368 /* ConfettiSwiftUI */; };
 		C1D22DFE28F2CCAC00BE3368 /* Comparable+clamped.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D22DFD28F2CCAC00BE3368 /* Comparable+clamped.swift */; };
+		C1D22E0028F315D100BE3368 /* SimplifiedArrivalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D22DFF28F315D100BE3368 /* SimplifiedArrivalView.swift */; };
 		C1E04BBA28E987E700FAD6D1 /* StationList220622.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1E04BB928E987E700FAD6D1 /* StationList220622.plist */; };
 		C1E04BBC28E9AEC600FAD6D1 /* StationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E04BBB28E9AEC600FAD6D1 /* StationInfo.swift */; };
 		C1F91BCF28CEF55700FC8DE9 /* Color+subwayLines.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F91BCE28CEF55700FC8DE9 /* Color+subwayLines.swift */; };
@@ -44,6 +45,7 @@
 		C1D22DF628F2A0A700BE3368 /* ColorCapsuleViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCapsuleViewModifier.swift; sourceTree = "<group>"; };
 		C1D22DF828F2A41600BE3368 /* AskCapsuleViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskCapsuleViewModifier.swift; sourceTree = "<group>"; };
 		C1D22DFD28F2CCAC00BE3368 /* Comparable+clamped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comparable+clamped.swift"; sourceTree = "<group>"; };
+		C1D22DFF28F315D100BE3368 /* SimplifiedArrivalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplifiedArrivalView.swift; sourceTree = "<group>"; };
 		C1E04BB928E987E700FAD6D1 /* StationList220622.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = StationList220622.plist; sourceTree = "<group>"; };
 		C1E04BBB28E9AEC600FAD6D1 /* StationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationInfo.swift; sourceTree = "<group>"; };
 		C1F91BCE28CEF55700FC8DE9 /* Color+subwayLines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+subwayLines.swift"; sourceTree = "<group>"; };
@@ -112,8 +114,9 @@
 			isa = PBXGroup;
 			children = (
 				C1D22DF528F2A06F00BE3368 /* ViewModifier */,
-				C18E717028CE3172000C9BA5 /* TestingView.swift */,
 				C18E717328CEBCA7000C9BA5 /* SelectionView.swift */,
+				C1D22DFF28F315D100BE3368 /* SimplifiedArrivalView.swift */,
+				C18E717028CE3172000C9BA5 /* TestingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				C18E716A28CDBD24000C9BA5 /* TrainType.swift in Sources */,
 				CF137AB728CDA8A10022B6AF /* TrainTrainApp.swift in Sources */,
 				C1E04BBC28E9AEC600FAD6D1 /* StationInfo.swift in Sources */,
+				C1D22E0028F315D100BE3368 /* SimplifiedArrivalView.swift in Sources */,
 				C1D22DF428F29C0B00BE3368 /* String+cleaned.swift in Sources */,
 				C1D22DFE28F2CCAC00BE3368 /* Comparable+clamped.swift in Sources */,
 				C1D22DF928F2A41600BE3368 /* AskCapsuleViewModifier.swift in Sources */,

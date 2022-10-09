@@ -3,10 +3,11 @@ import ConfettiSwiftUI
 
 struct SelectionView: View {
 
+  @Binding var selectedStation: StationInfo?
+  @Binding var selectedDirection: String? // "OO방면"
+
   @State private var selectionStep: SelectionStep = .pre
-  @State private var selectedLine: SubwayLine? // 나중에 View 합쳐질 때 @Binding 으로 외부와 연결시킬 듯
-  @State private var selectedStation: StationInfo?
-  @State private var selectedDirection: String? // "OO방면"
+  @State private var selectedLine: SubwayLine?
   @State private var stationList: [StationInfo] = []
   @State private var searchText = ""
   @State private var confetti: Int = .zero
@@ -25,7 +26,7 @@ struct SelectionView: View {
   //        .gesture(DragGesture())
       }
       .tabViewStyle(.page(indexDisplayMode: .never))
-      .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.4) // 화면 높이의 40% 사용
+      .frame(height: UIScreen.main.bounds.height * 0.4) // 화면 높이의 40% 사용
 
       // MARK: - 커스텀 페이지 인디케이터
       HStack(spacing: 10) {
@@ -68,12 +69,12 @@ struct SelectionView: View {
 
             Image(systemName: "arrow.right")
 
-            Text(selectedDirection.replacingOccurrences(of: "방면", with: ""))
+            Text(selectedDirection.replacingOccurrences(of: "역방면", with: ""))
               .colorCapsule(selectedLine.color)
           }
         }
       } else {
-        Text("영차열차로\n확인하고 싶은\n역을 선택해주세요. 👀")
+        Text("영차열차로\n확인하고 싶은 👀\n역을 선택해주세요.")
           .font(.title)
           .lineSpacing(6)
           .minimumScaleFactor(0.6)
@@ -274,7 +275,7 @@ struct SelectionView: View {
     guard let selectedStation else { return "" }
     guard let index = stationList.firstIndex(where: { $0.stationID == selectedStation.stationID }) else { return "" }
     guard index < (stationList.count - 1) else { return "" }
-    return stationList[index + 1].stationName
+    return stationList[index + 1].stationName + "역"
   }
 
   // MARK: - 다음(오른쪽) 역
@@ -282,7 +283,7 @@ struct SelectionView: View {
     guard let selectedStation else { return "" }
     guard let index = stationList.firstIndex(where: { $0.stationID == selectedStation.stationID }) else { return "" }
     guard index > 0 else { return "" }
-    return stationList[index - 1].stationName
+    return stationList[index - 1].stationName + "역"
   }
 
   // MARK: - 역정보 가져오기
@@ -330,6 +331,8 @@ extension View {
 
 struct SelectionView_Previews: PreviewProvider {
   static var previews: some View {
-    SelectionView()
+    SelectionView(
+      selectedStation: .constant(.init(subwayLineID: "1002", stationID: "1002000222", stationName: "강남")),
+      selectedDirection: .constant("교대방면"))
   }
 }
