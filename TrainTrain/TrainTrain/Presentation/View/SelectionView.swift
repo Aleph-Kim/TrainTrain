@@ -6,6 +6,7 @@ struct SelectionView: View {
   @State private var selectionStep: SelectionStep = .pre
   @State private var selectedLine: SubwayLine? // 나중에 View 합쳐질 때 @Binding 으로 외부와 연결시킬 듯
   @State private var selectedStation: StationInfo?
+  @State private var selectedDirection: String? // "OO방면"
   @State private var stationList: [StationInfo] = []
   @State private var searchText = ""
 
@@ -27,28 +28,38 @@ struct SelectionView: View {
 
   // MARK: - preSelectionPage
   private var preSelectionPage: some View {
-    VStack(spacing: 10) {
-      HStack {
-        Text("Pre Selection Page")
-          .bold()
-          .padding(.horizontal, 16)
-          .padding(.vertical, 10)
-          .background(.quaternary)
-          .clipShape(Capsule())
-        Spacer()
+    VStack(alignment: .leading, spacing: 10) {
+      Spacer()
+
+      if let selectedLine, let selectedStation, let selectedDirection {
+        Text("완료됐습니다! 🎉\n이제 미리보기로\n확인해보세요.")
+          .font(.title)
+          .lineSpacing(10)
+          .padding(20)
+      } else {
+        Text("영차열차로\n확인하고 싶은\n역을 선택해주세요.")
+          .font(.title)
+          .lineSpacing(10)
+          .padding(20)
       }
 
-      VStack {
-        Button("시작하기") {
-          withAnimation {
-            selectionStep = .lineNumber
-          }
+      Spacer()
+
+      Button {
+        withAnimation {
+          selectionStep = .lineNumber
         }
+      } label: {
+        Text(selectedDirection == nil ? "선택 시작" : "다시 선택하기")
+          .font(.title3)
+          .frame(maxWidth: .infinity)
       }
-      .frame(maxWidth: .infinity, maxHeight: .infinity)
-      .background(.quaternary)
-      .cornerRadius(16)
+      .buttonStyle(.borderedProminent)
+      .padding(20)
     }
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .background(.quaternary)
+    .cornerRadius(16)
     .padding(.horizontal)
   }
 
@@ -57,11 +68,7 @@ struct SelectionView: View {
     VStack(spacing: 10) {
       HStack {
         Text("몇 호선 인가요?")
-          .bold()
-          .padding(.horizontal, 16)
-          .padding(.vertical, 10)
-          .background(.quaternary)
-          .clipShape(Capsule())
+          .askCapsule()
         Spacer()
       }
 
@@ -107,22 +114,12 @@ struct SelectionView: View {
       HStack {
         if let selectedLine {
           Text(selectedLine.rawValue)
-            .bold()
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
-            .background(
-              Capsule()
-                .inset(by: 2)
-                .stroke(selectedLine.color, lineWidth: 2)
-            )
+            .colorCapsule(selectedLine.color)
         }
 
         Text("어느 역에서 탑승하시나요?")
-          .bold()
-          .padding(.horizontal, 16)
-          .padding(.vertical, 10)
-          .background(.quaternary)
-          .clipShape(Capsule())
+          .askCapsule()
+
         Spacer()
       }
 
@@ -173,16 +170,17 @@ struct SelectionView: View {
     VStack(spacing: 10) {
       HStack {
         Text("어느 방향으로 가시나요?")
-          .bold()
-          .padding(.horizontal, 16)
-          .padding(.vertical, 10)
-          .background(.quaternary)
-          .clipShape(Capsule())
+          .askCapsule()
         Spacer()
       }
 
       HStack(spacing: .zero) {
-        Button(action: { print("✅ \(previousStationName) 눌림!") }) {
+        Button {
+          withAnimation {
+            selectedDirection = previousStationName + "방면"
+            selectionStep = .pre
+          }
+        } label: {
           Text(previousStationName)
             .bold()
             .padding()
@@ -194,7 +192,12 @@ struct SelectionView: View {
           .stroke(style: .init(lineWidth: 2, dash: [5]))
           .frame(width: 2)
 
-        Button(action: { print("✅ \(nextStationName) 눌림!") }) {
+        Button {
+          withAnimation {
+            selectedDirection = nextStationName + "방면"
+            selectionStep = .pre
+          }
+        } label: {
           Text(nextStationName)
             .bold()
             .padding()

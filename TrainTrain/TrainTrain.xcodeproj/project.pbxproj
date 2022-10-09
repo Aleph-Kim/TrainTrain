@@ -16,6 +16,8 @@
 		C18E717128CE3172000C9BA5 /* TestingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E717028CE3172000C9BA5 /* TestingView.swift */; };
 		C18E717428CEBCA7000C9BA5 /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E717328CEBCA7000C9BA5 /* SelectionView.swift */; };
 		C1D22DF428F29C0B00BE3368 /* String+cleaned.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D22DF328F29C0B00BE3368 /* String+cleaned.swift */; };
+		C1D22DF728F2A0A700BE3368 /* ColorCapsuleViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D22DF628F2A0A700BE3368 /* ColorCapsuleViewModifier.swift */; };
+		C1D22DF928F2A41600BE3368 /* AskCapsuleViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D22DF828F2A41600BE3368 /* AskCapsuleViewModifier.swift */; };
 		C1E04BBA28E987E700FAD6D1 /* StationList220622.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1E04BB928E987E700FAD6D1 /* StationList220622.plist */; };
 		C1E04BBC28E9AEC600FAD6D1 /* StationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E04BBB28E9AEC600FAD6D1 /* StationInfo.swift */; };
 		C1F91BCF28CEF55700FC8DE9 /* Color+subwayLines.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F91BCE28CEF55700FC8DE9 /* Color+subwayLines.swift */; };
@@ -37,6 +39,8 @@
 		C18E717028CE3172000C9BA5 /* TestingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingView.swift; sourceTree = "<group>"; };
 		C18E717328CEBCA7000C9BA5 /* SelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
 		C1D22DF328F29C0B00BE3368 /* String+cleaned.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+cleaned.swift"; sourceTree = "<group>"; };
+		C1D22DF628F2A0A700BE3368 /* ColorCapsuleViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCapsuleViewModifier.swift; sourceTree = "<group>"; };
+		C1D22DF828F2A41600BE3368 /* AskCapsuleViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskCapsuleViewModifier.swift; sourceTree = "<group>"; };
 		C1E04BB928E987E700FAD6D1 /* StationList220622.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = StationList220622.plist; sourceTree = "<group>"; };
 		C1E04BBB28E9AEC600FAD6D1 /* StationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationInfo.swift; sourceTree = "<group>"; };
 		C1F91BCE28CEF55700FC8DE9 /* Color+subwayLines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+subwayLines.swift"; sourceTree = "<group>"; };
@@ -68,6 +72,15 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		C1D22DF528F2A06F00BE3368 /* ViewModifier */ = {
+			isa = PBXGroup;
+			children = (
+				C1D22DF628F2A0A700BE3368 /* ColorCapsuleViewModifier.swift */,
+				C1D22DF828F2A41600BE3368 /* AskCapsuleViewModifier.swift */,
+			);
+			path = ViewModifier;
+			sourceTree = "<group>";
+		};
 		C1F91BCD28CEF53400FC8DE9 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +106,7 @@
 		C1F91BD728CF071800FC8DE9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C1D22DF528F2A06F00BE3368 /* ViewModifier */,
 				C18E717028CE3172000C9BA5 /* TestingView.swift */,
 				C18E717328CEBCA7000C9BA5 /* SelectionView.swift */,
 			);
@@ -241,6 +255,7 @@
 			files = (
 				C18E716828CDB8ED000C9BA5 /* ArrivalInfo.swift in Sources */,
 				C18E716C28CDC177000C9BA5 /* NetworkManager.swift in Sources */,
+				C1D22DF728F2A0A700BE3368 /* ColorCapsuleViewModifier.swift in Sources */,
 				C18E716628CDB2C6000C9BA5 /* ErrorMessage.swift in Sources */,
 				CF137AB928CDA8A10022B6AF /* ContentView.swift in Sources */,
 				C18E716328CDAFB9000C9BA5 /* TrainInfo.swift in Sources */,
@@ -251,6 +266,7 @@
 				CF137AB728CDA8A10022B6AF /* TrainTrainApp.swift in Sources */,
 				C1E04BBC28E9AEC600FAD6D1 /* StationInfo.swift in Sources */,
 				C1D22DF428F29C0B00BE3368 /* String+cleaned.swift in Sources */,
+				C1D22DF928F2A41600BE3368 /* AskCapsuleViewModifier.swift in Sources */,
 				C18E717428CEBCA7000C9BA5 /* SelectionView.swift in Sources */,
 				C1F91BCF28CEF55700FC8DE9 /* Color+subwayLines.swift in Sources */,
 			);
