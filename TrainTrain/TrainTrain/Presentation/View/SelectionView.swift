@@ -334,7 +334,10 @@ extension View {
 struct SelectionView_Previews: PreviewProvider {
   static var previews: some View {
     SelectionView(
-      selectedStation: .constant(.init(subwayLineID: "1002", stationID: "1002000222", stationName: "강남")),
+      selectedStation: .constant(
+        .init(subwayLineID: "1002",
+              stationID: "1002000222",
+              stationName: "강남")),
       selectedDirection: .constant("교대방면"))
   }
 }
