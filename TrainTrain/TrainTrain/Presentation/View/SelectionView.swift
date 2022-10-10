@@ -320,17 +320,6 @@ fileprivate enum SelectionStep: CaseIterable {
   }
 }
 
-extension View {
-  // 필요 없어지면 삭제할 예정! -- modifier 를 조건문에 따라 적용하기 위한 메서드임
-  @ViewBuilder func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
-    if condition {
-      transform(self)
-    } else {
-      self
-    }
-  }
-}
-
 struct SelectionView_Previews: PreviewProvider {
   static var previews: some View {
     SelectionView(
