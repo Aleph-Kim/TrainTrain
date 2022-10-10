@@ -12,6 +12,6 @@ struct StationInfo {
   init(subwayLineID: Any, stationID: Any, stationName: Any) {
     self.subwayLineID = "\(subwayLineID)"
     self.stationID = "\(stationID)"
-    self.stationName = "\(stationName)"
+    self.stationName = "\(stationName)" + "역"
   }
 }

@@ -174,13 +174,10 @@ struct SelectionView: View {
           .padding(.top, 8)
           .submitLabel(.search)
           .focused($isKeyboardUp, equals: true)
-          .onChange(of: searchText) { newValue in
-            searchText = newValue.cleaned
-          }
 
-        List(searchText.isEmpty
+        List(searchText.cleaned.isEmpty
              ? stationList
-             : stationList.filter { $0.stationName.contains(searchText) }
+             : stationList.filter { $0.stationName.contains(searchText.cleaned) }
              , id: \.stationID) { station in
           Button {
             withAnimation {
@@ -191,7 +188,7 @@ struct SelectionView: View {
             }
           } label: {
             HStack {
-              Text(station.stationName + "역")
+              Text(station.stationName)
               Spacer()
               Image(systemName: "chevron.right")
                 .fontWeight(.light)
@@ -262,7 +259,7 @@ struct SelectionView: View {
       .background(selectedLine?.color)
       .cornerRadius(16)
       .overlay(alignment: .top) {
-        Text(selectedStation?.stationName ?? "" + "역")
+        Text(selectedStation?.stationName ?? "")
           .bold()
           .foregroundColor(.black)
           .padding(.horizontal, 20)
@@ -280,7 +277,7 @@ struct SelectionView: View {
     guard let selectedStation else { return "" }
     guard let index = stationList.firstIndex(where: { $0.stationID == selectedStation.stationID }) else { return "" }
     guard index < (stationList.count - 1) else { return "" }
-    return stationList[index + 1].stationName + "역"
+    return stationList[index + 1].stationName
   }
 
   // MARK: - 다음(오른쪽) 역
@@ -288,7 +285,7 @@ struct SelectionView: View {
     guard let selectedStation else { return "" }
     guard let index = stationList.firstIndex(where: { $0.stationID == selectedStation.stationID }) else { return "" }
     guard index > 0 else { return "" }
-    return stationList[index - 1].stationName + "역"
+    return stationList[index - 1].stationName
   }
 
   // MARK: - 역정보 가져오기
