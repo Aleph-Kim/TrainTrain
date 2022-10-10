@@ -44,12 +44,9 @@ struct SimplifiedArrivalView: View {
         }
       }
 
-      if selectedDirection != nil {
+      if let selectedDirection {
         Button {
-          fetch(target: selectedStation, next: selectedDirection) {
-            isLoading = false
-            refreshTimer = 10
-          }
+          fetch(target: selectedStation, next: selectedDirection)
         } label: {
           if isLoading {
             ProgressView()
@@ -61,35 +58,33 @@ struct SimplifiedArrivalView: View {
         .tint(.green)
         .disabled(isLoading)
         .onReceive(timer) { _ in
+          guard !isLoading else { return }
           refreshTimer -= 1
 
           if refreshTimer == .zero {
-            fetch(target: selectedStation, next: selectedDirection) {
-              isLoading = false
-              refreshTimer = 10
-            }
+            fetch(target: selectedStation, next: selectedDirection)
           }
         }
-        .onChange(of: selectedDirection) { newValue in
-          guard newValue != nil else { return }
-          fetch(target: selectedStation, next: selectedDirection) {
-            isLoading = false
-            refreshTimer = 10
-          }
+        .onChange(of: selectedDirection) { _ in
+          fetch(target: selectedStation, next: selectedDirection)
+        }
+        .onAppear {
+          fetch(target: selectedStation, next: selectedDirection)
         }
       }
     }
     .padding(.horizontal)
   }
 
-  private func fetch(target: StationInfo?, next: String?, completion: @escaping () -> Void) {
+  private func fetch(target: StationInfo?, next: String?) {
     Task {
       guard let target = selectedStation?.stationName,
             let next = selectedDirection?.replacingOccurrences(of: "방면", with: "") else { return }
 
       isLoading = true
       realtime = await networkManager.fetch(targetStationName: target, nextStationName: next)
-      completion()
+      isLoading = false
+      refreshTimer = 10
     }
   }
 }
