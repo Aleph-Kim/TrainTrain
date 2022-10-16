@@ -7,11 +7,11 @@ struct TrainInfo: Decodable, Identifiable {
   /// 도착지 방면 (성수행 - 구로디지털단지방면)
   let trainDestination: String
   /// 이전 지하철역 ID
-  let previousStationID: String
+  var previousStationID: String
   /// 다음 지하철역 ID
-  let nextStationID: String
+  var nextStationID: String
   /// 지하철역 ID
-  let stationID: String
+  var stationID: String
   /// 지하철역명
   let stationName: String
   /// 열차 종류 (급행, ITX) - 일반 지하철인 경우, 'normal' 이 나옵니다.
@@ -23,18 +23,16 @@ struct TrainInfo: Decodable, Identifiable {
   /// 종착 지하철역명
   let terminusStationName: String
   /// 열차 도착정보를 생성한 시각
-  let createdAt: String
+  var createdAt: String
   /// 첫 번째 도착 메세지 (전역 진입, 전역 도착 등)
-  let firstMessage: String
+  var firstMessage: String
   /// 두 번째 도착 메세지 (종합운동장 도착, 12분 후 (광명사거리) 등)
-  let secondMessage: String
+  var secondMessage: String
   /// 도착코드 (0:진입, 1:도착, 2:출발, 3:전역출발, 4:전역진입, 5:전역도착, 99:운행중)
-  let arrivalCode: String
+  var arrivalCode: String
 
   /// Identifier
-  var id: String {
-    "\(stationName)-\(eta)"
-  }
+  let id: String
 
   init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -51,6 +49,7 @@ struct TrainInfo: Decodable, Identifiable {
     firstMessage = try container.decode(String.self, forKey: .firstMessage)
     secondMessage = try container.decode(String.self, forKey: .secondMessage)
     arrivalCode = try container.decode(String.self, forKey: .arrivalCode)
+    id = try container.decode(String.self, forKey: .trainNumber)
 
     let trainTypeString = try container.decode(String?.self, forKey: .trainType)
     trainType = convertTrainType(of: trainTypeString)
@@ -79,5 +78,6 @@ struct TrainInfo: Decodable, Identifiable {
     case firstMessage = "arvlMsg2"
     case secondMessage = "arvlMsg3"
     case arrivalCode = "arvlCd"
+    case trainNumber = "btrainNo"
   }
 }
