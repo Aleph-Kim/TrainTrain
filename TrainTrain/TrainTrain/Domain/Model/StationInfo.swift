@@ -8,10 +8,10 @@ struct StationInfo {
   let stationID: String
   /// 지하철역명
   let stationName: String
-  /// 다음역 ID
-  var nextStationID: String?
-  /// 이전역 ID
-  var previousStationID: String?
+  /// 다음 지하철역명
+  var nextStationName: String?
+  /// 이전 지하철역명
+  var previousStationName: String?
 
   init(subwayLineID: Any, stationID: Any, stationName: Any) {
     self.subwayLineID = "\(subwayLineID)"
@@ -19,11 +19,11 @@ struct StationInfo {
     self.stationName = "\(stationName)" + "역"
   }
 
-  init(subwayLineID: Any, stationID: Any, stationName: Any, nextStationID: String, previousStationID: String) {
+  init(subwayLineID: Any, stationID: Any, stationName: Any, nextStationName: String, previousStationName: String) {
     self.subwayLineID = "\(subwayLineID)"
     self.stationID = "\(stationID)"
     self.stationName = "\(stationName)" + "역"
-    self.nextStationID = nextStationID
-    self.previousStationID = previousStationID
+    self.nextStationName = nextStationName
+    self.previousStationName = previousStationName
   }
 }

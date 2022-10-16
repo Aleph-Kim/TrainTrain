@@ -223,8 +223,8 @@ struct SelectionView: View {
           if var selectedStation, let previousStation {
             withAnimation {
               selectedDirection = previousStation.stationName + "방면"
-              selectedStation.nextStationID = nextStation?.stationID
-              selectedStation.previousStationID = previousStation.stationID
+              selectedStation.nextStationName = nextStation?.stationName
+              selectedStation.previousStationName = previousStation.stationName
               selectionStep = .pre
               confetti += 1
             }
@@ -246,8 +246,8 @@ struct SelectionView: View {
           if var selectedStation, let nextStation {
             withAnimation {
               selectedDirection = nextStation.stationName + "방면"
-              selectedStation.nextStationID = nextStation.stationID
-              selectedStation.previousStationID = previousStation?.stationID
+              selectedStation.nextStationName = nextStation.stationName
+              selectedStation.previousStationName = previousStation?.stationName
               selectionStep = .pre
               confetti += 1
             }

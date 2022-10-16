@@ -25,7 +25,7 @@ struct NetworkManager {
       print("📡 통신 상태값 -> status: \(arrivalInfo.errorMessage.code), message: \(arrivalInfo.errorMessage.message), total: \(arrivalInfo.errorMessage.total)")
 
         let filteredList = arrivalInfo.realtimeArrivalList.filter {
-            $0.previousStationID == targetStation.previousStationID
+            $0.secondMessage == targetStation.previousStationName
         }
       return filteredList
     } catch {
