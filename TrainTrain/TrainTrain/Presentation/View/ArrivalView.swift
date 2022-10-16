@@ -51,10 +51,11 @@ struct ArrivalView: View {
       previousStationName: "신대방")
     
     var body: some View {
-        GeometryReader { proxy in
+        
             ZStack {
                 RoundedRectangle(cornerRadius: 20)
                     .foregroundColor(.black)
+                GeometryReader { proxy in
                 VStack(spacing: 0) {
                     Spacer()
                     HStack {
@@ -67,7 +68,7 @@ struct ArrivalView: View {
                     }
                     LineView(size: proxy.size)
                         .foregroundColor(.gray)
-                        .offset(CGSize(width: 0, height: 5))
+                        .offset(y: 5)
                 }
             }
         }
@@ -121,7 +122,7 @@ struct ArrivalView: View {
     private func LineView(size: CGSize) -> some View {
         Path { path in
             path.move(to: CGPoint(x: 0, y: 0))
-            path.addLine(to: CGPoint(x: size.width, y: 0))
+            path.addLine(to: CGPoint(x: size.width - 20, y: 0))
         }
         .stroke(style: .init(lineWidth: 3, lineCap: .square, dash: [6]))
     }

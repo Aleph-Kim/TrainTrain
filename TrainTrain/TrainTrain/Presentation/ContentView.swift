@@ -7,6 +7,10 @@ struct ContentView: View {
 
   var body: some View {
     ScrollView {
+      ArrivalView()
+            .frame(width: 350, height: 200)
+            .padding()
+        
       SimplifiedArrivalView(
         selectedStation: $selectedStation,
         selectedDirection: $selectedDirection)
