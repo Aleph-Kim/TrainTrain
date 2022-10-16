@@ -10,4 +10,6 @@ extension Color {
   static let line7 = Color(red: 103 / 255, green: 119 / 255, blue: 24 / 255) // #677718
   static let line8 = Color(red: 241 / 255, green: 76 / 255, blue: 130 / 255) // #f14c82
   static let line9 = Color(red: 170 / 255, green: 152 / 255, blue: 114 / 255) // #aa9872
+
+  static let bg = Color(uiColor: .quaternarySystemFill)
 }
