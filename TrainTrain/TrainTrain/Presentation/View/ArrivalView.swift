@@ -10,6 +10,15 @@ import SwiftUI
 struct ArrivalView: View {
     
     @State private var trainInfos: [TrainInfo] = []
+    
+    init(selectedStationInfo: StationInfo) {
+        let stations = selectedStationInfo.makeThreeStationList()
+        dummy1 = stations.0
+        dummy2 = stations.1
+        dummy3 = stations.2
+    }
+    
+    
     private var firstInfos: [TrainInfo] {
         trainInfos.filter {
             $0.previousStationID == "1002000229"
@@ -26,29 +35,12 @@ struct ArrivalView: View {
         }
     }
 
-    /// 2호선 서울대입구역
-    private let dummy1 = StationInfo(
-      subwayLineID: "1002",
-      stationID: "1002000228",
-      stationName: "서울대입구",
-      nextStationName: "낙성대",
-      previousStationName: "봉천")
-
-    /// 2호선 봉천역
-    private let dummy2 = StationInfo(
-      subwayLineID: "1002",
-      stationID: "1002000229",
-      stationName: "봉천",
-      nextStationName: "서울대입구",
-      previousStationName: "신림")
-
-    /// 2호선 신림역
-    private let dummy3 = StationInfo(
-      subwayLineID: "1002",
-      stationID: "1002000230",
-      stationName: "신림",
-      nextStationName: "봉천",
-      previousStationName: "신대방")
+    /// 타겟 역
+    private let dummy1: StationInfo
+    /// 전 역
+    private let dummy2: StationInfo
+    /// 전전 역
+    private let dummy3: StationInfo
     
     var body: some View {
         ZStack {
@@ -131,7 +123,13 @@ struct ArrivalView: View {
 
 struct ArrivalView_Previews: PreviewProvider {
     static var previews: some View {
-        ArrivalView()
+        let stationInfo = StationInfo(
+            subwayLineID: "1002",
+            stationID: "1002000228",
+            stationName: "서울대입구",
+            nextStationName: "낙성대",
+            previousStationName: "봉천")
+        ArrivalView(selectedStationInfo: stationInfo)
             .frame(height: 160)
             .padding(.horizontal)
     }
