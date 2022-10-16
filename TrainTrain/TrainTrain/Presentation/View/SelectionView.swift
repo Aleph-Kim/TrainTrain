@@ -118,7 +118,7 @@ struct SelectionView: View {
               withAnimation {
                 selectedLine = line
                 selectionStep = .station
-                stationList = fetchStationList(of: line)
+                stationList = StationInfo.fetchStationList(of: line)
               }
             } label: {
               Capsule()
@@ -300,20 +300,6 @@ struct SelectionView: View {
     guard let index = stationList.firstIndex(where: { $0.stationID == tempSelectedStation.stationID }) else { return nil }
     guard index > 0 else { return nil }
     return stationList[index - 1]
-  }
-
-  // MARK: - 역정보 가져오기
-  private func fetchStationList(of line: SubwayLine) -> [StationInfo] {
-    let path = Bundle.main.path(forResource: "StationList220622", ofType: "plist")!
-    let arrOfDict = NSArray(contentsOfFile: path)! as! [[String: Any]]
-    let stations = arrOfDict.map {
-      StationInfo(
-        subwayLineID: $0["SUBWAY_ID"]!,
-        stationID: $0["STATN_ID"]!,
-        stationName: $0["STATN_NM"]!)
-    }
-    let filtered = stations.filter { $0.subwayLineID == line.id }
-    return filtered
   }
 
   // MARK: 커스텀 인디케이터를 위한 페이지 판단 메서드

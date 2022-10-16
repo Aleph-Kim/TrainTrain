@@ -26,4 +26,22 @@ struct StationInfo: Equatable {
     self.nextStationName = nextStationName
     self.previousStationName = previousStationName
   }
+
+  /// plist 에 포함된 모든 노선의 지하철 역 정보의 배열
+  static private let allStationList: [StationInfo] = {
+    let path = Bundle.main.path(forResource: "StationList220622", ofType: "plist")!
+    let arrOfDict = NSArray(contentsOfFile: path)! as! [[String: Any]]
+    let stations = arrOfDict.map {
+      StationInfo(
+        subwayLineID: $0["SUBWAY_ID"]!,
+        stationID: $0["STATN_ID"]!,
+        stationName: $0["STATN_NM"]!)
+    }
+    return stations
+  }()
+
+  /// 특정 호선의 모든 역 정보를 배열 형태로 가져오기
+  static func fetchStationList(of line: SubwayLine) -> [StationInfo] {
+    Self.allStationList.filter { $0.subwayLineID == line.id }
+  }
 }
