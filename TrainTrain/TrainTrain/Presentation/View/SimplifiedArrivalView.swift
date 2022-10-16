@@ -78,11 +78,11 @@ struct SimplifiedArrivalView: View {
 
   private func fetch(target: StationInfo?, next: String?) {
     Task {
-      guard let target = selectedStation?.stationName,
+      guard let target,
             let next = selectedDirection?.replacingOccurrences(of: "방면", with: "") else { return }
 
       isLoading = true
-      realtime = await networkManager.fetch(targetStationName: target, nextStationName: next)
+      realtime = await networkManager.fetch(targetStation: target, nextStationName: next)
       isLoading = false
       refreshTimer = 10
     }

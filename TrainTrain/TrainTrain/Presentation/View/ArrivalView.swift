@@ -25,11 +25,24 @@ struct ArrivalView: View {
             $0.previousStationID == "1002000231"
         }
     }
-    
-    let presentStation: String = "서울대입구"
-    let prevStation: String = "봉천"
-    let prevPrevStation: String = "신림"
-    let prevPrevPrevStation: String = "신대발"
+
+    /// 2호선 서울대입구역
+    private let dummy1 = StationInfo(
+      subwayLineID: "1002",
+      stationID: "1002000228",
+      stationName: "서울대입구")
+
+    /// 2호선 봉천역
+    private let dummy2 = StationInfo(
+      subwayLineID: "1002",
+      stationID: "1002000229",
+      stationName: "봉천")
+
+    /// 2호선 신림역
+    private let dummy3 = StationInfo(
+      subwayLineID: "1002",
+      stationID: "1002000230",
+      stationName: "신림")
     
     var body: some View {
         GeometryReader { proxy in
@@ -56,18 +69,18 @@ struct ArrivalView: View {
             let networkManager = NetworkManager()
             var newTrainInfos: [TrainInfo] = []
             Task {
-                newTrainInfos.append(contentsOf: await networkManager.fetch(prevStationName: "봉천", targetStationName: "서울대입구", nextStationName: "낙성대"))
-                newTrainInfos.append(contentsOf: await networkManager.fetch(prevStationName: "신림", targetStationName: "봉천", nextStationName: "서울대입구"))
-                newTrainInfos.append(contentsOf: await networkManager.fetch(prevStationName: "신대방", targetStationName: "신림", nextStationName: "봉천"))
+                newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: dummy1, nextStationName: "낙성대"))
+                newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: dummy2, nextStationName: "서울대입구"))
+                newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: dummy3, nextStationName: "봉천"))
                 trainInfos = newTrainInfos
             }
             
             Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { _ in
                 Task {
                     var newTrainInfos: [TrainInfo] = []
-                    newTrainInfos.append(contentsOf: await networkManager.fetch(prevStationName: "봉천", targetStationName: "서울대입구", nextStationName: "낙성대"))
-                    newTrainInfos.append(contentsOf: await networkManager.fetch(prevStationName: "신림", targetStationName: "봉천", nextStationName: "서울대입구"))
-                    newTrainInfos.append(contentsOf: await networkManager.fetch(prevStationName: "신대방", targetStationName: "신림", nextStationName: "봉천"))
+                    newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: dummy1, nextStationName: "낙성대"))
+                    newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: dummy2, nextStationName: "서울대입구"))
+                    newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: dummy3, nextStationName: "봉천"))
                     
                     for trainInfo in trainInfos {
                         let _ = newTrainInfos.map { newTrainInfo in
