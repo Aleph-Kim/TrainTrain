@@ -31,7 +31,7 @@ struct ArrivalView: View {
       subwayLineID: "1002",
       stationID: "1002000228",
       stationName: "서울대입구",
-      nextStationName: "",
+      nextStationName: "낙성대",
       previousStationName: "봉천")
 
     /// 2호선 봉천역
@@ -39,7 +39,7 @@ struct ArrivalView: View {
       subwayLineID: "1002",
       stationID: "1002000229",
       stationName: "봉천",
-      nextStationName: "",
+      nextStationName: "서울대입구",
       previousStationName: "신림")
 
     /// 2호선 신림역
@@ -47,28 +47,27 @@ struct ArrivalView: View {
       subwayLineID: "1002",
       stationID: "1002000230",
       stationName: "신림",
-      nextStationName: "",
+      nextStationName: "봉천",
       previousStationName: "신대방")
     
     var body: some View {
-        
-            ZStack {
-                RoundedRectangle(cornerRadius: 20)
-                    .foregroundColor(.black)
-                GeometryReader { proxy in
-                VStack(spacing: 0) {
-                    Spacer()
-                    HStack {
-                        TrackView(trainInfos: thirdInfos)
-                            .frame(width: proxy.size.width / 3)
-                        TrackView(trainInfos: secondInfos)
-                            .frame(width: proxy.size.width / 3)
-                        TrackView(trainInfos: firstInfos)
-                            .frame(width: proxy.size.width / 3)
-                    }
-                    LineView(size: proxy.size)
-                        .foregroundColor(.gray)
-                        .offset(y: 5)
+        ZStack {
+            RoundedRectangle(cornerRadius: 20)
+                .foregroundColor(.black)
+            GeometryReader { proxy in
+            VStack(spacing: 0) {
+                Spacer()
+                HStack {
+                    TrackView(trainInfos: thirdInfos)
+                        .frame(width: proxy.size.width / 3)
+                    TrackView(trainInfos: secondInfos)
+                        .frame(width: proxy.size.width / 3)
+                    TrackView(trainInfos: firstInfos)
+                        .frame(width: proxy.size.width / 3)
+                }
+                LineView(size: proxy.size)
+                    .foregroundColor(.gray)
+                    .offset(y: 5)
                 }
             }
         }
@@ -76,18 +75,18 @@ struct ArrivalView: View {
             let networkManager = NetworkManager()
             var newTrainInfos: [TrainInfo] = []
             Task {
-                newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: dummy1, nextStationName: "낙성대"))
-                newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: dummy2, nextStationName: "서울대입구"))
-                newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: dummy3, nextStationName: "봉천"))
+                newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: dummy1))
+                newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: dummy2))
+                newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: dummy3))
                 trainInfos = newTrainInfos
             }
             
             Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { _ in
                 Task {
                     var newTrainInfos: [TrainInfo] = []
-                    newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: dummy1, nextStationName: "낙성대"))
-                    newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: dummy2, nextStationName: "서울대입구"))
-                    newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: dummy3, nextStationName: "봉천"))
+                    newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: dummy1))
+                    newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: dummy2))
+                    newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: dummy3))
                     
                     for trainInfo in trainInfos {
                         let _ = newTrainInfos.map { newTrainInfo in
@@ -127,6 +126,8 @@ struct ArrivalView: View {
         .stroke(style: .init(lineWidth: 3, lineCap: .square, dash: [6]))
     }
 }
+
+// MARK: SwiftUI previews
 
 struct ArrivalView_Previews: PreviewProvider {
     static var previews: some View {

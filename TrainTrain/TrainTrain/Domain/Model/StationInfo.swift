@@ -1,6 +1,6 @@
 import Foundation
 
-struct StationInfo {
+struct StationInfo: Equatable {
 
   /// 지하철 호선 ID
   let subwayLineID: String
@@ -19,10 +19,10 @@ struct StationInfo {
     self.stationName = "\(stationName)" + "역"
   }
 
-  init(subwayLineID: Any, stationID: Any, stationName: Any, nextStationName: String, previousStationName: String) {
+  init(subwayLineID: Any, stationID: Any, stationName: Any, nextStationName: String?, previousStationName: String?) {
     self.subwayLineID = "\(subwayLineID)"
     self.stationID = "\(stationID)"
-    self.stationName = "\(stationName)" + "역"
+    self.stationName = "\(stationName)"
     self.nextStationName = nextStationName
     self.previousStationName = previousStationName
   }

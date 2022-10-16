@@ -3,7 +3,6 @@ import SwiftUI
 struct SimplifiedArrivalView: View {
 
   @Binding var selectedStation: StationInfo?
-  @Binding var selectedDirection: String? // "OO방면"
   
   @State private var realtime: [TrainInfo] = []
   @State private var isLoading: Bool = false
@@ -23,7 +22,7 @@ struct SimplifiedArrivalView: View {
         }
       } else {
         HStack {
-          Text("🚇 실시간 도착 정보")
+          Text("🚇 실시간 도착 정보 (이전 역에서~)")
             .font(.title)
             .fontWeight(.thin)
           Spacer()
@@ -44,9 +43,9 @@ struct SimplifiedArrivalView: View {
         }
       }
 
-      if let selectedDirection {
+      if let selectedStation {
         Button {
-          fetch(target: selectedStation, next: selectedDirection)
+          fetch(target: selectedStation)
         } label: {
           if isLoading {
             ProgressView()
@@ -62,40 +61,43 @@ struct SimplifiedArrivalView: View {
           refreshTimer -= 1
 
           if refreshTimer == .zero {
-            fetch(target: selectedStation, next: selectedDirection)
+            fetch(target: selectedStation)
           }
         }
-        .onChange(of: selectedDirection) { _ in
-          fetch(target: selectedStation, next: selectedDirection)
+        .onChange(of: selectedStation) { _ in
+          fetch(target: selectedStation)
         }
         .onAppear {
-          fetch(target: selectedStation, next: selectedDirection)
+          fetch(target: selectedStation)
         }
       }
     }
     .padding(.horizontal)
   }
 
-  private func fetch(target: StationInfo?, next: String?) {
+  private func fetch(target: StationInfo?) {
     Task {
-      guard let target,
-            let next = selectedDirection?.replacingOccurrences(of: "방면", with: "") else { return }
+      guard let target else { return }
 
       isLoading = true
-      realtime = await networkManager.fetch(targetStation: target, nextStationName: next)
+      realtime = await networkManager.fetchFar(targetStation: target)
+      print("🚟🚟🚟 다가오는 최대 2개의 열차 -> \(realtime)")
       isLoading = false
       refreshTimer = 10
     }
   }
 }
 
+// MARK: SwiftUI previews
+
 struct SimplifiedArrivalView_Previews: PreviewProvider {
   static var previews: some View {
     SimplifiedArrivalView(
       selectedStation: .constant(
         .init(subwayLineID: "1002",
-              stationID: "1002000222",
-              stationName: "강남")),
-      selectedDirection: .constant("역삼방면"))
+              stationID: "1002000228",
+              stationName: "서울대입구",
+              nextStationName: "낙성대",
+              previousStationName: "봉천")))
   }
 }

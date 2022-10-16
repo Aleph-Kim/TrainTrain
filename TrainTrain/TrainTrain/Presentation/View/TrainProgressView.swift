@@ -82,6 +82,8 @@ struct TrainProgressView: View {
     }
 }
 
+// MARK: SwiftUI previews
+
 struct TrainProgressView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
