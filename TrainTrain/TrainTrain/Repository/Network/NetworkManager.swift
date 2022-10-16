@@ -24,7 +24,9 @@ struct NetworkManager {
       let arrivalInfo = try await fetch(stationName: targetStationName)
       print("📡 통신 상태값 -> status: \(arrivalInfo.errorMessage.code), message: \(arrivalInfo.errorMessage.message), total: \(arrivalInfo.errorMessage.total)")
 
-      let filteredList = arrivalInfo.realtimeArrivalList.filter { $0.trainDestination.contains(nextStationName) }
+        let filteredList = arrivalInfo.realtimeArrivalList.filter {
+            $0.previousStationID == targetStation.prevStationID
+        }
       return filteredList
     } catch {
       print("⚠️ 통신 중 에러 발생 -> \(error)")

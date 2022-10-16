@@ -8,6 +8,10 @@ struct StationInfo {
   let stationID: String
   /// 지하철역명
   let stationName: String
+  /// 직전역 ID
+  var prevStationID: String?
+  /// 다음역 ID
+  var nextStationID: String?
 
   init(subwayLineID: Any, stationID: Any, stationName: Any) {
     self.subwayLineID = "\(subwayLineID)"
