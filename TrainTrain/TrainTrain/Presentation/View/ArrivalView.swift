@@ -30,19 +30,25 @@ struct ArrivalView: View {
     private let dummy1 = StationInfo(
       subwayLineID: "1002",
       stationID: "1002000228",
-      stationName: "서울대입구")
+      stationName: "서울대입구",
+      nextStationID: "",
+      previousStationID: "1002000229")
 
     /// 2호선 봉천역
     private let dummy2 = StationInfo(
       subwayLineID: "1002",
       stationID: "1002000229",
-      stationName: "봉천")
+      stationName: "봉천",
+      nextStationID: "",
+      previousStationID: "1002000230")
 
     /// 2호선 신림역
     private let dummy3 = StationInfo(
       subwayLineID: "1002",
       stationID: "1002000230",
-      stationName: "신림")
+      stationName: "신림",
+      nextStationID: "",
+      previousStationID: "1002000231")
     
     var body: some View {
         GeometryReader { proxy in

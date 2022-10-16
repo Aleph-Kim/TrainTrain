@@ -8,14 +8,22 @@ struct StationInfo {
   let stationID: String
   /// 지하철역명
   let stationName: String
-  /// 직전역 ID
-  var prevStationID: String?
   /// 다음역 ID
   var nextStationID: String?
+  /// 이전역 ID
+  var previousStationID: String?
 
   init(subwayLineID: Any, stationID: Any, stationName: Any) {
     self.subwayLineID = "\(subwayLineID)"
     self.stationID = "\(stationID)"
     self.stationName = "\(stationName)" + "역"
+  }
+
+  init(subwayLineID: Any, stationID: Any, stationName: Any, nextStationID: String, previousStationID: String) {
+    self.subwayLineID = "\(subwayLineID)"
+    self.stationID = "\(stationID)"
+    self.stationName = "\(stationName)" + "역"
+    self.nextStationID = nextStationID
+    self.previousStationID = previousStationID
   }
 }

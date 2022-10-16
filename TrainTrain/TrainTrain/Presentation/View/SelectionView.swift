@@ -220,18 +220,22 @@ struct SelectionView: View {
 
       HStack(spacing: .zero) {
         Button {
-          withAnimation {
-            selectedDirection = previousStationName + "방면"
-            selectionStep = .pre
-            confetti += 1
+          if var selectedStation, let previousStation {
+            withAnimation {
+              selectedDirection = previousStation.stationName + "방면"
+              selectedStation.nextStationID = nextStation?.stationID
+              selectedStation.previousStationID = previousStation.stationID
+              selectionStep = .pre
+              confetti += 1
+            }
           }
         } label: {
-          Text(previousStationName)
+          Text(previousStation?.stationName ?? "")
             .bold()
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .disabled(previousStationName.isEmpty)
+        .disabled(previousStation == nil)
 
         Rectangle()
           .trim(from: 0, to: 0.5)
@@ -239,18 +243,22 @@ struct SelectionView: View {
           .frame(width: 2)
 
         Button {
-          withAnimation {
-            selectedDirection = nextStationName + "방면"
-            selectionStep = .pre
-            confetti += 1
+          if var selectedStation, let nextStation {
+            withAnimation {
+              selectedDirection = nextStation.stationName + "방면"
+              selectedStation.nextStationID = nextStation.stationID
+              selectedStation.previousStationID = previousStation?.stationID
+              selectionStep = .pre
+              confetti += 1
+            }
           }
         } label: {
-          Text(nextStationName)
+          Text(nextStation?.stationName ?? "")
             .bold()
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .disabled(nextStationName.isEmpty)
+        .disabled(nextStation == nil)
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .font(.largeTitle)
@@ -273,19 +281,19 @@ struct SelectionView: View {
   }
 
   // MARK: - 이전(왼쪽) 역
-  private var previousStationName: String {
-    guard let selectedStation else { return "" }
-    guard let index = stationList.firstIndex(where: { $0.stationID == selectedStation.stationID }) else { return "" }
-    guard index < (stationList.count - 1) else { return "" }
-    return stationList[index + 1].stationName
+  private var previousStation: StationInfo? {
+    guard let selectedStation else { return nil }
+    guard let index = stationList.firstIndex(where: { $0.stationID == selectedStation.stationID }) else { return nil }
+    guard index < (stationList.count - 1) else { return nil }
+    return stationList[index + 1]
   }
 
   // MARK: - 다음(오른쪽) 역
-  private var nextStationName: String {
-    guard let selectedStation else { return "" }
-    guard let index = stationList.firstIndex(where: { $0.stationID == selectedStation.stationID }) else { return "" }
-    guard index > 0 else { return "" }
-    return stationList[index - 1].stationName
+  private var nextStation: StationInfo? {
+    guard let selectedStation else { return nil }
+    guard let index = stationList.firstIndex(where: { $0.stationID == selectedStation.stationID }) else { return nil }
+    guard index > 0 else { return nil }
+    return stationList[index - 1]
   }
 
   // MARK: - 역정보 가져오기
