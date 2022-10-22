@@ -121,23 +121,7 @@ struct SelectionView: View {
                 stationList = StationInfo.fetchStationList(of: line)
               }
             } label: {
-              Capsule()
-                .fill(line.color)
-                .frame(height: 42)
-                .overlay(alignment: .leading) {
-                  Text(line.rawValue)
-                    .foregroundColor(.black)
-                    .bold()
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 5)
-                    .background(.white)
-                    .clipShape(Capsule())
-                    .padding(.leading, 8)
-                }
-                .overlay(alignment: .trailing) {
-                  line.color
-                    .frame(width: 20)
-                }
+              HalfCapsule(line: line)
                 .padding(.leading, 20)
             }
           }
