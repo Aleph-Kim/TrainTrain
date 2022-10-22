@@ -29,7 +29,7 @@ struct TrainInfo: Decodable, Identifiable {
   /// 두 번째 도착 메세지 (종합운동장 도착, 12분 후 (광명사거리) 등)
   var secondMessage: String
   /// 도착코드 (0:진입, 1:도착, 2:출발, 3:전역출발, 4:전역진입, 5:전역도착, 99:운행중)
-  var arrivalCode: String
+  var arrivalState: ArrivalState
 
   /// Identifier
   let id: String
@@ -48,11 +48,22 @@ struct TrainInfo: Decodable, Identifiable {
     createdAt = try container.decode(String.self, forKey: .createdAt)
     firstMessage = try container.decode(String.self, forKey: .firstMessage)
     secondMessage = try container.decode(String.self, forKey: .secondMessage)
-    arrivalCode = try container.decode(String.self, forKey: .arrivalCode)
+    
     id = try container.decode(String.self, forKey: .trainNumber)
 
     let trainTypeString = try container.decode(String?.self, forKey: .trainType)
     trainType = convertTrainType(of: trainTypeString)
+      
+      guard let arrivalCodeString = try? container.decode(String.self, forKey: .arrivalCode),
+            let arrivalCode = Int(arrivalCodeString) else {
+          arrivalState = .others
+          return
+      }
+        if (0...2).contains(arrivalCode) {
+            arrivalState = ArrivalState(rawValue: arrivalCode) ?? .others
+        } else {
+            arrivalState = .others
+        }
 
     func convertTrainType(of string: String?) -> TrainType {
       switch string {
@@ -80,4 +91,11 @@ struct TrainInfo: Decodable, Identifiable {
     case arrivalCode = "arvlCd"
     case trainNumber = "btrainNo"
   }
+    
+    enum ArrivalState: Int {
+        case enter = 0
+        case arrival = 1
+        case depart = 2
+        case others = 99
+    }
 }

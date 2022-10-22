@@ -83,7 +83,7 @@ struct ArrivalView: View {
                     for trainInfo in trainInfos {
                         let _ = newTrainInfos.map { newTrainInfo in
                             if newTrainInfo.id == trainInfo.id {
-                                if trainInfo.arrivalCode != newTrainInfo.arrivalCode {
+                                if trainInfo.arrivalState != newTrainInfo.arrivalState {
                                     if let firstIndex = trainInfos.firstIndex(where: {newTrainInfo.id == $0.id}) {
                                         trainInfos[firstIndex] = newTrainInfo
                                     }
@@ -103,7 +103,7 @@ struct ArrivalView: View {
     private func TrackView(trainInfos: [TrainInfo]) -> some View {
         ZStack {
             ForEach(trainInfos) { trainInfo in
-                TrainProgressView(arrivalCode: Int(trainInfo.arrivalCode) ?? 99)
+                TrainProgressView(arrivalState: trainInfo.arrivalState)
                     .foregroundColor(.white)
             }
             Spacer()

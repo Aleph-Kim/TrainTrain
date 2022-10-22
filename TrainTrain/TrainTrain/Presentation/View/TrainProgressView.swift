@@ -10,18 +10,18 @@ import SwiftUI
 struct TrainProgressView: View {
     private let isMovingNow: Bool
     @State private var progressPercentage: CGFloat
-    var arrivalCode: Int
+    var arrivalState: TrainInfo.ArrivalState
     
-    init(arrivalCode: Int) {
-        self.arrivalCode = arrivalCode
-        switch arrivalCode {
-        case 0:
+    init(arrivalState: TrainInfo.ArrivalState) {
+        self.arrivalState = arrivalState
+        switch arrivalState {
+        case .enter:
             progressPercentage = 0
             isMovingNow = true
-        case 1:
+        case .arrival:
             progressPercentage = 0.5
             isMovingNow = false
-        case 2:
+        case .depart:
             progressPercentage = 0.5
             isMovingNow = true
         default:
@@ -46,31 +46,21 @@ struct TrainProgressView: View {
             .offset(x: (progressPercentage * proxy.size.width) - 19.5, y: proxy.size.height - 13)
         }
         .onAppear {
-            if arrivalCode == 0 {
+            if arrivalState == .enter {
                 progressPercentage = 0
                 Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
                     if progressPercentage < 0.5 {
                         progressPercentage += 0.015
                     }
                 }
-            } else if arrivalCode == 1 {
+            } else if arrivalState == .arrival {
                 progressPercentage = 0.5
                 Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
                     if progressPercentage <= 0.5 {
                         progressPercentage += 0.015
                     }
                 }
-            } else if arrivalCode == 2 {
-                progressPercentage = 0.5
-                Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-                    if progressPercentage <= 1 {
-                        progressPercentage += 0.015
-                    }
-                }
-            }
-        }
-        .onChange(of: arrivalCode) { newValue in
-            if newValue == 2 {
+            } else if arrivalState == .depart {
                 progressPercentage = 0.5
                 Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
                     if progressPercentage <= 1 {
@@ -89,20 +79,11 @@ struct TrainProgressView_Previews: PreviewProvider {
         ZStack {
             Color.black
             HStack {
-                TrainProgressView(arrivalCode: 0)
-                    .foregroundColor(.white)
-                    .padding(30)
-                    .frame(width: 150, height: 160)
-                TrainProgressView(arrivalCode: 0)
-                    .foregroundColor(.white)
-                    .padding(30)
-                    .frame(width: 150, height: 160)
-                TrainProgressView(arrivalCode: 0)
+                TrainProgressView(arrivalState: .depart)
                     .foregroundColor(.white)
                     .padding(30)
                     .frame(width: 150, height: 160)
             }
-            
         }
         
     }
