@@ -29,7 +29,7 @@ struct StationInfo: Equatable {
 
   /// plist 에 포함된 모든 노선의 지하철 역 정보의 배열
   static let allStationList: [StationInfo] = {
-    let path = Bundle.main.path(forResource: "StationList220622", ofType: "plist")!
+    let path = Bundle.main.path(forResource: "StationList221023", ofType: "plist")!
     let arrOfDict = NSArray(contentsOfFile: path)! as! [[String: Any]]
     let stations = arrOfDict.map {
       StationInfo(
