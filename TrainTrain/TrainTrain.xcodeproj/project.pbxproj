@@ -24,6 +24,7 @@
 		C1E04BBC28E9AEC600FAD6D1 /* StationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E04BBB28E9AEC600FAD6D1 /* StationInfo.swift */; };
 		C1F91BCF28CEF55700FC8DE9 /* Color+subwayLines.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F91BCE28CEF55700FC8DE9 /* Color+subwayLines.swift */; };
 		C1F91BD428CEF80600FC8DE9 /* SubwayLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F91BD328CEF80600FC8DE9 /* SubwayLine.swift */; };
+		CC15FCE12904BE4400A0ECE5 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC15FCE02904BE4400A0ECE5 /* Triangle.swift */; };
 		CC37AE0128F2972E009190D0 /* TrainProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC37AE0028F2972E009190D0 /* TrainProgressView.swift */; };
 		CC40B97C28E9736100F784A7 /* ArrivalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC40B97B28E9736100F784A7 /* ArrivalView.swift */; };
 		CF137AB728CDA8A10022B6AF /* TrainTrainApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */; };
@@ -50,6 +51,7 @@
 		C1E04BBB28E9AEC600FAD6D1 /* StationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationInfo.swift; sourceTree = "<group>"; };
 		C1F91BCE28CEF55700FC8DE9 /* Color+subwayLines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+subwayLines.swift"; sourceTree = "<group>"; };
 		C1F91BD328CEF80600FC8DE9 /* SubwayLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubwayLine.swift; sourceTree = "<group>"; };
+		CC15FCE02904BE4400A0ECE5 /* Triangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
 		CC37AE0028F2972E009190D0 /* TrainProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainProgressView.swift; sourceTree = "<group>"; };
 		CC40B97B28E9736100F784A7 /* ArrivalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrivalView.swift; sourceTree = "<group>"; };
 		CF137AB328CDA8A10022B6AF /* TrainTrain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrainTrain.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +117,7 @@
 		C1F91BD728CF071800FC8DE9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				CC15FCDF2904B9E400A0ECE5 /* Shape */,
 				C1D22DF528F2A06F00BE3368 /* ViewModifier */,
 				C18E717328CEBCA7000C9BA5 /* SelectionView.swift */,
 				C1D22DFF28F315D100BE3368 /* SimplifiedArrivalView.swift */,
@@ -122,6 +125,14 @@
 				CC37AE0028F2972E009190D0 /* TrainProgressView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		CC15FCDF2904B9E400A0ECE5 /* Shape */ = {
+			isa = PBXGroup;
+			children = (
+				CC15FCE02904BE4400A0ECE5 /* Triangle.swift */,
+			);
+			path = Shape;
 			sourceTree = "<group>";
 		};
 		CC40B97828E9717600F784A7 /* Presentation */ = {
@@ -273,6 +284,7 @@
 				CF137AB928CDA8A10022B6AF /* ContentView.swift in Sources */,
 				CC40B97C28E9736100F784A7 /* ArrivalView.swift in Sources */,
 				C18E716328CDAFB9000C9BA5 /* TrainInfo.swift in Sources */,
+				CC15FCE12904BE4400A0ECE5 /* Triangle.swift in Sources */,
 				C1F91BD428CEF80600FC8DE9 /* SubwayLine.swift in Sources */,
 				C18E716E28CDCD57000C9BA5 /* APIError.swift in Sources */,
 				C18E716A28CDBD24000C9BA5 /* TrainType.swift in Sources */,

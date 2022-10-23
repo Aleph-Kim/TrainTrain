@@ -37,10 +37,10 @@ struct TrainProgressView: View {
                     .font(.system(size: 13))
                 Image(systemName: "train.side.front.car")
                     .font(.system(size: 13))
-                Circle()
-                    .frame(width: 5, height: 5)
+                LinearGradient(colors: [.yellow, .clear], startPoint: .leading, endPoint: .trailing)
+                    .frame(width: 15, height: 10)
+                    .mask(Triangle())
                     .offset(CGSize(width: -3, height: 3))
-                    .foregroundColor(.yellow)
                     .opacity(isMovingNow ? 1.0 : 0.0)
             }
             .offset(x: (progressPercentage * proxy.size.width) - 19.5, y: proxy.size.height - 13)
