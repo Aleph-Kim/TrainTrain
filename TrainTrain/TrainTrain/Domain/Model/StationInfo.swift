@@ -8,23 +8,40 @@ struct StationInfo: Equatable {
   let stationID: String
   /// 지하철역명
   let stationName: String
-  /// 다음 지하철역명
-  var nextStationName: String?
-  /// 이전 지하철역명
-  var previousStationName: String?
+  /// 하행 지하철역 ID
+  let lowerStationID_1: String?
+  let lowerStationETA_1: Int?
+  let lowerStationID_2: String?
+  let lowerStationETA_2: Int?
+  /// 상행 지하철역 ID
+  let upperStationID_1: String?
+  let upperStationETA_1: Int?
+  let upperStationID_2: String?
+  let upperStationETA_2: Int?
 
-  init(subwayLineID: Any, stationID: Any, stationName: Any) {
+  init(subwayLineID: Any,
+       stationID: Any,
+       stationName: Any,
+       lowerStationID_1: Any?,
+       lowerStationETA_1: Any?,
+       lowerStationID_2: Any?,
+       lowerStationETA_2: Any?,
+       upperStationID_1: Any?,
+       upperStationETA_1: Any?,
+       upperStationID_2: Any?,
+       upperStationETA_2: Any?
+  ) {
     self.subwayLineID = "\(subwayLineID)"
     self.stationID = "\(stationID)"
     self.stationName = "\(stationName)" + "역"
-  }
-
-  init(subwayLineID: Any, stationID: Any, stationName: Any, nextStationName: String?, previousStationName: String?) {
-    self.subwayLineID = "\(subwayLineID)"
-    self.stationID = "\(stationID)"
-    self.stationName = "\(stationName)"
-    self.nextStationName = nextStationName
-    self.previousStationName = previousStationName
+    self.lowerStationID_1 = lowerStationID_1 != nil ? "\(lowerStationID_1!)" : nil
+    self.lowerStationETA_1 = lowerStationETA_1 != nil ? lowerStationETA_1 as? Int : nil
+    self.lowerStationID_2 = lowerStationID_2 != nil ? "\(lowerStationID_2!)" : nil
+    self.lowerStationETA_2 = lowerStationETA_2 != nil ? lowerStationETA_2 as? Int : nil
+    self.upperStationID_1 = upperStationID_1 != nil ? "\(upperStationID_1!)" : nil
+    self.upperStationETA_1 = upperStationETA_1 != nil ? upperStationETA_1 as? Int : nil
+    self.upperStationID_2 = upperStationID_2 != nil ? "\(upperStationID_2!)" : nil
+    self.upperStationETA_2 = upperStationETA_2 != nil ? upperStationETA_2 as? Int : nil
   }
 
   /// plist 에 포함된 모든 노선의 지하철 역 정보의 배열
@@ -35,7 +52,16 @@ struct StationInfo: Equatable {
       StationInfo(
         subwayLineID: $0["SUBWAY_ID"]!,
         stationID: $0["STATN_ID"]!,
-        stationName: $0["STATN_NM"]!)
+        stationName: $0["STATN_NM"]!,
+        lowerStationID_1: $0["LOWER_STATN_ID_1"]!,
+        lowerStationETA_1: $0["LOWER_STATN_ETA_1"]!,
+        lowerStationID_2: $0["LOWER_STATN_ID_2"]!,
+        lowerStationETA_2: $0["LOWER_STATN_ETA_2"]!,
+        upperStationID_1: $0["UPPER_STATN_ID_1"]!,
+        upperStationETA_1: $0["UPPER_STATN_ETA_1"]!,
+        upperStationID_2: $0["UPPER_STATN_ID_2"]!,
+        upperStationETA_2: $0["UPPER_STATN_ETA_2"]!
+      )
     }
     return stations
   }()
@@ -45,31 +71,28 @@ struct StationInfo: Equatable {
     Self.allStationList.filter { $0.subwayLineID == line.id }
   }
     
-  func makeThreeStationList() -> (Self, Self, Self) {
-      /// 2호선 서울대입구역
-      let dummy1 = StationInfo(
-        subwayLineID: "1002",
-        stationID: "1002000228",
-        stationName: "서울대입구",
-        nextStationName: "낙성대",
-        previousStationName: "봉천")
-
-      /// 2호선 봉천역
-      let dummy2 = StationInfo(
-        subwayLineID: "1002",
-        stationID: "1002000229",
-        stationName: "봉천",
-        nextStationName: "서울대입구",
-        previousStationName: "신림")
-
-      /// 2호선 신림역
-      let dummy3 = StationInfo(
-        subwayLineID: "1002",
-        stationID: "1002000230",
-        stationName: "신림",
-        nextStationName: "봉천",
-        previousStationName: "신대방")
-      
-      return (dummy1, dummy2, dummy3)
+  func makeThreeStationList(stationInfo: StationInfo, directionStationID: String) -> (Self, Self?, Self?) {
+    
+    if let prevStation = Self.allStationList.first(where:{
+      return $0.stationID != directionStationID &&
+          ($0.lowerStationID_1 == stationInfo.stationID ||
+           $0.lowerStationID_2 == stationInfo.stationID ||
+           $0.upperStationID_1 == stationInfo.stationID ||
+           $0.upperStationID_2 == stationInfo.stationID)
+    }) {
+      if let prevPrevStation = Self.allStationList.first(where:{
+        return $0.stationID != directionStationID &&
+            ($0.lowerStationID_1 == prevStation.stationID ||
+             $0.lowerStationID_2 == prevStation.stationID ||
+             $0.upperStationID_1 == prevStation.stationID ||
+             $0.upperStationID_2 == prevStation.stationID)
+      }) {
+        return (stationInfo, prevStation, prevPrevStation)
+      } else {
+        return (stationInfo, prevStation, nil)
+      }
+    } else {
+      return (stationInfo, nil, nil)
+    }
   }
 }

@@ -7,7 +7,9 @@ struct NetworkManager {
   /// 특정 지하철역을 기준으로, 이전 지하철역에서 다가오는 열차의 실시간 정보를 최대 2개 가져옵니다.
   /// - Parameter targetStation: 실시간 도착정보의 기준이 되는 지하철역 타입
   /// - Returns: 실시간 도착정보의 배열
-  func fetch(targetStation: StationInfo) async -> [TrainInfo] {
+  /// TODO: - ID로 역을 찾아서 네트워크 통신하는 로직 구현하기
+  func fetch(targetStation: StationInfo?) async -> [TrainInfo] {
+    guard let targetStation else { return [] }
     var targetStationName = targetStation.stationName
     guard var previousStationName = targetStation.previousStationName else { return [] }
 
