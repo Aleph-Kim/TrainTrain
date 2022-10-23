@@ -93,14 +93,6 @@
 			path = ViewModifier;
 			sourceTree = "<group>";
 		};
-		C1E93EB82903D745000284C2 /* Custom */ = {
-			isa = PBXGroup;
-			children = (
-				C1E93EB92903D7B3000284C2 /* HalfCapsule.swift */,
-			);
-			path = Custom;
-			sourceTree = "<group>";
-		};
 		C1F91BCD28CEF53400FC8DE9 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,7 +120,6 @@
 			isa = PBXGroup;
 			children = (
 				CC15FCDF2904B9E400A0ECE5 /* Shape */,
-				C1E93EB82903D745000284C2 /* Custom */,
 				C1D22DF528F2A06F00BE3368 /* ViewModifier */,
 				C18E717328CEBCA7000C9BA5 /* SelectionView.swift */,
 				C1D22DFF28F315D100BE3368 /* SimplifiedArrivalView.swift */,
@@ -142,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				CC15FCE02904BE4400A0ECE5 /* Triangle.swift */,
+				C1E93EB92903D7B3000284C2 /* HalfCapsule.swift */,
 			);
 			path = Shape;
 			sourceTree = "<group>";
