@@ -4,10 +4,10 @@ import ConfettiSwiftUI
 struct SelectionView: View {
 
   @Binding var selectedStation: StationInfo?
+  @Binding var directionStationID: String?
 
   @State private var selectionStep: SelectionStep = .pre
   @State private var selectedLine: SubwayLine?
-  @State private var tempSelectedStation: StationInfo?
   @State private var stationList: [StationInfo] = []
   @State private var searchText = ""
   @State private var confetti: Int = .zero
@@ -53,7 +53,7 @@ struct SelectionView: View {
     VStack(alignment: .leading, spacing: 10) {
       Spacer()
 
-      if let selectedLine, let selectedStation {
+      if let selectedLine, let selectedStation, let directionStationID {
         Text("완료됐습니다! 🎉\n이제 미리보기로\n확인해보세요.")
           .font(.title)
           .lineSpacing(6)
@@ -71,7 +71,7 @@ struct SelectionView: View {
 
             Image(systemName: "arrow.right")
 
-            Text(selectedStation.nextStationName ?? "")
+            Text(StationInfo.fetchStationName(from: directionStationID))
               .colorCapsule(selectedLine.color)
           }
         }
@@ -165,7 +165,7 @@ struct SelectionView: View {
              , id: \.stationID) { station in
           Button {
             withAnimation {
-              tempSelectedStation = station
+              selectedStation = station
               selectionStep = .direction
               searchText = ""
               isKeyboardUp = nil // 키보드 내리기
@@ -203,52 +203,78 @@ struct SelectionView: View {
       }
 
       HStack(spacing: .zero) {
-        Button {
-          if let tempSelectedStation, let previousStation {
-            withAnimation {
-              selectedStation = StationInfo(
-                subwayLineID: tempSelectedStation.subwayLineID,
-                stationID: tempSelectedStation.stationID,
-                stationName: tempSelectedStation.stationName,
-                nextStationName: nextStation?.stationName,
-                previousStationName: previousStation.stationName)
-              selectionStep = .pre
-              confetti += 1
+        VStack(spacing: .zero) {
+          // 상행선 1번
+          if let upper1 = selectedStation?.upperStationID_1 {
+            Button {
+              withAnimation {
+                directionStationID = upper1
+                selectionStep = .pre
+                confetti += 1
+              }
+            } label: {
+              Text(StationInfo.fetchStationName(from: upper1))
+                .bold()
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
           }
-        } label: {
-          Text(previousStation?.stationName ?? "")
-            .bold()
-            .padding()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+          // 상행선 2번
+          if let upper2 = selectedStation?.upperStationID_2 {
+            Button {
+              withAnimation {
+                directionStationID = upper2
+                selectionStep = .pre
+                confetti += 1
+              }
+            } label: {
+              Text(StationInfo.fetchStationName(from: upper2))
+                .bold()
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+          }
         }
-        .disabled(previousStation == nil)
 
         Rectangle()
           .trim(from: 0, to: 0.5)
           .stroke(style: .init(lineWidth: 2, dash: [5]))
           .frame(width: 2)
 
-        Button {
-          if let tempSelectedStation, let nextStation {
-            withAnimation {
-              selectedStation = StationInfo(
-                subwayLineID: tempSelectedStation.subwayLineID,
-                stationID: tempSelectedStation.stationID,
-                stationName: tempSelectedStation.stationName,
-                nextStationName: nextStation.stationName,
-                previousStationName: previousStation?.stationName)
-              selectionStep = .pre
-              confetti += 1
+        VStack(spacing: .zero) {
+          // 하행선 1번
+          if let lower1 = selectedStation?.lowerStationID_1 {
+            Button {
+              withAnimation {
+                directionStationID = lower1
+                selectionStep = .pre
+                confetti += 1
+              }
+            } label: {
+              Text(StationInfo.fetchStationName(from: lower1))
+                .bold()
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
           }
-        } label: {
-          Text(nextStation?.stationName ?? "")
-            .bold()
-            .padding()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+          // 하행선 2번
+          if let lower2 = selectedStation?.lowerStationID_2 {
+            Button {
+              withAnimation {
+                directionStationID = lower2
+                selectionStep = .pre
+                confetti += 1
+              }
+            } label: {
+              Text(StationInfo.fetchStationName(from: lower2))
+                .bold()
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+          }
         }
-        .disabled(nextStation == nil)
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .font(.largeTitle)
@@ -257,7 +283,7 @@ struct SelectionView: View {
       .background(selectedLine?.color)
       .cornerRadius(16)
       .overlay(alignment: .top) {
-        Text(tempSelectedStation?.stationName ?? "")
+        Text(selectedStation?.stationName ?? "")
           .bold()
           .foregroundColor(.black)
           .padding(.horizontal, 20)
@@ -268,22 +294,6 @@ struct SelectionView: View {
       }
     }
     .padding(.horizontal)
-  }
-
-  // MARK: - 이전(왼쪽) 역
-  private var previousStation: StationInfo? {
-    guard let tempSelectedStation else { return nil }
-    guard let index = stationList.firstIndex(where: { $0.stationID == tempSelectedStation.stationID }) else { return nil }
-    guard index < (stationList.count - 1) else { return nil }
-    return stationList[index + 1]
-  }
-
-  // MARK: - 다음(오른쪽) 역
-  private var nextStation: StationInfo? {
-    guard let tempSelectedStation else { return nil }
-    guard let index = stationList.firstIndex(where: { $0.stationID == tempSelectedStation.stationID }) else { return nil }
-    guard index > 0 else { return nil }
-    return stationList[index - 1]
   }
 
   // MARK: 커스텀 인디케이터를 위한 페이지 판단 메서드
@@ -310,10 +320,18 @@ struct SelectionView_Previews: PreviewProvider {
   static var previews: some View {
     SelectionView(
       selectedStation: .constant(
-        .init(subwayLineID: "1002",
-              stationID: "1002000228",
-              stationName: "서울대입구",
-              nextStationName: "낙성대",
-              previousStationName: "봉천")))
+        .init(
+          subwayLineID: "1002",
+          stationID: "1002000228",
+          stationName: "서울대입구",
+          lowerStationID_1: "1002000229",
+          lowerStationETA_1: 60,
+          lowerStationID_2: "",
+          lowerStationETA_2: "",
+          upperStationID_1: "1002000227",
+          upperStationETA_1: 120,
+          upperStationID_2: "",
+          upperStationETA_2: "")),
+      directionStationID: .constant("1002000227"))
   }
 }

@@ -7,26 +7,28 @@ struct NetworkManager {
   /// 특정 지하철역을 기준으로, 이전 지하철역에서 다가오는 열차의 실시간 정보를 최대 2개 가져옵니다.
   /// - Parameter targetStation: 실시간 도착정보의 기준이 되는 지하철역 타입
   /// - Returns: 실시간 도착정보의 배열
-  /// TODO: - ID로 역을 찾아서 네트워크 통신하는 로직 구현하기
-  func fetch(targetStation: StationInfo?) async -> [TrainInfo] {
-    guard let targetStation else { return [] }
-    var targetStationName = targetStation.stationName
-    guard var previousStationName = targetStation.previousStationName else { return [] }
+  func fetch(targetStation: StationInfo?, directionStationID: String?) async -> [TrainInfo] {
+    guard let targetStation, let directionStationID else { return [] }
 
-    if targetStationName.last == "역" {
-      targetStationName.removeLast()
-    }
+    var previousStationID = ""
 
-    if previousStationName.last == "역" {
-      previousStationName.removeLast()
+    if [targetStation.upperStationID_1, targetStation.upperStationID_2].contains(directionStationID) { // 상행 확인
+      if let lower1 = targetStation.lowerStationID_1 { // 이전역이 있다면
+        previousStationID = lower1
+      }
+    } else if [targetStation.lowerStationID_1, targetStation.lowerStationID_2].contains(directionStationID) { // 하행 확인
+      if let upper1 = targetStation.upperStationID_1 { // 이전역이 있다면
+        previousStationID = upper1
+      }
     }
 
     do {
-      let arrivalInfo = try await fetch(stationName: targetStationName)
+      let arrivalInfo = try await fetch(stationID: targetStation.stationID)
       print("📡 통신 상태값 -> status: \(arrivalInfo.errorMessage.code), message: \(arrivalInfo.errorMessage.message), total: \(arrivalInfo.errorMessage.total)")
 
       let filteredList = arrivalInfo.realtimeArrivalList.filter {
-        $0.secondMessage == previousStationName
+        // 이전역 이름을 기준으로 필터링
+        $0.secondMessage == StationInfo.fetchStationName(from: previousStationID)
       }
       return filteredList
     } catch {
@@ -38,22 +40,15 @@ struct NetworkManager {
   /// 특정 지하철역을 기준으로, 가야하는 방향으로 다가오는 열차의 실시간 정보를 최대 2개 가져옵니다.
   /// - Parameter targetStation: 실시간 도착정보의 기준이 되는 지하철역 타입
   /// - Returns: 실시간 도착정보의 배열
-  func fetchFar(targetStation: StationInfo) async -> [TrainInfo] {
-    var targetStationName = targetStation.stationName
-    guard var nextStationName = targetStation.nextStationName else { return [] }
-
-    if targetStationName.last == "역" {
-      targetStationName.removeLast()
-    }
-
-    if nextStationName.last == "역" {
-      nextStationName.removeLast()
-    }
+  func fetchFar(targetStation: StationInfo?, directionStationID: String?) async -> [TrainInfo] {
+    guard let targetStation, let directionStationID else { return [] }
 
     do {
-      let arrivalInfo = try await fetch(stationName: targetStationName)
+      let arrivalInfo = try await fetch(stationID: targetStation.stationID)
+      print("📡 통신 상태값 -> status: \(arrivalInfo.errorMessage.code), message: \(arrivalInfo.errorMessage.message), total: \(arrivalInfo.errorMessage.total)")
+
       let filteredList = arrivalInfo.realtimeArrivalList.filter {
-        $0.trainDestination.contains(nextStationName)
+        $0.trainDestination.contains(StationInfo.fetchStationName(from: directionStationID))
       }
       return filteredList
     } catch {
@@ -63,7 +58,9 @@ struct NetworkManager {
   }
 
   /// 특정 지하철역을 기준으로, 접근하는 모든 방향의 실시간 도착정보를 배열 형태로 가져옵니다.
-  private func fetch(stationName: String) async throws -> ArrivalInfo {
+  private func fetch(stationID: String) async throws -> ArrivalInfo {
+    let stationName = StationInfo.fetchStationName(from: stationID)
+
     guard let urlRequest = urlRequest(stationName: stationName) else {
       throw APIError.invalidURLRequest
     }
