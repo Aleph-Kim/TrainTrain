@@ -33,7 +33,7 @@ struct StationInfo: Equatable {
   ) {
     self.subwayLineID = "\(subwayLineID)"
     self.stationID = "\(stationID)"
-    self.stationName = "\(stationName)" + "역"
+    self.stationName = "\(stationName)" // + "역"
     self.lowerStationID_1 = "\(lowerStationID_1)".isEmpty ? nil : "\(lowerStationID_1)"
     self.lowerStationID_2 = "\(lowerStationID_2)".isEmpty ? nil : "\(lowerStationID_2)"
     self.upperStationID_1 = "\(upperStationID_1)".isEmpty ? nil : "\(upperStationID_1)"

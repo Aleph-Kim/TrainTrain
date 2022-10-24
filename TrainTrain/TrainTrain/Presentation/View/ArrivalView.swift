@@ -1,10 +1,3 @@
-////
-////  ArrivalView.swift
-////  TrainTrain
-////
-////  Created by daco daco on 2022/10/02.
-////
-//
 //import SwiftUI
 //
 //struct ArrivalView: View {
@@ -17,7 +10,6 @@
 //    prevStation = stations.1
 //    prevPrevStation = stations.2
 //  }
-//
 //
 //  private var firstInfos: [TrainInfo] {
 //    trainInfos.filter {

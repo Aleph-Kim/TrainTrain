@@ -202,8 +202,8 @@ struct SelectionView: View {
         Spacer()
       }
 
-      HStack(spacing: .zero) {
-        VStack(spacing: .zero) {
+      VStack(spacing: .zero) {
+        HStack(spacing: .zero) {
           // 상행선 1번
           if let upper1 = selectedStation?.upperStationID_1 {
             Button {
@@ -218,31 +218,15 @@ struct SelectionView: View {
                 .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
+          } else {
+            Color.black.opacity(0.5)
           }
 
-          // 상행선 2번
-          if let upper2 = selectedStation?.upperStationID_2 {
-            Button {
-              withAnimation {
-                directionStationID = upper2
-                selectionStep = .pre
-                confetti += 1
-              }
-            } label: {
-              Text(StationInfo.fetchStationName(from: upper2))
-                .bold()
-                .padding()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-          }
-        }
+          Rectangle()
+            .trim(from: 0, to: 0.5)
+            .stroke(style: .init(lineWidth: 2, dash: [5]))
+            .frame(width: 2)
 
-        Rectangle()
-          .trim(from: 0, to: 0.5)
-          .stroke(style: .init(lineWidth: 2, dash: [5]))
-          .frame(width: 2)
-
-        VStack(spacing: .zero) {
           // 하행선 1번
           if let lower1 = selectedStation?.lowerStationID_1 {
             Button {
@@ -257,10 +241,33 @@ struct SelectionView: View {
                 .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
+          } else {
+            Color.black.opacity(0.5)
           }
+        }
 
-          // 하행선 2번
-          if let lower2 = selectedStation?.lowerStationID_2 {
+        Rectangle()
+          .trim(from: 0, to: 0.5)
+          .stroke(style: .init(lineWidth: 2, dash: [5]))
+          .frame(height: 2)
+          .opacity(selectedStation?.upperStationID_2 == nil && selectedStation?.lowerStationID_2 == nil ? 0 : 1)
+
+        // 상행선 2번 또는 하행선 2번 (둘 다 존재하는 케이스는 없음)
+        Group {
+          if let upper2 = selectedStation?.upperStationID_2 {
+            Button {
+              withAnimation {
+                directionStationID = upper2
+                selectionStep = .pre
+                confetti += 1
+              }
+            } label: {
+              Text(StationInfo.fetchStationName(from: upper2))
+                .bold()
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+          } else if let lower2 = selectedStation?.lowerStationID_2 {
             Button {
               withAnimation {
                 directionStationID = lower2
@@ -275,6 +282,7 @@ struct SelectionView: View {
             }
           }
         }
+        .frame(maxHeight: UIScreen.main.bounds.height * 0.1)
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .font(.largeTitle)

@@ -1,10 +1,3 @@
-//
-//  TrainProgressView.swift
-//  TrainTrain
-//
-//  Created by daco daco on 2022/10/09.
-//
-
 import SwiftUI
 
 struct TrainProgressView: View {
