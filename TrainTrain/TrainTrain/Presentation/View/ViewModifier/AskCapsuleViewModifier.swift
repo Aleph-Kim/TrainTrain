@@ -2,9 +2,11 @@ import SwiftUI
 
 struct AskCapsuleViewModifier: ViewModifier {
 
+  let bold: Bool
+
   func body(content: Content) -> some View {
     content
-      .bold()
+      .bold(self.bold)
       .padding(.horizontal, 16)
       .padding(.vertical, 10)
       .background(Color.bg)
@@ -13,14 +15,20 @@ struct AskCapsuleViewModifier: ViewModifier {
 }
 
 extension View {
-  func askCapsule() -> some View {
-    modifier(AskCapsuleViewModifier())
+  func askCapsule(bold: Bool = true) -> some View {
+    modifier(AskCapsuleViewModifier(bold: bold))
   }
 }
 
 struct AskCapsuleViewModifier_Previews: PreviewProvider {
   static var previews: some View {
-    Text(SubwayLine.line2.rawValue)
-      .askCapsule()
+    VStack {
+      Text(SubwayLine.line2.rawValue)
+        .askCapsule()
+
+      Image(systemName: "arrow.uturn.left")
+        .askCapsule(bold: false)
+        .tint(.primary)
+    }
   }
 }
