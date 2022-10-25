@@ -14,6 +14,8 @@ struct SelectionView: View {
 
   @FocusState private var isKeyboardUp: Bool?
 
+  private let customAnimation: Animation = .linear(duration: 0.1)
+
   // MARK: - body
   var body: some View {
     VStack {
@@ -89,7 +91,7 @@ struct SelectionView: View {
       Spacer()
 
       Button {
-        withAnimation {
+        withAnimation(customAnimation) {
           selectionStep = .lineNumber
         }
       } label: {
@@ -119,7 +121,7 @@ struct SelectionView: View {
         VStack(alignment: .leading, spacing: 20) {
           ForEach(SubwayLine.allCases) { line in
             Button {
-              withAnimation {
+              withAnimation(customAnimation) {
                 selectedLine = line
                 selectionStep = .station
                 stationList = StationInfo.fetchStationList(of: line)
@@ -168,7 +170,7 @@ struct SelectionView: View {
              : stationList.filter { $0.stationName.contains(searchText.cleaned) }
              , id: \.stationID) { station in
           Button {
-            withAnimation {
+            withAnimation(customAnimation) {
               selectedStation = station
               selectionStep = .direction
               searchText = ""
@@ -211,7 +213,7 @@ struct SelectionView: View {
           // 상행선 1번
           if let upper1 = selectedStation?.upperStationID_1 {
             Button {
-              withAnimation {
+              withAnimation(customAnimation) {
                 directionStationID = upper1
                 selectionStep = .pre
                 confetti += 1
@@ -234,7 +236,7 @@ struct SelectionView: View {
           // 하행선 1번
           if let lower1 = selectedStation?.lowerStationID_1 {
             Button {
-              withAnimation {
+              withAnimation(customAnimation) {
                 directionStationID = lower1
                 selectionStep = .pre
                 confetti += 1
@@ -260,7 +262,7 @@ struct SelectionView: View {
         Group {
           if let upper2 = selectedStation?.upperStationID_2 {
             Button {
-              withAnimation {
+              withAnimation(customAnimation) {
                 directionStationID = upper2
                 selectionStep = .pre
                 confetti += 1
@@ -273,7 +275,7 @@ struct SelectionView: View {
             }
           } else if let lower2 = selectedStation?.lowerStationID_2 {
             Button {
-              withAnimation {
+              withAnimation(customAnimation) {
                 directionStationID = lower2
                 selectionStep = .pre
                 confetti += 1
