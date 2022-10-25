@@ -78,20 +78,14 @@ struct StationInfo: Equatable {
     
   func makeThreeStationList(stationInfo: StationInfo, directionStationID: String) -> (Self, Self?, Self?) {
     
-    if let prevStation = Self.allStationList.first(where:{
-      return $0.stationID != directionStationID &&
-          ($0.lowerStationID_1 == stationInfo.stationID ||
-           $0.lowerStationID_2 == stationInfo.stationID ||
-           $0.upperStationID_1 == stationInfo.stationID ||
-           $0.upperStationID_2 == stationInfo.stationID)
-    }) {
-      if let prevPrevStation = Self.allStationList.first(where:{
-        return $0.stationID != directionStationID &&
-            ($0.lowerStationID_1 == prevStation.stationID ||
-             $0.lowerStationID_2 == prevStation.stationID ||
-             $0.upperStationID_1 == prevStation.stationID ||
-             $0.upperStationID_2 == prevStation.stationID)
-      }) {
+    let prevStationID = {
+      return stationInfo.upperStationID_1 == directionStationID ? stationInfo.lowerStationID_1 : stationInfo.upperStationID_1
+    }()
+    if let prevStation = Self.allStationList.first(where: { $0.stationID == prevStationID }) {
+      let prevPrevStationID = {
+        return prevStation.upperStationID_1 == stationInfo.stationID ? prevStation.lowerStationID_1 : prevStation.upperStationID_1
+      }()
+      if let prevPrevStation = Self.allStationList.first(where: { $0.stationID == prevPrevStationID }) {
         return (stationInfo, prevStation, prevPrevStation)
       } else {
         return (stationInfo, prevStation, nil)

@@ -28,7 +28,8 @@ struct NetworkManager {
 
       let filteredList = arrivalInfo.realtimeArrivalList.filter {
         // 이전역 이름을 기준으로 필터링
-        $0.secondMessage == StationInfo.fetchStationName(from: previousStationID)
+        print($0.secondMessage)
+        return $0.secondMessage == StationInfo.fetchStationName(from: previousStationID)
       }
       return filteredList
     } catch {

@@ -21,17 +21,17 @@ struct ContentView: View {
   var body: some View {
 
     ScrollView {
-//      if let selectedStation, let directionStationID {
-//        ArrivalView(selectedStationInfo: selectedStation, directionStationID: directionStationID)
-//          .frame(maxWidth: .infinity)
-//          .frame(height: 200)
-//          .padding()
-//      } else {
-//        ArrivalView(selectedStationInfo: placeHolder, directionStationID: "1002000223")
-//          .frame(maxWidth: .infinity)
-//          .frame(height: 200)
-//          .padding()
-//      }
+      if let selectedStation, let directionStationID {
+        ArrivalView(selectedStationInfo: selectedStation, directionStationID: directionStationID)
+          .frame(maxWidth: .infinity)
+          .frame(height: 200)
+          .padding()
+      } else {
+        ArrivalView(selectedStationInfo: placeHolder, directionStationID: "1002000221")
+          .frame(maxWidth: .infinity)
+          .frame(height: 200)
+          .padding()
+      }
 
       SimplifiedArrivalView(
         selectedStation: $selectedStation,
