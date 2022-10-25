@@ -125,6 +125,7 @@ struct SelectionView: View {
             .askCapsule(bold: false)
             .tint(.primary)
         }
+        .buttonStyle(ReactiveButton())
       }
 
       ScrollView(showsIndicators: false) {
@@ -174,6 +175,7 @@ struct SelectionView: View {
             .askCapsule(bold: false)
             .tint(.primary)
         }
+        .buttonStyle(ReactiveButton())
       }
 
       VStack(spacing: .zero) {
@@ -235,10 +237,11 @@ struct SelectionView: View {
             .askCapsule(bold: false)
             .tint(.primary)
         }
+        .buttonStyle(ReactiveButton())
       }
 
-      VStack(spacing: .zero) {
-        HStack(spacing: .zero) {
+      VStack(spacing: 3) {
+        HStack(spacing: 3) {
           // 상행선 1번
           if let upper1 = selectedStation?.upperStationID_1 {
             Button {
@@ -250,17 +253,16 @@ struct SelectionView: View {
             } label: {
               Text(StationInfo.fetchStationName(from: upper1))
                 .bold()
-                .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(selectedLine?.color ?? Color.bg)
+                .cornerRadius(16)
             }
+            .buttonStyle(ReactiveButton())
           } else {
-            Color.black.opacity(0.5)
+            (selectedLine?.color ?? Color.bg)
+              .opacity(0.5)
+              .cornerRadius(16)
           }
-
-          Rectangle()
-            .trim(from: 0, to: 0.5)
-            .stroke(style: .init(lineWidth: 2, dash: [5]))
-            .frame(width: 2)
 
           // 하행선 1번
           if let lower1 = selectedStation?.lowerStationID_1 {
@@ -273,19 +275,17 @@ struct SelectionView: View {
             } label: {
               Text(StationInfo.fetchStationName(from: lower1))
                 .bold()
-                .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(selectedLine?.color ?? Color.bg)
+                .cornerRadius(16)
             }
+            .buttonStyle(ReactiveButton())
           } else {
-            Color.black.opacity(0.5)
+            (selectedLine?.color ?? Color.bg)
+              .opacity(0.5)
+              .cornerRadius(16)
           }
         }
-
-        Rectangle()
-          .trim(from: 0, to: 0.5)
-          .stroke(style: .init(lineWidth: 2, dash: [5]))
-          .frame(height: 2)
-          .opacity(selectedStation?.upperStationID_2 == nil && selectedStation?.lowerStationID_2 == nil ? 0 : 1)
 
         // 상행선 2번 또는 하행선 2번 (둘 다 존재하는 케이스는 없음)
         Group {
@@ -299,9 +299,11 @@ struct SelectionView: View {
             } label: {
               Text(StationInfo.fetchStationName(from: upper2))
                 .bold()
-                .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(selectedLine?.color ?? Color.bg)
+                .cornerRadius(16)
             }
+            .buttonStyle(ReactiveButton())
           } else if let lower2 = selectedStation?.lowerStationID_2 {
             Button {
               withAnimation(customAnimation) {
@@ -312,9 +314,11 @@ struct SelectionView: View {
             } label: {
               Text(StationInfo.fetchStationName(from: lower2))
                 .bold()
-                .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(selectedLine?.color ?? Color.bg)
+                .cornerRadius(16)
             }
+            .buttonStyle(ReactiveButton())
           }
         }
         .frame(maxHeight: UIScreen.main.bounds.height * 0.1)
@@ -322,7 +326,6 @@ struct SelectionView: View {
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .font(.largeTitle)
       .foregroundColor(.white)
-      .background(selectedLine?.color ?? Color.bg)
       .cornerRadius(16)
       .overlay(alignment: .top) {
         Text(selectedStation?.stationName ?? "")
