@@ -18,14 +18,18 @@ struct SelectionView: View {
   var body: some View {
     VStack {
       TabView(selection: $selectionStep) {
-        preSelectionPage.tag(SelectionStep.pre)
-  //        .gesture(DragGesture())
-        lineNumberSelectionPage.tag(SelectionStep.lineNumber)
-  //        .gesture(DragGesture())
-        stationSelectionPage.tag(SelectionStep.station)
-  //        .gesture(DragGesture())
-        directionSelectionPage.tag(SelectionStep.direction)
-  //        .gesture(DragGesture())
+        preSelectionPage
+          .tag(SelectionStep.pre)
+          .highPriorityGesture(DragGesture())
+        lineNumberSelectionPage
+          .tag(SelectionStep.lineNumber)
+          .highPriorityGesture(DragGesture())
+        stationSelectionPage
+          .tag(SelectionStep.station)
+          .highPriorityGesture(DragGesture())
+        directionSelectionPage
+          .tag(SelectionStep.direction)
+          .highPriorityGesture(DragGesture())
       }
       .tabViewStyle(.page(indexDisplayMode: .never))
       .frame(height: UIScreen.main.bounds.height * 0.4) // 화면 높이의 40% 사용
