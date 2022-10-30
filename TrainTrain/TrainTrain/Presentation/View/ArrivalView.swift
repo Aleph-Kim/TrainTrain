@@ -16,14 +16,14 @@ struct ArrivalView: View {
     trainInfos.filter {
       $0.arrivalState == .approaching ||
       $0.arrivalState == .arrived ||
-      $0.arrivalState == .departed ||
+      $0.arrivalState == .departed
     }
   }
   private var prevStationTrainInfos: [TrainInfo] {
     trainInfos.filter {
       $0.arrivalState == .previousApproaching ||
       $0.arrivalState == .previousArrived ||
-      $0.arrivalState == .previousDeparted ||
+      $0.arrivalState == .previousDeparted
     }
   }
 
