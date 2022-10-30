@@ -47,14 +47,14 @@ struct TrainProgressView: View {
                     }
                 }
             } else if arrivalState == .arrived {
-                progressPercentage = 0.5
+                progressPercentage = 0.25
                 Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-                    if progressPercentage <= 0.5 {
+                    if progressPercentage <= 0.25 {
                         progressPercentage += 0.015
                     }
                 }
             } else if arrivalState == .departed {
-                progressPercentage = 0.5
+                progressPercentage = 0.25
                 Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
                     if progressPercentage <= 1 {
                         progressPercentage += 0.015

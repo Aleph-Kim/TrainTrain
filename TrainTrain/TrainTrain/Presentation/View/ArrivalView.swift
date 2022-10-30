@@ -41,9 +41,9 @@ struct ArrivalView: View {
           Spacer()
           HStack {
             TrackView(trainInfos: prevStationTrainInfos)
-              .frame(width: proxy.size.width / 3)
+              .frame(width: proxy.size.width / 2)
             TrackView(trainInfos: targetStationTrainInfos)
-              .frame(width: proxy.size.width / 3)
+              .frame(width: proxy.size.width / 2)
           }
           LineView(size: proxy.size)
             .foregroundColor(.gray)
@@ -79,7 +79,7 @@ struct ArrivalView: View {
                 if let firstIndex = trainInfos.firstIndex(where: {newTrainInfo.id == $0.id}) {
                   trainInfos[firstIndex] = newTrainInfo
                 }
-              } else {
+              } else if newTrainInfo.id != oldTrainInfo.id {
                 // 만약 fetch시 기존 열차의 정보와 다른 정보가 들어있다면, 전역에 새로운 열차가 온 것이므로, 배열에 추가함
                 trainInfos.append(newTrainInfo)
               }
@@ -105,8 +105,8 @@ struct ArrivalView: View {
   
   private func LineView(size: CGSize) -> some View {
     Path { path in
-      path.move(to: CGPoint(x: 0, y: 0))
-      path.addLine(to: CGPoint(x: size.width - 20, y: 0))
+      path.move(to: CGPoint(x: 5, y: 0))
+      path.addLine(to: CGPoint(x: size.width-10, y: 0))
     }
     .stroke(style: .init(lineWidth: 3, lineCap: .square, dash: [6]))
   }
