@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C1724B3029084C2F00A339BA /* ReactiveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1724B2F29084C2F00A339BA /* ReactiveButton.swift */; };
 		C18E716328CDAFB9000C9BA5 /* TrainInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716228CDAFB9000C9BA5 /* TrainInfo.swift */; };
 		C18E716628CDB2C6000C9BA5 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716528CDB2C6000C9BA5 /* ErrorMessage.swift */; };
 		C18E716828CDB8ED000C9BA5 /* ArrivalInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716728CDB8ED000C9BA5 /* ArrivalInfo.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C1724B2F29084C2F00A339BA /* ReactiveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactiveButton.swift; sourceTree = "<group>"; };
 		C18E716228CDAFB9000C9BA5 /* TrainInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainInfo.swift; sourceTree = "<group>"; };
 		C18E716528CDB2C6000C9BA5 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
 		C18E716728CDB8ED000C9BA5 /* ArrivalInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrivalInfo.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 			children = (
 				CC15FCE02904BE4400A0ECE5 /* Triangle.swift */,
 				C1E93EB92903D7B3000284C2 /* HalfCapsule.swift */,
+				C1724B2F29084C2F00A339BA /* ReactiveButton.swift */,
 			);
 			path = Shape;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 				C1D22DF928F2A41600BE3368 /* AskCapsuleViewModifier.swift in Sources */,
 				C18E717428CEBCA7000C9BA5 /* SelectionView.swift in Sources */,
 				CC37AE0128F2972E009190D0 /* TrainProgressView.swift in Sources */,
+				C1724B3029084C2F00A339BA /* ReactiveButton.swift in Sources */,
 				C1F91BCF28CEF55700FC8DE9 /* Color+subwayLines.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -429,7 +433,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TrainTrain/Preview Content\"";
-				DEVELOPMENT_TEAM = GMASX5K78J;
+				DEVELOPMENT_TEAM = A5LBYGCGKX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TrainTrain/Info.plist;
@@ -462,7 +466,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TrainTrain/Preview Content\"";
-				DEVELOPMENT_TEAM = GMASX5K78J;
+				DEVELOPMENT_TEAM = A5LBYGCGKX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TrainTrain/Info.plist;

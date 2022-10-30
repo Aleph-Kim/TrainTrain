@@ -14,21 +14,27 @@ struct SelectionView: View {
 
   @FocusState private var isKeyboardUp: Bool?
 
+  private let customAnimation: Animation = .linear(duration: 0.1)
+
   // MARK: - body
   var body: some View {
     VStack {
       TabView(selection: $selectionStep) {
-        preSelectionPage.tag(SelectionStep.pre)
-  //        .gesture(DragGesture())
-        lineNumberSelectionPage.tag(SelectionStep.lineNumber)
-  //        .gesture(DragGesture())
-        stationSelectionPage.tag(SelectionStep.station)
-  //        .gesture(DragGesture())
-        directionSelectionPage.tag(SelectionStep.direction)
-  //        .gesture(DragGesture())
+        preSelectionPage
+          .tag(SelectionStep.pre)
+          .highPriorityGesture(DragGesture())
+        lineNumberSelectionPage
+          .tag(SelectionStep.lineNumber)
+          .highPriorityGesture(DragGesture())
+        stationSelectionPage
+          .tag(SelectionStep.station)
+          .highPriorityGesture(DragGesture())
+        directionSelectionPage
+          .tag(SelectionStep.direction)
+          .highPriorityGesture(DragGesture())
       }
       .tabViewStyle(.page(indexDisplayMode: .never))
-      .frame(height: UIScreen.main.bounds.height * 0.4) // 화면 높이의 40% 사용
+      .frame(height: 340) // SelectionView 의 높이
 
       // MARK: - 커스텀 페이지 인디케이터
       HStack(spacing: 10) {
@@ -85,7 +91,7 @@ struct SelectionView: View {
       Spacer()
 
       Button {
-        withAnimation {
+        withAnimation(customAnimation) {
           selectionStep = .lineNumber
         }
       } label: {
@@ -109,13 +115,24 @@ struct SelectionView: View {
         Text("몇 호선 인가요?")
           .askCapsule()
         Spacer()
+
+        Button {
+          withAnimation(customAnimation) {
+            selectionStep = .pre
+          }
+        } label: {
+          Image(systemName: "arrow.uturn.left")
+            .askCapsule(bold: false)
+            .tint(.primary)
+        }
+        .buttonStyle(ReactiveButton())
       }
 
       ScrollView(showsIndicators: false) {
         VStack(alignment: .leading, spacing: 20) {
           ForEach(SubwayLine.allCases) { line in
             Button {
-              withAnimation {
+              withAnimation(customAnimation) {
                 selectedLine = line
                 selectionStep = .station
                 stationList = StationInfo.fetchStationList(of: line)
@@ -144,10 +161,21 @@ struct SelectionView: View {
             .colorCapsule(selectedLine.color)
         }
 
-        Text("어느 역에서 탑승하시나요?")
+        Text("어느 역에서 탑승하세요?")
           .askCapsule()
 
         Spacer()
+
+        Button {
+          withAnimation(customAnimation) {
+            selectionStep = .lineNumber
+          }
+        } label: {
+          Image(systemName: "arrow.uturn.left")
+            .askCapsule(bold: false)
+            .tint(.primary)
+        }
+        .buttonStyle(ReactiveButton())
       }
 
       VStack(spacing: .zero) {
@@ -164,7 +192,7 @@ struct SelectionView: View {
              : stationList.filter { $0.stationName.contains(searchText.cleaned) }
              , id: \.stationID) { station in
           Button {
-            withAnimation {
+            withAnimation(customAnimation) {
               selectedStation = station
               selectionStep = .direction
               searchText = ""
@@ -186,8 +214,7 @@ struct SelectionView: View {
         .padding(8)
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
-      .background(Color.bg)
-      .background(selectedLine?.color)
+      .background(selectedLine?.color ?? Color.bg)
       .cornerRadius(16)
     }
     .padding(.horizontal)
@@ -197,17 +224,28 @@ struct SelectionView: View {
   private var directionSelectionPage: some View {
     VStack(spacing: 10) {
       HStack {
-        Text("어느 방향으로 가시나요?")
+        Text("어느 방향으로 가세요?")
           .askCapsule()
         Spacer()
+
+        Button {
+          withAnimation(customAnimation) {
+            selectionStep = .station
+          }
+        } label: {
+          Image(systemName: "arrow.uturn.left")
+            .askCapsule(bold: false)
+            .tint(.primary)
+        }
+        .buttonStyle(ReactiveButton())
       }
 
-      VStack(spacing: .zero) {
-        HStack(spacing: .zero) {
+      VStack(spacing: 3) {
+        HStack(spacing: 3) {
           // 상행선 1번
           if let upper1 = selectedStation?.upperStationID_1 {
             Button {
-              withAnimation {
+              withAnimation(customAnimation) {
                 directionStationID = upper1
                 selectionStep = .pre
                 confetti += 1
@@ -215,22 +253,21 @@ struct SelectionView: View {
             } label: {
               Text(StationInfo.fetchStationName(from: upper1))
                 .bold()
-                .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(selectedLine?.color ?? Color.bg)
+                .cornerRadius(16)
             }
+            .buttonStyle(ReactiveButton())
           } else {
-            Color.black.opacity(0.5)
+            (selectedLine?.color ?? Color.bg)
+              .opacity(0.5)
+              .cornerRadius(16)
           }
-
-          Rectangle()
-            .trim(from: 0, to: 0.5)
-            .stroke(style: .init(lineWidth: 2, dash: [5]))
-            .frame(width: 2)
 
           // 하행선 1번
           if let lower1 = selectedStation?.lowerStationID_1 {
             Button {
-              withAnimation {
+              withAnimation(customAnimation) {
                 directionStationID = lower1
                 selectionStep = .pre
                 confetti += 1
@@ -238,25 +275,23 @@ struct SelectionView: View {
             } label: {
               Text(StationInfo.fetchStationName(from: lower1))
                 .bold()
-                .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(selectedLine?.color ?? Color.bg)
+                .cornerRadius(16)
             }
+            .buttonStyle(ReactiveButton())
           } else {
-            Color.black.opacity(0.5)
+            (selectedLine?.color ?? Color.bg)
+              .opacity(0.5)
+              .cornerRadius(16)
           }
         }
-
-        Rectangle()
-          .trim(from: 0, to: 0.5)
-          .stroke(style: .init(lineWidth: 2, dash: [5]))
-          .frame(height: 2)
-          .opacity(selectedStation?.upperStationID_2 == nil && selectedStation?.lowerStationID_2 == nil ? 0 : 1)
 
         // 상행선 2번 또는 하행선 2번 (둘 다 존재하는 케이스는 없음)
         Group {
           if let upper2 = selectedStation?.upperStationID_2 {
             Button {
-              withAnimation {
+              withAnimation(customAnimation) {
                 directionStationID = upper2
                 selectionStep = .pre
                 confetti += 1
@@ -264,12 +299,14 @@ struct SelectionView: View {
             } label: {
               Text(StationInfo.fetchStationName(from: upper2))
                 .bold()
-                .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(selectedLine?.color ?? Color.bg)
+                .cornerRadius(16)
             }
+            .buttonStyle(ReactiveButton())
           } else if let lower2 = selectedStation?.lowerStationID_2 {
             Button {
-              withAnimation {
+              withAnimation(customAnimation) {
                 directionStationID = lower2
                 selectionStep = .pre
                 confetti += 1
@@ -277,9 +314,11 @@ struct SelectionView: View {
             } label: {
               Text(StationInfo.fetchStationName(from: lower2))
                 .bold()
-                .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(selectedLine?.color ?? Color.bg)
+                .cornerRadius(16)
             }
+            .buttonStyle(ReactiveButton())
           }
         }
         .frame(maxHeight: UIScreen.main.bounds.height * 0.1)
@@ -287,8 +326,6 @@ struct SelectionView: View {
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .font(.largeTitle)
       .foregroundColor(.white)
-      .background(Color.bg)
-      .background(selectedLine?.color)
       .cornerRadius(16)
       .overlay(alignment: .top) {
         Text(selectedStation?.stationName ?? "")
