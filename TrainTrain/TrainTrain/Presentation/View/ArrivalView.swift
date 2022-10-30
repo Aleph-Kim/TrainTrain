@@ -10,31 +10,27 @@ struct ArrivalView: View {
     let stations = selectedStationInfo.makeThreeStationList(stationInfo: selectedStationInfo, directionStationID: directionStationID)
     targetStation = stations.0
     prevStation = stations.1
-    prevPrevStation = stations.2
   }
   
-  private var firstInfos: [TrainInfo] {
+  private var targetStationTrainInfos: [TrainInfo] {
     trainInfos.filter {
-      $0.previousStationID == targetStation.stationID
+      $0.arrivalState == .approaching ||
+      $0.arrivalState == .arrived ||
+      $0.arrivalState == .departed ||
     }
   }
-  private var secondInfos: [TrainInfo] {
+  private var prevStationTrainInfos: [TrainInfo] {
     trainInfos.filter {
-      $0.previousStationID == prevStation?.stationID
+      $0.arrivalState == .previousApproaching ||
+      $0.arrivalState == .previousArrived ||
+      $0.arrivalState == .previousDeparted ||
     }
   }
-  private var thirdInfos: [TrainInfo] {
-    trainInfos.filter {
-      $0.previousStationID == prevPrevStation?.stationID
-    }
-  }
-  
+
   /// 타겟 역
   private let targetStation: StationInfo
   /// 전 역
   private let prevStation: StationInfo?
-  /// 전전 역
-  private let prevPrevStation: StationInfo?
   
   var body: some View {
     ZStack {
@@ -44,11 +40,9 @@ struct ArrivalView: View {
         VStack(spacing: 0) {
           Spacer()
           HStack {
-            TrackView(trainInfos: thirdInfos)
+            TrackView(trainInfos: prevStationTrainInfos)
               .frame(width: proxy.size.width / 3)
-            TrackView(trainInfos: secondInfos)
-              .frame(width: proxy.size.width / 3)
-            TrackView(trainInfos: firstInfos)
+            TrackView(trainInfos: targetStationTrainInfos)
               .frame(width: proxy.size.width / 3)
           }
           LineView(size: proxy.size)
@@ -59,37 +53,41 @@ struct ArrivalView: View {
     }
     .onAppear {
       let networkManager = NetworkManager()
-      var newTrainInfos: [TrainInfo] = []
       Task {
-        newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: targetStation, directionStationID: directionStationID))
-        newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: prevStation, directionStationID: targetStation.stationID))
-        newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: prevPrevStation, directionStationID: prevStation?.stationID))
-        trainInfos = newTrainInfos
+        // 한 번의 fetch로 진행
+        trainInfos = await networkManager.fetch(targetStation: targetStation, directionStationID: directionStationID)
         print(trainInfos)
       }
       
       Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { _ in
         Task {
-          var newTrainInfos: [TrainInfo] = []
-          newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: targetStation, directionStationID: directionStationID))
-          newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: prevStation, directionStationID: targetStation.stationID))
-          newTrainInfos.append(contentsOf: await networkManager.fetch(targetStation: prevPrevStation, directionStationID: prevStation?.stationID))
-
-          for trainInfo in trainInfos {
-            let _ = newTrainInfos.map { newTrainInfo in
-              if newTrainInfo.id == trainInfo.id {
-                if trainInfo.arrivalState != newTrainInfo.arrivalState {
-                  if let firstIndex = trainInfos.firstIndex(where: {newTrainInfo.id == $0.id}) {
-                    trainInfos[firstIndex] = newTrainInfo
-                  }
+          let newTrainInfos = await networkManager.fetch(targetStation: targetStation, directionStationID: directionStationID)
+          
+          for newTrainInfo in newTrainInfos {
+            let _ = trainInfos.map { oldTrainInfo in
+              
+              // 만약 fetch시 기존 열차의 정보가 없다면, 이미 타겟 역을 지나간 경우이므로, 배열에서 삭제함
+              if !newTrainInfos.contains(where: { $0.id == oldTrainInfo.id }) {
+                if let firstIndex = trainInfos.firstIndex(where: {oldTrainInfo.id == $0.id}) {
+                  trainInfos.remove(at: firstIndex)
                 }
+              }
+              
+              // 만약 fetch시 기존 열차의 정보가 변경되었다면, 이를 View에 반영해야하므로, 대체함
+              if newTrainInfo.id == oldTrainInfo.id
+                  && newTrainInfo.arrivalState != oldTrainInfo.arrivalState {
+                if let firstIndex = trainInfos.firstIndex(where: {newTrainInfo.id == $0.id}) {
+                  trainInfos[firstIndex] = newTrainInfo
+                }
+              } else {
+                // 만약 fetch시 기존 열차의 정보와 다른 정보가 들어있다면, 전역에 새로운 열차가 온 것이므로, 배열에 추가함
+                trainInfos.append(newTrainInfo)
               }
             }
           }
           
-          print(firstInfos)
-          print(secondInfos)
-          print(thirdInfos)
+          print(targetStationTrainInfos)
+          print(prevStationTrainInfos)
         }
       }
     }
