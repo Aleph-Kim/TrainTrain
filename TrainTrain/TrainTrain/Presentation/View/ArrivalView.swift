@@ -86,8 +86,7 @@ struct ArrivalView: View {
             }
           }
           
-          print(targetStationTrainInfos)
-          print(prevStationTrainInfos)
+          print(trainInfos)
         }
       }
     }
