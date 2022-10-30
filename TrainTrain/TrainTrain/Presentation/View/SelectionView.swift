@@ -77,7 +77,7 @@ struct SelectionView: View {
 
             Image(systemName: "arrow.right")
 
-            Text(StationInfo.fetchStationName(from: directionStationID))
+            Text(StationInfo.findStationName(from: directionStationID))
               .colorCapsule(selectedLine.color)
           }
         }
@@ -251,7 +251,7 @@ struct SelectionView: View {
                 confetti += 1
               }
             } label: {
-              Text(StationInfo.fetchStationName(from: upper1))
+              Text(StationInfo.findStationName(from: upper1))
                 .bold()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(selectedLine?.color ?? Color.bg)
@@ -273,7 +273,7 @@ struct SelectionView: View {
                 confetti += 1
               }
             } label: {
-              Text(StationInfo.fetchStationName(from: lower1))
+              Text(StationInfo.findStationName(from: lower1))
                 .bold()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(selectedLine?.color ?? Color.bg)
@@ -297,7 +297,7 @@ struct SelectionView: View {
                 confetti += 1
               }
             } label: {
-              Text(StationInfo.fetchStationName(from: upper2))
+              Text(StationInfo.findStationName(from: upper2))
                 .bold()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(selectedLine?.color ?? Color.bg)
@@ -312,7 +312,7 @@ struct SelectionView: View {
                 confetti += 1
               }
             } label: {
-              Text(StationInfo.fetchStationName(from: lower2))
+              Text(StationInfo.findStationName(from: lower2))
                 .bold()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(selectedLine?.color ?? Color.bg)

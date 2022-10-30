@@ -72,7 +72,7 @@ struct StationInfo: Equatable {
   }
 
   /// 역의 ID 를 통해 역의 이름을 찾아 리턴합니다.
-  static func fetchStationName(from stationID: String) -> String {
+  static func findStationName(from stationID: String) -> String {
     Self.allStationList.first(where: { $0.stationID == stationID })?.stationName ?? ""
   }
     

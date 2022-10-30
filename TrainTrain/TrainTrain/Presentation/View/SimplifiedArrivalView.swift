@@ -33,10 +33,12 @@ struct SimplifiedArrivalView: View {
       ForEach(realtime) { arrivalInfo in
         GroupBox {
           VStack(alignment: .leading) {
+            Text("ID: \(arrivalInfo.id)")
             Text("방향: \(arrivalInfo.trainDestination)")
             Text("ETA: \(arrivalInfo.eta)초 후")
             Text("메시지1: \(arrivalInfo.firstMessage)")
             Text("메시지2: \(arrivalInfo.secondMessage)")
+            Text("도착코드: \(arrivalInfo.arrivalState.rawValue)")
             Text("막차 여부: \(arrivalInfo.trainDestination.contains("막차") ? "⚠️ 막차!" : "false")")
           }
           .font(.footnote)
@@ -83,7 +85,6 @@ struct SimplifiedArrivalView: View {
       defer {
         isLoading = false
         refreshTimer = 10
-        print("🚟🚟🚟 다가오는 최대 2개의 열차 -> \(realtime)")
       }
       realtime = await networkManager.fetchFar(targetStation: target, directionStationID: directionStationID)
     }
