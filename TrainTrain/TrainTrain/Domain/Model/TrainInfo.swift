@@ -51,26 +51,22 @@ struct TrainInfo: Decodable, Identifiable {
     
     id = try container.decode(String.self, forKey: .trainNumber)
 
-    let trainTypeString = try container.decode(String?.self, forKey: .trainType)
-    trainType = convertTrainType(of: trainTypeString)
-      
-      guard let arrivalCodeString = try? container.decode(String.self, forKey: .arrivalCode),
-            let arrivalCode = Int(arrivalCodeString) else {
-          arrivalState = .others
-          return
-      }
-        if (0...2).contains(arrivalCode) {
-            arrivalState = ArrivalState(rawValue: arrivalCode) ?? .others
-        } else {
-            arrivalState = .others
-        }
+    let trainTypeMessage = try container.decode(String?.self, forKey: .trainType)
+    trainType = convertTrainType(of: trainTypeMessage)
 
-    func convertTrainType(of string: String?) -> TrainType {
-      switch string {
+    let arrivalCodeMessage = try container.decode(String.self, forKey: .arrivalCode)
+    arrivalState = convertArrivalState(of: arrivalCodeMessage)
+
+    func convertTrainType(of message: String?) -> TrainType {
+      switch message {
       case "급행": return .express
       case "itx": return .itx
       default: return .normal
       }
+    }
+
+    func convertArrivalState(of message: String) -> ArrivalState {
+      ArrivalState(rawValue: message) ?? .driving
     }
   }
 
@@ -91,11 +87,23 @@ struct TrainInfo: Decodable, Identifiable {
     case arrivalCode = "arvlCd"
     case trainNumber = "btrainNo"
   }
-    
-    enum ArrivalState: Int {
-        case enter = 0
-        case arrival = 1
-        case depart = 2
-        case others = 99
-    }
+
+  enum ArrivalState: String, CaseIterable {
+    /// 0: 진입
+    case approaching = "0"
+    /// 1: 도착
+    case arrived = "1"
+    /// 2: 출발
+    case departed = "2"
+
+    /// 4: 전역 진입
+    case previousApproaching = "4"
+    /// 5: 전역 도착
+    case previousArrived = "5"
+    /// 3: 전역 출발
+    case previousDeparted = "3"
+
+    /// 99: 운행중
+    case driving = "99"
+  }
 }

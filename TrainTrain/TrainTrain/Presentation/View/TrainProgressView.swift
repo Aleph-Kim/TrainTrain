@@ -8,13 +8,13 @@ struct TrainProgressView: View {
     init(arrivalState: TrainInfo.ArrivalState) {
         self.arrivalState = arrivalState
         switch arrivalState {
-        case .enter:
+        case .approaching:
             progressPercentage = 0
             isMovingNow = true
-        case .arrival:
+        case .arrived:
             progressPercentage = 0.5
             isMovingNow = false
-        case .depart:
+        case .departed:
             progressPercentage = 0.5
             isMovingNow = true
         default:
@@ -39,21 +39,21 @@ struct TrainProgressView: View {
             .offset(x: (progressPercentage * proxy.size.width) - 19.5, y: proxy.size.height - 13)
         }
         .onAppear {
-            if arrivalState == .enter {
+            if arrivalState == .approaching {
                 progressPercentage = 0
                 Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
                     if progressPercentage < 0.5 {
                         progressPercentage += 0.015
                     }
                 }
-            } else if arrivalState == .arrival {
+            } else if arrivalState == .arrived {
                 progressPercentage = 0.5
                 Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
                     if progressPercentage <= 0.5 {
                         progressPercentage += 0.015
                     }
                 }
-            } else if arrivalState == .depart {
+            } else if arrivalState == .departed {
                 progressPercentage = 0.5
                 Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
                     if progressPercentage <= 1 {
@@ -72,7 +72,7 @@ struct TrainProgressView_Previews: PreviewProvider {
         ZStack {
             Color.black
             HStack {
-                TrainProgressView(arrivalState: .depart)
+                TrainProgressView(arrivalState: .departed)
                     .foregroundColor(.white)
                     .padding(30)
                     .frame(width: 150, height: 160)
