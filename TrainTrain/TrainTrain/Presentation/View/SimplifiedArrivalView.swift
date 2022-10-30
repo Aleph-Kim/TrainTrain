@@ -30,16 +30,16 @@ struct SimplifiedArrivalView: View {
         }
       }
 
-      ForEach(realtime) { arrivalInfo in
+      ForEach(realtime) { trainInfo in
         GroupBox {
           VStack(alignment: .leading) {
-            Text("ID: \(arrivalInfo.id)")
-            Text("방향: \(arrivalInfo.trainDestination)")
-            Text("ETA: \(arrivalInfo.eta)초 후")
-            Text("메시지1: \(arrivalInfo.firstMessage)")
-            Text("메시지2: \(arrivalInfo.secondMessage)")
-            Text("도착코드: \(arrivalInfo.arrivalState.rawValue)")
-            Text("막차 여부: \(arrivalInfo.trainDestination.contains("막차") ? "⚠️ 막차!" : "false")")
+            Text("ID: \(trainInfo.id)")
+            Text("방향: \(trainInfo.trainDestination)")
+            Text("ETA: \(trainInfo.eta)초 후")
+            Text("메시지1: \(trainInfo.firstMessage)")
+            Text("메시지2: \(trainInfo.secondMessage)")
+            Text("도착코드: \(trainInfo.arrivalState.rawValue) - \(arrivalStateMessage(trainInfo))")
+            Text("막차 여부: \(trainInfo.trainDestination.contains("막차") ? "⚠️ 막차!" : "false")")
           }
           .font(.footnote)
           .padding(.horizontal, 50)
@@ -87,6 +87,18 @@ struct SimplifiedArrivalView: View {
         refreshTimer = 10
       }
       realtime = await networkManager.fetchFar(targetStation: target, directionStationID: directionStationID)
+    }
+  }
+
+  private func arrivalStateMessage(_ trainInfo: TrainInfo) -> String {
+    switch trainInfo.arrivalState {
+    case .approaching: return "진입"
+    case .arrived: return "도착"
+    case .departed: return "출발"
+    case .previousApproaching: return "전역 진입"
+    case .previousArrived: return "전역 도착"
+    case .previousDeparted: return "전역 출발"
+    case .driving: return "운행 중"
     }
   }
 }

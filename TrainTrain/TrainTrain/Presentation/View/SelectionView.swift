@@ -92,6 +92,7 @@ struct SelectionView: View {
 
       Button {
         withAnimation(customAnimation) {
+          selectionStep = .pre
           selectionStep = .lineNumber
         }
       } label: {
@@ -118,6 +119,7 @@ struct SelectionView: View {
 
         Button {
           withAnimation(customAnimation) {
+            selectionStep = .lineNumber
             selectionStep = .pre
           }
         } label: {
@@ -134,6 +136,7 @@ struct SelectionView: View {
             Button {
               withAnimation(customAnimation) {
                 selectedLine = line
+                selectionStep = .lineNumber
                 selectionStep = .station
                 stationList = StationInfo.fetchStationList(of: line)
               }
@@ -168,6 +171,7 @@ struct SelectionView: View {
 
         Button {
           withAnimation(customAnimation) {
+            selectionStep = .station
             selectionStep = .lineNumber
           }
         } label: {
@@ -194,6 +198,7 @@ struct SelectionView: View {
           Button {
             withAnimation(customAnimation) {
               selectedStation = station
+              selectionStep = .station
               selectionStep = .direction
               searchText = ""
               isKeyboardUp = nil // 키보드 내리기
@@ -230,6 +235,7 @@ struct SelectionView: View {
 
         Button {
           withAnimation(customAnimation) {
+            selectionStep = .direction
             selectionStep = .station
           }
         } label: {
@@ -247,6 +253,7 @@ struct SelectionView: View {
             Button {
               withAnimation(customAnimation) {
                 directionStationID = upper1
+                selectionStep = .direction
                 selectionStep = .pre
                 confetti += 1
               }
@@ -269,6 +276,7 @@ struct SelectionView: View {
             Button {
               withAnimation(customAnimation) {
                 directionStationID = lower1
+                selectionStep = .direction
                 selectionStep = .pre
                 confetti += 1
               }
@@ -293,6 +301,7 @@ struct SelectionView: View {
             Button {
               withAnimation(customAnimation) {
                 directionStationID = upper2
+                selectionStep = .direction
                 selectionStep = .pre
                 confetti += 1
               }
@@ -308,6 +317,7 @@ struct SelectionView: View {
             Button {
               withAnimation(customAnimation) {
                 directionStationID = lower2
+                selectionStep = .direction
                 selectionStep = .pre
                 confetti += 1
               }
