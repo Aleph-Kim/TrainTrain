@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TrainProgressView: View {
-  @State var isMovingNow: Bool
+  @State private var isMovingNow: Bool
   @State private var progressPercentage: CGFloat
   let eta: Int
   let arrivalState: TrainInfo.ArrivalState
@@ -51,7 +51,7 @@ struct TrainProgressView: View {
       }
       .offset(x: (progressPercentage * proxy.size.width) - 19.5, y: proxy.size.height - 13)
     }
-    .onReceive(timer, perform: { _ in
+    .onReceive(timer) { _ in
       if arrivalState == .approaching || arrivalState == .previousApproaching {
         isMovingNow = true
         if progressPercentage < 0.25 {
@@ -69,7 +69,7 @@ struct TrainProgressView: View {
           progressPercentage += timerCycle / CGFloat(eta - 10) * 0.75
         }
       }
-    })
+    }
   }
 }
 

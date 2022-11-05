@@ -7,7 +7,7 @@ struct ArrivalView: View {
   @State private var firstMessage_2: String = ""
   @Binding var selectedStationInfo: StationInfo
   @Binding var directionStationID: String
-  let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+  private let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
   
   private var targetStationTrainInfos: [TrainInfo] {
     trainInfos.filter {
@@ -46,8 +46,8 @@ struct ArrivalView: View {
         HStack {
           Rectangle()
             .frame(width: 5, height: 10)
-            .offset(x: proxy.size.width * 0.25 / 2, y:proxy.size.height / 2 + 10)
             .foregroundColor(.white)
+            .offset(x: proxy.size.width * 0.25 / 2, y:proxy.size.height / 2 + 10)
           Rectangle()
             .frame(width: 5, height: 10)
             .foregroundColor(.white)
@@ -68,7 +68,7 @@ struct ArrivalView: View {
       .padding(.horizontal)
       .foregroundColor(.white)
     }
-    .onReceive(timer, perform: { _ in
+    .onReceive(timer) { _ in
       let networkManager = NetworkManager()
       Task {
         // 한 번의 fetch로 진행
@@ -82,13 +82,13 @@ struct ArrivalView: View {
         firstMessage_1 = newTrainInfosOriginal[0].firstMessage
         firstMessage_2 = newTrainInfosOriginal[1].firstMessage
         
-        let newTrainInfos = newTrainInfosOriginal.filter({$0.arrivalState != .driving})
+        let newTrainInfos = newTrainInfosOriginal.filter { $0.arrivalState != .driving }
         
         for newTrainInfo in newTrainInfos {
           let _ = trainInfos.map { oldTrainInfo in
             // 만약 fetch시 기존 열차의 정보가 없다면, 이미 타겟 역을 지나간 경우이므로, 배열에서 삭제함
             if !newTrainInfos.contains(where: { $0.id == oldTrainInfo.id }) {
-              if let firstIndex = trainInfos.firstIndex(where: {oldTrainInfo.id == $0.id}) {
+              if let firstIndex = trainInfos.firstIndex(where: { oldTrainInfo.id == $0.id }) {
                 trainInfos.remove(at: firstIndex)
               }
             }
@@ -100,14 +100,14 @@ struct ArrivalView: View {
             guard oldTrainInfo.id == newTrainInfo.id else { return }
             
             if newTrainInfo.arrivalState != oldTrainInfo.arrivalState {
-              if let firstIndex = trainInfos.firstIndex(where: {newTrainInfo.id == $0.id}) {
+              if let firstIndex = trainInfos.firstIndex(where: { newTrainInfo.id == $0.id }) {
                 trainInfos[firstIndex] = newTrainInfo
               }
             }
           }
         }
       }
-    })
+    }
   }
   
   private func TrackView(trainInfos: [TrainInfo]) -> some View {

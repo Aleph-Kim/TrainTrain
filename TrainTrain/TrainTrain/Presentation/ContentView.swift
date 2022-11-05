@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
   
-  @State private var selectedStation: StationInfo = StationInfo(
+  @State private var selectedStation = StationInfo(
     subwayLineID: "1002",
     stationID: "1002000222",
     stationName: "강남",
