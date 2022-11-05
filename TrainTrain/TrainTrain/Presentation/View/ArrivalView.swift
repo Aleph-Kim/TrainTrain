@@ -79,8 +79,8 @@ struct ArrivalView: View {
       Task {
         let newTrainInfosOriginal = await networkManager.fetch(targetStation: selectedStationInfo, directionStationID: directionStationID)
         
-        firstMessage_1 = newTrainInfosOriginal[0].firstMessage
-        firstMessage_2 = newTrainInfosOriginal[1].firstMessage
+        firstMessage_1 = newTrainInfosOriginal[safe: 0]?.firstMessage ?? ""
+        firstMessage_2 = newTrainInfosOriginal[safe: 1]?.firstMessage ?? ""
         
         let newTrainInfos = newTrainInfosOriginal.filter { $0.arrivalState != .driving }
         

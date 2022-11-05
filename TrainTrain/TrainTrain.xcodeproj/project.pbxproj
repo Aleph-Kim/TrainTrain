@@ -29,6 +29,7 @@
 		CC15FCE12904BE4400A0ECE5 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC15FCE02904BE4400A0ECE5 /* Triangle.swift */; };
 		CC37AE0128F2972E009190D0 /* TrainProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC37AE0028F2972E009190D0 /* TrainProgressView.swift */; };
 		CC40B97C28E9736100F784A7 /* ArrivalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC40B97B28E9736100F784A7 /* ArrivalView.swift */; };
+		CC83436929172782009F411F /* Array+safeExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC83436829172782009F411F /* Array+safeExport.swift */; };
 		CF137AB728CDA8A10022B6AF /* TrainTrainApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */; };
 		CF137AB928CDA8A10022B6AF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF137AB828CDA8A10022B6AF /* ContentView.swift */; };
 		CF137ABB28CDA8A20022B6AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF137ABA28CDA8A20022B6AF /* Assets.xcassets */; };
@@ -58,6 +59,7 @@
 		CC15FCE02904BE4400A0ECE5 /* Triangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
 		CC37AE0028F2972E009190D0 /* TrainProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainProgressView.swift; sourceTree = "<group>"; };
 		CC40B97B28E9736100F784A7 /* ArrivalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrivalView.swift; sourceTree = "<group>"; };
+		CC83436829172782009F411F /* Array+safeExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+safeExport.swift"; sourceTree = "<group>"; };
 		CF137AB328CDA8A10022B6AF /* TrainTrain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrainTrain.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainTrainApp.swift; sourceTree = "<group>"; };
 		CF137AB828CDA8A10022B6AF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				C1F91BCE28CEF55700FC8DE9 /* Color+subwayLines.swift */,
 				C1D22DF328F29C0B00BE3368 /* String+cleaned.swift */,
 				C1D22DFD28F2CCAC00BE3368 /* Comparable+clamped.swift */,
+				CC83436829172782009F411F /* Array+safeExport.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 				CC15FCE12904BE4400A0ECE5 /* Triangle.swift in Sources */,
 				C1F91BD428CEF80600FC8DE9 /* SubwayLine.swift in Sources */,
 				C18E716E28CDCD57000C9BA5 /* APIError.swift in Sources */,
+				CC83436929172782009F411F /* Array+safeExport.swift in Sources */,
 				C18E716A28CDBD24000C9BA5 /* TrainType.swift in Sources */,
 				CF137AB728CDA8A10022B6AF /* TrainTrainApp.swift in Sources */,
 				C1E04BBC28E9AEC600FAD6D1 /* StationInfo.swift in Sources */,
