@@ -16,7 +16,6 @@ struct NetworkManager {
       let filteredList = arrivalInfo.realtimeArrivalList.filter {
         // 운행 중(99)인 열차 제외
         $0.trainDestination.contains(StationInfo.findStationName(from: directionStationID))
-          && $0.arrivalState != .driving
       }
       return filteredList
     } catch {

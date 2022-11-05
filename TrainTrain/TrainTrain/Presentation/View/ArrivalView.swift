@@ -3,6 +3,8 @@ import SwiftUI
 struct ArrivalView: View {
   
   @State private var trainInfos: [TrainInfo] = []
+  @State private var firstMessage_1: String = ""
+  @State private var firstMessage_2: String = ""
   @Binding var selectedStationInfo: StationInfo
   @Binding var directionStationID: String
   let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
@@ -52,6 +54,19 @@ struct ArrivalView: View {
             .offset(x: proxy.size.width * 1.25 / 2, y:proxy.size.height / 2 + 10)
         }
       }
+      HStack {
+        Spacer()
+        VStack(alignment: .trailing) {
+          Text(firstMessage_2)
+            .font(.caption2)
+          Text(firstMessage_1)
+            .font(.caption)
+          Spacer()
+        }
+        .padding(.top)
+      }
+      .padding(.horizontal)
+      .foregroundColor(.white)
     }
     .onReceive(timer, perform: { _ in
       let networkManager = NetworkManager()
@@ -62,7 +77,12 @@ struct ArrivalView: View {
       }
       
       Task {
-        let newTrainInfos = await networkManager.fetch(targetStation: selectedStationInfo, directionStationID: directionStationID)
+        let newTrainInfosOriginal = await networkManager.fetch(targetStation: selectedStationInfo, directionStationID: directionStationID)
+        
+        firstMessage_1 = newTrainInfosOriginal[0].firstMessage
+        firstMessage_2 = newTrainInfosOriginal[1].firstMessage
+        
+        let newTrainInfos = newTrainInfosOriginal.filter({$0.arrivalState != .driving})
         
         for newTrainInfo in newTrainInfos {
           let _ = trainInfos.map { oldTrainInfo in
