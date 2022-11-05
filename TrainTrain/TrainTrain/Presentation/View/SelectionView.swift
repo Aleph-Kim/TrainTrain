@@ -3,8 +3,8 @@ import ConfettiSwiftUI
 
 struct SelectionView: View {
 
-  @Binding var selectedStation: StationInfo?
-  @Binding var directionStationID: String?
+  @Binding var selectedStation: StationInfo
+  @Binding var directionStationID: String
 
   @State private var selectionStep: SelectionStep = .pre
   @State private var selectedLine: SubwayLine?
@@ -249,7 +249,7 @@ struct SelectionView: View {
       VStack(spacing: 3) {
         HStack(spacing: 3) {
           // 상행선 1번
-          if let upper1 = selectedStation?.upperStationID_1 {
+          if let upper1 = selectedStation.upperStationID_1 {
             Button {
               withAnimation(customAnimation) {
                 directionStationID = upper1
@@ -272,7 +272,7 @@ struct SelectionView: View {
           }
 
           // 하행선 1번
-          if let lower1 = selectedStation?.lowerStationID_1 {
+          if let lower1 = selectedStation.lowerStationID_1 {
             Button {
               withAnimation(customAnimation) {
                 directionStationID = lower1
@@ -297,7 +297,7 @@ struct SelectionView: View {
 
         // 상행선 2번 또는 하행선 2번 (둘 다 존재하는 케이스는 없음)
         Group {
-          if let upper2 = selectedStation?.upperStationID_2 {
+          if let upper2 = selectedStation.upperStationID_2 {
             Button {
               withAnimation(customAnimation) {
                 directionStationID = upper2
@@ -313,7 +313,7 @@ struct SelectionView: View {
                 .cornerRadius(16)
             }
             .buttonStyle(ReactiveButton())
-          } else if let lower2 = selectedStation?.lowerStationID_2 {
+          } else if let lower2 = selectedStation.lowerStationID_2 {
             Button {
               withAnimation(customAnimation) {
                 directionStationID = lower2
@@ -338,7 +338,7 @@ struct SelectionView: View {
       .foregroundColor(.white)
       .cornerRadius(16)
       .overlay(alignment: .top) {
-        Text(selectedStation?.stationName ?? "")
+        Text(selectedStation.stationName ?? "")
           .bold()
           .foregroundColor(.black)
           .padding(.horizontal, 20)

@@ -2,10 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
   
-  @State private var selectedStation: StationInfo?
-  @State private var directionStationID: String?
-  
-  let placeHolder = StationInfo(
+  @State private var selectedStation: StationInfo = StationInfo(
     subwayLineID: "1002",
     stationID: "1002000222",
     stationName: "강남",
@@ -18,20 +15,15 @@ struct ContentView: View {
     upperStationID_2: "",
     upperStationETA_2: "")
 
+  @State private var directionStationID: String = "1002000221"
+
   var body: some View {
 
     ScrollView {
-      if let selectedStation, let directionStationID {
-        ArrivalView(selectedStationInfo: selectedStation, directionStationID: directionStationID)
-          .frame(maxWidth: .infinity)
-          .frame(height: 200)
-          .padding()
-      } else {
-        ArrivalView(selectedStationInfo: placeHolder, directionStationID: "1002000221")
-          .frame(maxWidth: .infinity)
-          .frame(height: 200)
-          .padding()
-      }
+      ArrivalView(selectedStationInfo: $selectedStation, directionStationID: $directionStationID)
+        .frame(maxWidth: .infinity)
+        .frame(height: 200)
+        .padding()
 
       SimplifiedArrivalView(
         selectedStation: $selectedStation,

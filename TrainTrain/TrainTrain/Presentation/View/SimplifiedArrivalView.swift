@@ -2,8 +2,8 @@ import SwiftUI
 
 struct SimplifiedArrivalView: View {
 
-  @Binding var selectedStation: StationInfo?
-  @Binding var directionStationID: String?
+  @Binding var selectedStation: StationInfo
+  @Binding var directionStationID: String
 
   @State private var realtime: [TrainInfo] = []
   @State private var isLoading: Bool = false

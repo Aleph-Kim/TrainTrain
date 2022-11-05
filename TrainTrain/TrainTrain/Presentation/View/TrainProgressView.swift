@@ -3,7 +3,8 @@ import SwiftUI
 struct TrainProgressView: View {
   private let isMovingNow: Bool
   @State private var progressPercentage: CGFloat
-  @State var arrivalState: TrainInfo.ArrivalState
+  let arrivalState: TrainInfo.ArrivalState
+  let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
   
   init(arrivalState: TrainInfo.ArrivalState) {
     self.arrivalState = arrivalState
@@ -51,30 +52,21 @@ struct TrainProgressView: View {
         .foregroundColor(.white)
         .offset(x:proxy.size.width * 0.25, y: proxy.size.height)
     }
-    .onAppear {
+    .onReceive(timer, perform: { _ in
       if arrivalState == .approaching || arrivalState == .previousApproaching {
-        progressPercentage = 0
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-          if progressPercentage < 0.25 {
-            progressPercentage += 0.015
-          }
+        if progressPercentage < 0.25 {
+          progressPercentage += 0.015
         }
       } else if arrivalState == .arrived || arrivalState == .previousArrived {
-        progressPercentage = 0.25
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-          if progressPercentage <= 0.25 {
-            progressPercentage += 0.015
-          }
+        if progressPercentage <= 0.25 {
+          progressPercentage += 0.015
         }
       } else if arrivalState == .departed || arrivalState == .previousDeparted {
-        progressPercentage = 0.25
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-          if progressPercentage <= 1 {
-            progressPercentage += 0.015
-          }
+        if progressPercentage <= 1 {
+          progressPercentage += 0.015
         }
       }
-    }
+    })
   }
 }
 
@@ -91,6 +83,5 @@ struct TrainProgressView_Previews: PreviewProvider {
           .frame(width: 150, height: 160)
       }
     }
-    
   }
 }
