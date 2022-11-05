@@ -40,6 +40,18 @@ struct ArrivalView: View {
             .offset(y: 5)
         }
       }
+      GeometryReader { proxy in
+        HStack {
+          Rectangle()
+            .frame(width: 5, height: 10)
+            .offset(x: proxy.size.width * 0.25 / 2, y:proxy.size.height / 2 + 10)
+            .foregroundColor(.white)
+          Rectangle()
+            .frame(width: 5, height: 10)
+            .foregroundColor(.white)
+            .offset(x: proxy.size.width * 1.25 / 2, y:proxy.size.height / 2 + 10)
+        }
+      }
     }
     .onReceive(timer, perform: { _ in
       let networkManager = NetworkManager()
@@ -81,7 +93,7 @@ struct ArrivalView: View {
   private func TrackView(trainInfos: [TrainInfo]) -> some View {
     ZStack {
       ForEach(trainInfos) { trainInfo in
-        TrainProgressView(arrivalState: trainInfo.arrivalState)
+        TrainProgressView(arrivalState: trainInfo.arrivalState, eta: Int(trainInfo.eta)!)
           .foregroundColor(.white)
       }
       Spacer()
@@ -101,7 +113,7 @@ struct ArrivalView: View {
 
 //struct ArrivalView_Previews: PreviewProvider {
 //  static var previews: some View {
-//    
+//
 //    let stationInfo = StationInfo(
 //      subwayLineID: "1002",
 //      stationID: "1002000222",
