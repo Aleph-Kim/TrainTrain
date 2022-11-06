@@ -16,12 +16,27 @@ struct ArrivalView: View {
       $0.arrivalState == .departed
     }
   }
+
   private var prevStationTrainInfos: [TrainInfo] {
     trainInfos.filter {
       $0.arrivalState == .previousApproaching ||
       $0.arrivalState == .previousArrived ||
       $0.arrivalState == .previousDeparted
     }
+  }
+
+  private var previousStationID: String {
+    if [selectedStationInfo.upperStationID_1, selectedStationInfo.upperStationID_2].contains(directionStationID) { // 상행 확인
+      if let lower1 = selectedStationInfo.lowerStationID_1 { // 이전역이 있다면
+        return lower1
+      }
+    } else if [selectedStationInfo.lowerStationID_1, selectedStationInfo.lowerStationID_2].contains(directionStationID) { // 하행 확인
+      if let upper1 = selectedStationInfo.upperStationID_1 { // 이전역이 있다면
+        return upper1
+      }
+    }
+
+    return ""
   }
   
   var body: some View {
@@ -44,15 +59,22 @@ struct ArrivalView: View {
       }
       GeometryReader { proxy in
         HStack {
-          Rectangle()
-            .frame(width: 5, height: 10)
-            .foregroundColor(.white)
-            .offset(x: proxy.size.width * 0.25 / 2, y:proxy.size.height / 2 + 10)
-          Rectangle()
-            .frame(width: 5, height: 10)
-            .foregroundColor(.white)
-            .offset(x: proxy.size.width * 1.25 / 2, y:proxy.size.height / 2 + 10)
+          VStack(spacing: 2) {
+            Rectangle()
+              .frame(width: 5, height: 10)
+            Text(StationInfo.findStationName(from: previousStationID) + "역")
+          }
+          .offset(x: proxy.size.width * 0.25 / 2, y: proxy.size.height / 2 + 10)
+
+          VStack(spacing: 2) {
+            Rectangle()
+              .frame(width: 5, height: 10)
+            Text(selectedStationInfo.stationName + "역")
+          }
+          .offset(x: proxy.size.width * 1.25 / 2, y: proxy.size.height / 2 + 10)
         }
+        .font(.caption)
+        .foregroundColor(.white)
       }
       HStack {
         Spacer()

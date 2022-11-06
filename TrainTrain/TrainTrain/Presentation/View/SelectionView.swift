@@ -96,7 +96,7 @@ struct SelectionView: View {
           selectionStep = .lineNumber
         }
       } label: {
-        Text(selectedStation == nil ? "선택 시작 →" : "다시 선택하기 →")
+        Text("선택 시작 →")
           .font(.title3)
           .frame(maxWidth: .infinity)
       }
@@ -338,7 +338,7 @@ struct SelectionView: View {
       .foregroundColor(.white)
       .cornerRadius(16)
       .overlay(alignment: .top) {
-        Text(selectedStation.stationName ?? "")
+        Text(selectedStation.stationName)
           .bold()
           .foregroundColor(.black)
           .padding(.horizontal, 20)
