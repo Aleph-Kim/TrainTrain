@@ -1,11 +1,15 @@
 import SwiftUI
 
 struct TrainProgressView: View {
-  private let isMovingNow: Bool
+  @State private var isMovingNow: Bool
   @State private var progressPercentage: CGFloat
-  @State var arrivalState: TrainInfo.ArrivalState
+  let eta: Int
+  let arrivalState: TrainInfo.ArrivalState
+  let timerCycle: CGFloat = 0.1
+  let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
   
-  init(arrivalState: TrainInfo.ArrivalState) {
+  init(arrivalState: TrainInfo.ArrivalState, eta: Int) {
+    self.eta = eta
     self.arrivalState = arrivalState
     switch arrivalState {
     case .approaching:
@@ -46,32 +50,23 @@ struct TrainProgressView: View {
           .opacity(isMovingNow ? 1.0 : 0.0)
       }
       .offset(x: (progressPercentage * proxy.size.width) - 19.5, y: proxy.size.height - 13)
-      Rectangle()
-        .frame(width: 5, height: 10)
-        .foregroundColor(.white)
-        .offset(x:proxy.size.width * 0.25, y: proxy.size.height)
     }
-    .onAppear {
+    .onReceive(timer) { _ in
       if arrivalState == .approaching || arrivalState == .previousApproaching {
-        progressPercentage = 0
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-          if progressPercentage < 0.25 {
-            progressPercentage += 0.015
-          }
+        isMovingNow = true
+        if progressPercentage < 0.25 {
+          progressPercentage += timerCycle / 15 * 0.25
         }
       } else if arrivalState == .arrived || arrivalState == .previousArrived {
-        progressPercentage = 0.25
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-          if progressPercentage <= 0.25 {
-            progressPercentage += 0.015
-          }
+        if progressPercentage <= 0.25 {
+          progressPercentage += timerCycle / 15 * 0.25
+        } else {
+          isMovingNow = false
         }
       } else if arrivalState == .departed || arrivalState == .previousDeparted {
-        progressPercentage = 0.25
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-          if progressPercentage <= 1 {
-            progressPercentage += 0.015
-          }
+        isMovingNow = true
+        if progressPercentage <= 1 {
+          progressPercentage += timerCycle / CGFloat(eta - 10) * 0.75
         }
       }
     }
@@ -85,12 +80,11 @@ struct TrainProgressView_Previews: PreviewProvider {
     ZStack {
       Color.black
       HStack {
-        TrainProgressView(arrivalState: .departed)
+        TrainProgressView(arrivalState: .departed, eta: 10)
           .foregroundColor(.white)
           .padding(30)
           .frame(width: 150, height: 160)
       }
     }
-    
   }
 }

@@ -8,15 +8,21 @@ struct StationInfo: Equatable {
   let stationID: String
   /// 지하철역명
   let stationName: String
-  /// 하행 지하철역 ID
+  /// 하행 방향의 첫 번째 지하철역 ID
   let lowerStationID_1: String?
+  /// 하행 방향의 첫 번째 지하철역 까지의 예상 소요 시간 (초) - 네이버 지도 기준
   let lowerStationETA_1: Int?
+  /// 하행 방향의 두 번째 지하철역 ID (ex. 1호선 구로역, 2호선 성수역, 신도림역, 5호선 강동역, 6호선 응암역)
   let lowerStationID_2: String?
+  /// 하행 방향의 두 번째 지하철역 까지의 예상 소요 시간 (초) - 네이버 지도 기준
   let lowerStationETA_2: Int?
-  /// 상행 지하철역 ID
+  /// 상행 방향의 첫 번째 지하철역 ID
   let upperStationID_1: String?
+  /// 상행 방향의 첫 번째 지하철역 까지의 예상 소요 시간 (초) - 네이버 지도 기준
   let upperStationETA_1: Int?
+  /// 상행 방향의 두 번째 지하철역 ID (221023 DB 기준으로 존재하지 않음)
   let upperStationID_2: String?
+  /// 상행 방향의 두 번째 지하철역 까지의 예상 소요 시간 (초) - 네이버 지도 기준
   let upperStationETA_2: Int?
 
   init(subwayLineID: Any,

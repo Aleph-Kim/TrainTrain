@@ -3,14 +3,11 @@ import SwiftUI
 struct ArrivalView: View {
   
   @State private var trainInfos: [TrainInfo] = []
-  private var directionStationID: String
-  
-  init(selectedStationInfo: StationInfo, directionStationID: String) {
-    self.directionStationID = directionStationID
-    let stations = selectedStationInfo.makeThreeStationList(stationInfo: selectedStationInfo, directionStationID: directionStationID)
-    targetStation = stations.0
-    prevStation = stations.1
-  }
+  @State private var firstMessage_1: String = ""
+  @State private var firstMessage_2: String = ""
+  @Binding var selectedStationInfo: StationInfo
+  @Binding var directionStationID: String
+  private let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
   
   private var targetStationTrainInfos: [TrainInfo] {
     trainInfos.filter {
@@ -26,11 +23,6 @@ struct ArrivalView: View {
       $0.arrivalState == .previousDeparted
     }
   }
-
-  /// 타겟 역
-  private let targetStation: StationInfo
-  /// 전 역
-  private let prevStation: StationInfo?
   
   var body: some View {
     ZStack {
@@ -50,43 +42,69 @@ struct ArrivalView: View {
             .offset(y: 5)
         }
       }
+      GeometryReader { proxy in
+        HStack {
+          Rectangle()
+            .frame(width: 5, height: 10)
+            .foregroundColor(.white)
+            .offset(x: proxy.size.width * 0.25 / 2, y:proxy.size.height / 2 + 10)
+          Rectangle()
+            .frame(width: 5, height: 10)
+            .foregroundColor(.white)
+            .offset(x: proxy.size.width * 1.25 / 2, y:proxy.size.height / 2 + 10)
+        }
+      }
+      HStack {
+        Spacer()
+        VStack(alignment: .trailing) {
+          Text(firstMessage_2)
+            .font(.caption2)
+          Text(firstMessage_1)
+            .font(.caption)
+          Spacer()
+        }
+        .padding(.top)
+      }
+      .padding(.horizontal)
+      .foregroundColor(.white)
     }
-    .onAppear {
+    .onReceive(timer) { _ in
       let networkManager = NetworkManager()
       Task {
         // 한 번의 fetch로 진행
-        trainInfos = await networkManager.fetch(targetStation: targetStation, directionStationID: directionStationID)
+        trainInfos = await networkManager.fetch(targetStation: selectedStationInfo, directionStationID: directionStationID)
         print(trainInfos)
       }
       
-      Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { _ in
-        Task {
-          let newTrainInfos = await networkManager.fetch(targetStation: targetStation, directionStationID: directionStationID)
-          
-          for newTrainInfo in newTrainInfos {
-            let _ = trainInfos.map { oldTrainInfo in
-              
-              // 만약 fetch시 기존 열차의 정보가 없다면, 이미 타겟 역을 지나간 경우이므로, 배열에서 삭제함
-              if !newTrainInfos.contains(where: { $0.id == oldTrainInfo.id }) {
-                if let firstIndex = trainInfos.firstIndex(where: {oldTrainInfo.id == $0.id}) {
-                  trainInfos.remove(at: firstIndex)
-                }
+      Task {
+        let newTrainInfosOriginal = await networkManager.fetch(targetStation: selectedStationInfo, directionStationID: directionStationID)
+        
+        firstMessage_1 = newTrainInfosOriginal[safe: 0]?.firstMessage ?? ""
+        firstMessage_2 = newTrainInfosOriginal[safe: 1]?.firstMessage ?? ""
+        
+        let newTrainInfos = newTrainInfosOriginal.filter { $0.arrivalState != .driving }
+        
+        for newTrainInfo in newTrainInfos {
+          let _ = trainInfos.map { oldTrainInfo in
+            // 만약 fetch시 기존 열차의 정보가 없다면, 이미 타겟 역을 지나간 경우이므로, 배열에서 삭제함
+            if !newTrainInfos.contains(where: { $0.id == oldTrainInfo.id }) {
+              if let firstIndex = trainInfos.firstIndex(where: { oldTrainInfo.id == $0.id }) {
+                trainInfos.remove(at: firstIndex)
               }
-              
-              // 만약 fetch시 기존 열차의 정보가 변경되었다면, 이를 View에 반영해야하므로, 대체함
-              if newTrainInfo.id == oldTrainInfo.id
-                  && newTrainInfo.arrivalState != oldTrainInfo.arrivalState {
-                if let firstIndex = trainInfos.firstIndex(where: {newTrainInfo.id == $0.id}) {
-                  trainInfos[firstIndex] = newTrainInfo
-                }
-              } else if newTrainInfo.id != oldTrainInfo.id {
-                // 만약 fetch시 기존 열차의 정보와 다른 정보가 들어있다면, 전역에 새로운 열차가 온 것이므로, 배열에 추가함
-                trainInfos.append(newTrainInfo)
+            }
+            
+            if !trainInfos.contains(where: { $0.id == newTrainInfo.id }) {
+              trainInfos.append(newTrainInfo)
+            }
+            
+            guard oldTrainInfo.id == newTrainInfo.id else { return }
+            
+            if newTrainInfo.arrivalState != oldTrainInfo.arrivalState {
+              if let firstIndex = trainInfos.firstIndex(where: { newTrainInfo.id == $0.id }) {
+                trainInfos[firstIndex] = newTrainInfo
               }
             }
           }
-          
-          print(trainInfos)
         }
       }
     }
@@ -95,7 +113,7 @@ struct ArrivalView: View {
   private func TrackView(trainInfos: [TrainInfo]) -> some View {
     ZStack {
       ForEach(trainInfos) { trainInfo in
-        TrainProgressView(arrivalState: trainInfo.arrivalState)
+        TrainProgressView(arrivalState: trainInfo.arrivalState, eta: Int(trainInfo.eta)!)
           .foregroundColor(.white)
       }
       Spacer()
@@ -113,24 +131,24 @@ struct ArrivalView: View {
 
 // MARK: SwiftUI previews
 
-struct ArrivalView_Previews: PreviewProvider {
-  static var previews: some View {
-    
-    let stationInfo = StationInfo(
-      subwayLineID: "1002",
-      stationID: "1002000222",
-      stationName: "강남",
-      lowerStationID_1: "1002000223",
-      lowerStationETA_1: 60,
-      lowerStationID_2: "",
-      lowerStationETA_2: "",
-      upperStationID_1: "1002000221",
-      upperStationETA_1: 60,
-      upperStationID_2: "",
-      upperStationETA_2: "")
-
-    ArrivalView(selectedStationInfo: stationInfo, directionStationID: stationInfo.lowerStationID_1!)
-      .frame(height: 160)
-      .padding(.horizontal)
-  }
-}
+//struct ArrivalView_Previews: PreviewProvider {
+//  static var previews: some View {
+//
+//    let stationInfo = StationInfo(
+//      subwayLineID: "1002",
+//      stationID: "1002000222",
+//      stationName: "강남",
+//      lowerStationID_1: "1002000223",
+//      lowerStationETA_1: 60,
+//      lowerStationID_2: "",
+//      lowerStationETA_2: "",
+//      upperStationID_1: "1002000221",
+//      upperStationETA_1: 60,
+//      upperStationID_2: "",
+//      upperStationETA_2: "")
+//
+//    ArrivalView(selectedStationInfo: stationInfo, directionStationID: stationInfo.lowerStationID_1!)
+//      .frame(height: 160)
+//      .padding(.horizontal)
+//  }
+//}
