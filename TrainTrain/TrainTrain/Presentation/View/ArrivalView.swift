@@ -58,13 +58,17 @@ struct ArrivalView: View {
         }
       }
       GeometryReader { proxy in
-        HStack {
+        HStack(spacing: .zero) {
           VStack(spacing: 2) {
             Rectangle()
               .frame(width: 5, height: 10)
             Text(StationInfo.findStationName(from: previousStationID) + "역")
           }
           .offset(x: proxy.size.width * 0.25 / 2, y: proxy.size.height / 2 + 10)
+
+          Image(systemName: "chevron.right.2")
+            .fontWeight(.heavy)
+            .offset(x: proxy.size.width * 0.75 / 2, y: proxy.size.height / 2 - 4)
 
           VStack(spacing: 2) {
             Rectangle()
@@ -75,13 +79,14 @@ struct ArrivalView: View {
         }
         .font(.caption)
         .foregroundColor(.white)
+        .animation(nil, value: UUID())
       }
       HStack {
         Spacer()
         VStack(alignment: .trailing) {
-          Text(firstMessage_2)
+          Text(firstMessage_2.isEmpty ? "-" : "다다음 열차: " + firstMessage_2)
             .font(.caption2)
-          Text(firstMessage_1)
+          Text(firstMessage_1.isEmpty ? "-" : "다음 열차: " + firstMessage_1)
             .font(.caption)
           Spacer()
         }
