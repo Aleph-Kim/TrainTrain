@@ -1,10 +1,3 @@
-//
-//  Triangle.swift
-//  TrainTrain
-//
-//  Created by daco daco on 2022/10/23.
-//
-
 import SwiftUI
 
 struct Triangle: Shape {

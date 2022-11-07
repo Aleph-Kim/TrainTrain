@@ -11,7 +11,7 @@ struct HalfCapsule: View {
       .cornerRadius(.infinity, corners: .topLeft)
       .cornerRadius(.infinity, corners: .bottomLeft)
       .overlay(alignment: .leading) {
-        Text(line.rawValue)
+        Text(line.name)
           .foregroundColor(.black)
           .bold()
           .padding(.horizontal, 10)

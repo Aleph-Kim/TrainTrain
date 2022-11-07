@@ -68,7 +68,7 @@ struct SelectionView: View {
         Spacer()
 
         VStack(alignment: .leading, spacing: 4) {
-          Text(selectedLine.rawValue)
+          Text(selectedLine.name)
             .colorCapsule(selectedLine.color)
 
           HStack {
@@ -160,7 +160,7 @@ struct SelectionView: View {
     VStack(spacing: 10) {
       HStack {
         if let selectedLine {
-          Text(selectedLine.rawValue)
+          Text(selectedLine.name)
             .colorCapsule(selectedLine.color)
         }
 
