@@ -7,7 +7,7 @@ struct SimplifiedArrivalView: View {
 
   @State private var realtime: [TrainInfo] = []
   @State private var isLoading: Bool = false
-  @State private var refreshTimer = 10
+  @State private var refreshTimer = 5
 
   private let networkManager = NetworkManager()
   private let timer = Timer.publish(every: 1 , on: .main, in: .common).autoconnect()
@@ -36,6 +36,8 @@ struct SimplifiedArrivalView: View {
             Text("ID: \(trainInfo.id)")
             Text("방향: \(trainInfo.trainDestination)")
             Text("ETA: \(trainInfo.eta)초 후")
+              .fontWeight(.bold)
+              .foregroundColor(.blue)
             Text("메시지1: \(trainInfo.firstMessage)")
             Text("메시지2: \(trainInfo.secondMessage)")
             Text("도착코드: \(trainInfo.arrivalState.rawValue) - \(arrivalStateMessage(trainInfo))")
@@ -84,9 +86,9 @@ struct SimplifiedArrivalView: View {
       isLoading = true
       defer {
         isLoading = false
-        refreshTimer = 10
+        refreshTimer = 5
       }
-      realtime = await networkManager.fetchFar(targetStation: target, directionStationID: directionStationID)
+      realtime = await networkManager.fetch(targetStation: target, directionStationID: directionStationID)
     }
   }
 
