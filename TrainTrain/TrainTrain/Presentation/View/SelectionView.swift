@@ -212,7 +212,6 @@ struct SelectionView: View {
             }
           }
           .listRowInsets(.init(top: .zero, leading: 7, bottom: .zero, trailing: 16))
-          .listRowBackground(Color.bg)
         }
         .listStyle(.plain)
         .cornerRadius(10)
