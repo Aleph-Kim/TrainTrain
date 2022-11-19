@@ -35,6 +35,11 @@ struct SimplifiedArrivalView: View {
               Text("메시지2: \(trainInfo.secondMessage)")
               Text("도착코드: \(trainInfo.arrivalState.rawValue) - \(arrivalStateMessage(trainInfo))")
               Text("막차 여부: \(trainInfo.trainDestination.contains("막차") ? "⚠️ 막차!" : "false")")
+            } else if !trainInfo.trainDestination.contains(StationInfo.findStationName(from: directionStationID)), trainInfo.firstMessage.contains("도착") {
+              Text("🏁 \(selectedStation.stationName)역에 도착했습니다.")
+                .foregroundColor(.blue)
+              Text("ID: \(trainInfo.id)")
+                .fontWeight(.bold)
             } else {
               Text("⚠️ \(selectedStation.stationName)역을 이미 떠난 열차입니다.")
                 .foregroundColor(.red)
