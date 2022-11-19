@@ -6,7 +6,6 @@ struct NewArrivalView: View {
   @Binding var directionStationID: String
 
   @State private var trainInfos: [TrainInfo] = []
-  @State private var eta: Int?
 
   private let timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
   private let networkManager = NetworkManager()
@@ -34,9 +33,10 @@ struct NewArrivalView: View {
         }
 
         ForEach(trainInfos) { trainInfo in
-          NewTrainProgressView(trainInfo: trainInfo,
-                               targetStation: selectedStationInfo,
-                               directionStationID: directionStationID)
+          NewTrainProgressView(
+            trainInfo: trainInfo,
+            targetStation: selectedStationInfo,
+            directionStationID: directionStationID)
         }
       }
       .frame(height: 15)
@@ -44,9 +44,9 @@ struct NewArrivalView: View {
     }
     .onAppear {
       Task {
-        trainInfos = await networkManager.fetch(targetStation: selectedStationInfo,
-                                                directionStationID: directionStationID)
-        
+        trainInfos = await networkManager.fetch(
+          targetStation: selectedStationInfo,
+          directionStationID: directionStationID)
       }
     }
   }

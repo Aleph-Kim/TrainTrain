@@ -29,7 +29,7 @@ struct NewTrainProgressView: View {
     GeometryReader { proxy in
       let width = proxy.size.width
       let xOffset = width * (1 - remainDistance / 100)
-      
+
       Circle()
         .frame(width: 15, height: 15)
         .foregroundColor(.yellow)
@@ -37,7 +37,7 @@ struct NewTrainProgressView: View {
         .onReceive(refreshingTimer) { _ in
           Task {
             guard let newTrainInfo = await networkManager.fetch(targetStation: targetStation, directionStationID: directionStationID).filter({ $0.id == trainInfo.id }).first else { return }
-            
+
             eta = Int(newTrainInfo.eta)!
             distancePerTic = remainDistance / CGFloat(eta)
           }
