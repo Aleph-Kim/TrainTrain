@@ -66,6 +66,9 @@ struct NewArrivalView: View {
         trainInfos = await networkManager.fetch(
           targetStation: selectedStationInfo,
           directionStationID: directionStationID)
+        .filter {
+          $0.secondMessage != selectedStationInfo.stationName
+        }
       }
     }
   }

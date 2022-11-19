@@ -27,13 +27,13 @@ struct NewTrainProgressView: View {
 
   var body: some View {
     GeometryReader { proxy in
-      let width = proxy.size.width
+      let width = proxy.size.width - 15
       let xOffset = width * (1 - remainDistance / 100)
 
       Circle()
         .frame(width: 15, height: 15)
         .foregroundColor(.yellow)
-        .offset(x: xOffset - 7.5)
+        .offset(x: xOffset)
         .onReceive(refreshingTimer) { _ in
           Task {
             guard let newTrainInfo = await networkManager.fetch(targetStation: targetStation, directionStationID: directionStationID).filter({ $0.id == trainInfo.id }).first else { return }
@@ -49,8 +49,8 @@ struct NewTrainProgressView: View {
             eta -= 1
           }
           
-          if remainDistance > 0 {
-            remainDistance -= distancePerTic
+          if remainDistance < 1 {
+            remainDistance = 0
           }
         }
     }
@@ -81,7 +81,7 @@ struct NewTrainProgressView_Previews: PreviewProvider {
       stationID: "1002000222",
       stationName: "강남",
       trainType: TrainType.normal,
-      eta: "300",
+      eta: "0",
       terminusStationID: "88",
       terminusStationName: "성수",
       createdAt: "2022-11-19 16:12:40.0",
