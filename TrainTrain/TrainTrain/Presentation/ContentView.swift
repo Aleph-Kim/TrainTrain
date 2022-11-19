@@ -20,6 +20,8 @@ struct ContentView: View {
   var body: some View {
 
     ScrollView {
+      NewArrivalView(selectedStationInfo: $selectedStation, directionStationID: $directionStationID)
+
       ArrivalView(selectedStationInfo: $selectedStation, directionStationID: $directionStationID)
         .frame(maxWidth: .infinity)
         .frame(height: 200)
