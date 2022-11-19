@@ -16,12 +16,27 @@ struct ArrivalView: View {
       $0.arrivalState == .departed
     }
   }
+
   private var prevStationTrainInfos: [TrainInfo] {
     trainInfos.filter {
       $0.arrivalState == .previousApproaching ||
       $0.arrivalState == .previousArrived ||
       $0.arrivalState == .previousDeparted
     }
+  }
+
+  private var previousStationID: String {
+    if [selectedStationInfo.upperStationID_1, selectedStationInfo.upperStationID_2].contains(directionStationID) { // 상행 확인
+      if let lower1 = selectedStationInfo.lowerStationID_1 { // 이전역이 있다면
+        return lower1
+      }
+    } else if [selectedStationInfo.lowerStationID_1, selectedStationInfo.lowerStationID_2].contains(directionStationID) { // 하행 확인
+      if let upper1 = selectedStationInfo.upperStationID_1 { // 이전역이 있다면
+        return upper1
+      }
+    }
+
+    return ""
   }
   
   var body: some View {
@@ -43,23 +58,35 @@ struct ArrivalView: View {
         }
       }
       GeometryReader { proxy in
-        HStack {
-          Rectangle()
-            .frame(width: 5, height: 10)
-            .foregroundColor(.white)
-            .offset(x: proxy.size.width * 0.25 / 2, y:proxy.size.height / 2 + 10)
-          Rectangle()
-            .frame(width: 5, height: 10)
-            .foregroundColor(.white)
-            .offset(x: proxy.size.width * 1.25 / 2, y:proxy.size.height / 2 + 10)
+        HStack(spacing: .zero) {
+          VStack(spacing: 2) {
+            Rectangle()
+              .frame(width: 5, height: 10)
+            Text(StationInfo.findStationName(from: previousStationID) + "역")
+          }
+          .offset(x: proxy.size.width * 0.25 / 2, y: proxy.size.height / 2 + 10)
+
+          Image(systemName: "chevron.right.2")
+            .fontWeight(.heavy)
+            .offset(x: proxy.size.width * 0.75 / 2, y: proxy.size.height / 2 - 4)
+
+          VStack(spacing: 2) {
+            Rectangle()
+              .frame(width: 5, height: 10)
+            Text(selectedStationInfo.stationName + "역")
+          }
+          .offset(x: proxy.size.width * 1.25 / 2, y: proxy.size.height / 2 + 10)
         }
+        .font(.caption)
+        .foregroundColor(.white)
+        .animation(nil, value: UUID())
       }
       HStack {
         Spacer()
         VStack(alignment: .trailing) {
-          Text(firstMessage_2)
+          Text(firstMessage_2.isEmpty ? "-" : "다다음 열차: " + firstMessage_2)
             .font(.caption2)
-          Text(firstMessage_1)
+          Text(firstMessage_1.isEmpty ? "-" : "다음 열차: " + firstMessage_1)
             .font(.caption)
           Spacer()
         }

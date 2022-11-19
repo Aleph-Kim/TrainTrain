@@ -24,9 +24,9 @@ struct TrainInfo: Decodable, Identifiable {
   let terminusStationName: String
   /// 열차 도착정보를 생성한 시각
   var createdAt: String
-  /// 첫 번째 도착 메세지 (전역 진입, 전역 도착 등)
+  /// 첫 번째 도착 메세지 - 진입, 도착, 출발과 같은 구체적 상태 또는 분/초로 표시한 ETA 를 표시합니다.
   var firstMessage: String
-  /// 두 번째 도착 메세지 (종합운동장 도착, 12분 후 (광명사거리) 등)
+  /// 두 번째 도착 메세지 - 직전 역의 이름을 표시합니다.
   var secondMessage: String
   /// 도착코드 (0:진입, 1:도착, 2:출발, 3:전역출발, 4:전역진입, 5:전역도착, 99:운행중)
   var arrivalState: ArrivalState

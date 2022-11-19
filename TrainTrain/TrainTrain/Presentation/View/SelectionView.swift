@@ -68,7 +68,7 @@ struct SelectionView: View {
         Spacer()
 
         VStack(alignment: .leading, spacing: 4) {
-          Text(selectedLine.rawValue)
+          Text(selectedLine.name)
             .colorCapsule(selectedLine.color)
 
           HStack {
@@ -96,7 +96,7 @@ struct SelectionView: View {
           selectionStep = .lineNumber
         }
       } label: {
-        Text(selectedStation == nil ? "선택 시작 →" : "다시 선택하기 →")
+        Text("선택 시작 →")
           .font(.title3)
           .frame(maxWidth: .infinity)
       }
@@ -160,7 +160,7 @@ struct SelectionView: View {
     VStack(spacing: 10) {
       HStack {
         if let selectedLine {
-          Text(selectedLine.rawValue)
+          Text(selectedLine.name)
             .colorCapsule(selectedLine.color)
         }
 
@@ -212,7 +212,6 @@ struct SelectionView: View {
             }
           }
           .listRowInsets(.init(top: .zero, leading: 7, bottom: .zero, trailing: 16))
-          .listRowBackground(Color.bg)
         }
         .listStyle(.plain)
         .cornerRadius(10)
@@ -338,7 +337,7 @@ struct SelectionView: View {
       .foregroundColor(.white)
       .cornerRadius(16)
       .overlay(alignment: .top) {
-        Text(selectedStation.stationName ?? "")
+        Text(selectedStation.stationName)
           .bold()
           .foregroundColor(.black)
           .padding(.horizontal, 20)

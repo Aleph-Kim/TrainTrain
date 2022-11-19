@@ -7,72 +7,77 @@ struct SimplifiedArrivalView: View {
 
   @State private var realtime: [TrainInfo] = []
   @State private var isLoading: Bool = false
-  @State private var refreshTimer = 10
+  @State private var refreshTimer = 5
 
   private let networkManager = NetworkManager()
   private let timer = Timer.publish(every: 1 , on: .main, in: .common).autoconnect()
 
   var body: some View {
     VStack {
-      if let stationName = realtime.first?.stationName {
-        HStack {
-          Text("🚇 \(stationName)역 도착 정보")
-            .font(.title)
-            .fontWeight(.thin)
-          Spacer()
-        }
-      } else {
-        HStack {
-          Text("🚇 실시간 도착 정보 (이전 역에서~)")
-            .font(.title)
-            .fontWeight(.thin)
-          Spacer()
-        }
+      HStack {
+        Text("🚇 \(selectedStation.stationName)역 도착 정보")
+          .font(.title)
+          .fontWeight(.thin)
+        Spacer()
       }
 
       ForEach(realtime) { trainInfo in
         GroupBox {
           VStack(alignment: .leading) {
-            Text("ID: \(trainInfo.id)")
-            Text("방향: \(trainInfo.trainDestination)")
-            Text("ETA: \(trainInfo.eta)초 후")
-            Text("메시지1: \(trainInfo.firstMessage)")
-            Text("메시지2: \(trainInfo.secondMessage)")
-            Text("도착코드: \(trainInfo.arrivalState.rawValue) - \(arrivalStateMessage(trainInfo))")
-            Text("막차 여부: \(trainInfo.trainDestination.contains("막차") ? "⚠️ 막차!" : "false")")
+            if trainInfo.trainDestination.contains(StationInfo.findStationName(from: directionStationID)) {
+              Text("ID: \(trainInfo.id)")
+                .fontWeight(.bold)
+              Text("방향: \(trainInfo.trainDestination)")
+              Text("ETA: \(trainInfo.eta)초 후")
+                .fontWeight(.bold)
+                .foregroundColor(.blue)
+              Text("메시지1: \(trainInfo.firstMessage)")
+              Text("메시지2: \(trainInfo.secondMessage)")
+              Text("도착코드: \(trainInfo.arrivalState.rawValue) - \(arrivalStateMessage(trainInfo))")
+              Text("막차 여부: \(trainInfo.trainDestination.contains("막차") ? "⚠️ 막차!" : "false")")
+            } else if !trainInfo.trainDestination.contains(StationInfo.findStationName(from: directionStationID)), trainInfo.firstMessage.contains("도착") {
+              Text("🏁 \(selectedStation.stationName)역에 도착했습니다.")
+                .foregroundColor(.blue)
+              Text("ID: \(trainInfo.id)")
+                .fontWeight(.bold)
+            } else {
+              Text("⚠️ \(selectedStation.stationName)역을 이미 떠난 열차입니다.")
+                .foregroundColor(.red)
+              Text("ID: \(trainInfo.id)")
+                .fontWeight(.bold)
+              Text("방향: \(trainInfo.trainDestination)")
+            }
           }
           .font(.footnote)
           .padding(.horizontal, 50)
         }
       }
 
-      if let directionStationID {
-        Button {
-          fetch(target: selectedStation)
-        } label: {
-          if isLoading {
-            ProgressView()
-          } else {
-            Text("**\(refreshTimer)초** 후 자동 리프레시 ♻️")
-          }
+      Button {
+        fetch(target: selectedStation)
+      } label: {
+        if isLoading {
+          ProgressView()
+        } else {
+          Text("**\(refreshTimer)초** 후 자동 리프레시 ♻️")
         }
-        .buttonStyle(.bordered)
-        .tint(.green)
-        .disabled(isLoading)
-        .onReceive(timer) { _ in
-          guard !isLoading else { return }
-          refreshTimer -= 1
+      }
+      .buttonStyle(.bordered)
+      .tint(.green)
+      .disabled(isLoading)
+      .onReceive(timer) { _ in
+        guard !isLoading else { return }
+        refreshTimer -= 1
 
-          if refreshTimer == .zero {
-            fetch(target: selectedStation)
-          }
-        }
-        .onChange(of: directionStationID) { _ in
+        if refreshTimer == .zero {
           fetch(target: selectedStation)
         }
-        .onAppear {
-          fetch(target: selectedStation)
-        }
+      }
+      .onChange(of: directionStationID) { _ in
+        fetch(target: selectedStation)
+      }
+      .onAppear {
+        fetch(target: selectedStation)
       }
     }
     .padding(.horizontal)
@@ -84,9 +89,9 @@ struct SimplifiedArrivalView: View {
       isLoading = true
       defer {
         isLoading = false
-        refreshTimer = 10
+        refreshTimer = 5
       }
-      realtime = await networkManager.fetchFar(targetStation: target, directionStationID: directionStationID)
+      realtime = await networkManager.fetch(targetStation: target, directionStationID: directionStationID)
     }
   }
 
