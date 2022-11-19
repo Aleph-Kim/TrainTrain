@@ -34,19 +34,20 @@ struct NewArrivalView: View {
         }
 
         ForEach(trainInfos) { trainInfo in
-          NewTrainProgressView(trainInfo: trainInfo)
+          NewTrainProgressView(trainInfo: trainInfo,
+                               targetStation: selectedStationInfo,
+                               directionStationID: directionStationID)
         }
-
-        Circle()
-          .frame(width: 15, height: 15)
-          .foregroundColor(.yellow)
-
-        // 5분. 300초가 전체인 길.
-        // eta 가 들어가면 비율을 계산
-        // 비율에 따른 x 좌표를 찾아서 노란점을 찍는다.
-
       }
+      .frame(height: 15)
       .padding(.horizontal)
+    }
+    .onAppear {
+      Task {
+        trainInfos = await networkManager.fetch(targetStation: selectedStationInfo,
+                                                directionStationID: directionStationID)
+        
+      }
     }
   }
 }

@@ -21,6 +21,9 @@ struct ContentView: View {
 
     ScrollView {
       NewArrivalView(selectedStationInfo: $selectedStation, directionStationID: $directionStationID)
+        .frame(maxWidth: .infinity)
+        .frame(height: 200)
+        .padding()
 
       ArrivalView(selectedStationInfo: $selectedStation, directionStationID: $directionStationID)
         .frame(maxWidth: .infinity)
