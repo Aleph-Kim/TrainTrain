@@ -41,6 +41,16 @@ struct NewArrivalView: View {
       }
       .frame(height: 15)
       .padding(.horizontal)
+      
+      VStack {
+        HStack {
+          Text(selectedStationInfo.stationName + "역의 도착정보입니다.")
+            .foregroundColor(.white)
+          Spacer()
+        }
+        .padding()
+        Spacer()
+      }
     }
     .onReceive(timer) { _ in
       Task {

@@ -25,10 +25,10 @@ struct ContentView: View {
         .frame(height: 200)
         .padding()
 
-      ArrivalView(selectedStationInfo: $selectedStation, directionStationID: $directionStationID)
-        .frame(maxWidth: .infinity)
-        .frame(height: 200)
-        .padding()
+//      ArrivalView(selectedStationInfo: $selectedStation, directionStationID: $directionStationID)
+//        .frame(maxWidth: .infinity)
+//        .frame(height: 200)
+//        .padding()
 
       SimplifiedArrivalView(
         selectedStation: $selectedStation,
