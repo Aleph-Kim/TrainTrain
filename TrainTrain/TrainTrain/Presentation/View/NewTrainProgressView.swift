@@ -38,13 +38,20 @@ struct NewTrainProgressView: View {
           Task {
             guard let newTrainInfo = await networkManager.fetch(targetStation: targetStation, directionStationID: directionStationID).filter({ $0.id == trainInfo.id }).first else { return }
 
-            eta = Int(newTrainInfo.eta)!
-            distancePerTic = remainDistance / CGFloat(eta)
+            if eta >= 30 {
+              eta = Int(newTrainInfo.eta)!
+              distancePerTic = remainDistance / CGFloat(eta)
+            }
           }
         }
         .onReceive(movingTimer) { _ in
-          eta -= 1
-          remainDistance -= distancePerTic
+          if eta > 0 {
+            eta -= 1
+          }
+          
+          if remainDistance > 0 {
+            remainDistance -= distancePerTic
+          }
         }
     }
   }

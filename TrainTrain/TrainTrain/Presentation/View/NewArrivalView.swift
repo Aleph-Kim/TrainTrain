@@ -7,7 +7,7 @@ struct NewArrivalView: View {
 
   @State private var trainInfos: [TrainInfo] = []
 
-  private let timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
+  private let timer = Timer.publish(every: 30, on: .main, in: .common).autoconnect()
   private let networkManager = NetworkManager()
 
   var body: some View {
@@ -41,6 +41,25 @@ struct NewArrivalView: View {
       }
       .frame(height: 15)
       .padding(.horizontal)
+    }
+    .onReceive(timer) { _ in
+      Task {
+        let newTrainInfos = await networkManager.fetch(
+          targetStation: selectedStationInfo,
+          directionStationID: directionStationID)
+        
+        for newTrainInfo in newTrainInfos {
+          if !trainInfos.contains(where: {$0.id == newTrainInfo.id}) {
+            trainInfos.append(newTrainInfo)
+          }
+        }
+        
+        for oldTrainInfo in trainInfos {
+          if !newTrainInfos.contains(where: {$0.id == oldTrainInfo.id}) {
+            trainInfos.removeAll(where: {$0.id == oldTrainInfo.id})
+          }
+        }
+      }
     }
     .onAppear {
       Task {

@@ -133,8 +133,8 @@
 				C18E717328CEBCA7000C9BA5 /* SelectionView.swift */,
 				C1D22DFF28F315D100BE3368 /* SimplifiedArrivalView.swift */,
 				CC40B97B28E9736100F784A7 /* ArrivalView.swift */,
-				C1CF274F2928B4E20021B329 /* NewArrivalView.swift */,
 				CC37AE0028F2972E009190D0 /* TrainProgressView.swift */,
+				C1CF274F2928B4E20021B329 /* NewArrivalView.swift */,
 				C1CF27512928B7FB0021B329 /* NewTrainProgressView.swift */,
 			);
 			path = View;
