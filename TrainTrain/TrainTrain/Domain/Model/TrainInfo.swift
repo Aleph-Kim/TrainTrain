@@ -34,6 +34,40 @@ struct TrainInfo: Decodable, Identifiable {
   /// Identifier
   let id: String
 
+  init(
+    subwayLineID: String,
+    trainDestination: String,
+    previousStationID: String,
+    nextStationID: String,
+    stationID: String,
+    stationName: String,
+    trainType: TrainType,
+    eta: String,
+    terminusStationID: String,
+    terminusStationName: String,
+    createdAt: String,
+    firstMessage: String,
+    secondMessage: String,
+    arrivalState: ArrivalState,
+    id: String
+  ) {
+    self.subwayLineID = subwayLineID
+    self.trainDestination = trainDestination
+    self.previousStationID = previousStationID
+    self.nextStationID = nextStationID
+    self.stationID = stationID
+    self.stationName = stationName
+    self.trainType = trainType
+    self.eta = eta
+    self.terminusStationID = terminusStationID
+    self.terminusStationName = terminusStationName
+    self.createdAt = createdAt
+    self.firstMessage = firstMessage
+    self.secondMessage = secondMessage
+    self.arrivalState = arrivalState
+    self.id = id
+  }
+
   init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     subwayLineID = try container.decode(String.self, forKey: .subwayLineID)
