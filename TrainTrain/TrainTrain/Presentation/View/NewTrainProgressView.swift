@@ -51,6 +51,8 @@ struct NewTrainProgressView: View {
           
           if remainDistance < 1 {
             remainDistance = 0
+          } else {
+            remainDistance -= distancePerTic
           }
         }
         .overlay {
