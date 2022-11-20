@@ -59,7 +59,7 @@ struct NewArrivalView: View {
           directionStationID: directionStationID)
         
         for newTrainInfo in newTrainInfos {
-          if !trainInfos.contains(where: { $0.id == newTrainInfo.id && $0.secondMessage != newTrainInfo.secondMessage }) {
+          if !trainInfos.contains(where: { $0.id == newTrainInfo.id && newTrainInfo.secondMessage != selectedStationInfo.stationName }) {
             trainInfos.append(newTrainInfo)
           }
         }
