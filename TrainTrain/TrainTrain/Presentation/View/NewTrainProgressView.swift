@@ -59,7 +59,7 @@ struct NewTrainProgressView: View {
           Text("\(eta)초")
             .font(.caption2)
             .foregroundColor(.white)
-            .offset(x: xOffset, y: -20)
+            .offset(x: xOffset, y: +20)
             .frame(width: 100)
         }
     }

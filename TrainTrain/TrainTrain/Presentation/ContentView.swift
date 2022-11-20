@@ -30,9 +30,9 @@ struct ContentView: View {
 //        .frame(height: 200)
 //        .padding()
 
-      SimplifiedArrivalView(
-        selectedStation: $selectedStation,
-        directionStationID: $directionStationID)
+//      SimplifiedArrivalView(
+//        selectedStation: $selectedStation,
+//        directionStationID: $directionStationID)
 
       Divider()
 
