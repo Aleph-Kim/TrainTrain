@@ -7,7 +7,7 @@ struct NewArrivalView: View {
 
   @State private var trainInfos: [TrainInfo] = []
 
-  private let timer = Timer.publish(every: 30, on: .main, in: .common).autoconnect()
+  private let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
   private let networkManager = NetworkManager()
 
   var body: some View {
@@ -59,7 +59,7 @@ struct NewArrivalView: View {
           directionStationID: directionStationID)
         
         for newTrainInfo in newTrainInfos {
-          if !trainInfos.contains(where: {$0.id == newTrainInfo.id}) {
+          if !trainInfos.contains(where: { $0.id == newTrainInfo.id && $0.secondMessage != newTrainInfo.secondMessage }) {
             trainInfos.append(newTrainInfo)
           }
         }

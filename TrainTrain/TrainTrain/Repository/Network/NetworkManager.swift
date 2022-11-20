@@ -2,7 +2,7 @@ import Foundation
 
 struct NetworkManager {
 
-  private let baseURLString = "http://swopenAPI.seoul.go.kr/api/subway/4448686271696d6f35337449787245/json/realtimeStationArrival/0/5/"
+  private let baseURLString = "http://swopenAPI.seoul.go.kr/api/subway/4448686271696d6f35337449787245/json/realtimeStationArrival/0/10/"
 
   /// 특정 지하철역을 기준으로, 이전 지하철역에서 다가오는 열차들과, 특정 지하철역을 떠난 열차들의 리스트를 배열 형태로 가져옵니다.
   ///
