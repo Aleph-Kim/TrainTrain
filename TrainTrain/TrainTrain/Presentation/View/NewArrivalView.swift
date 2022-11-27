@@ -7,7 +7,7 @@ struct NewArrivalView: View {
 
   @State private var trainInfos: [TrainInfo] = []
 
-  private let timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+  private let timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
   private let networkManager = NetworkManager()
 
   var body: some View {
@@ -113,9 +113,6 @@ struct NewArrivalView: View {
       trainInfos = await networkManager.fetch(
         targetStation: selectedStationInfo,
         directionStationID: directionStationID)
-      .filter {
-        $0.secondMessage != selectedStationInfo.stationName
-      }
     }
   }
 }

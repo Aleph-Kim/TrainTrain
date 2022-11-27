@@ -27,7 +27,8 @@ struct NetworkManager {
       }
 
       let nextList = nextInfo.realtimeArrivalList.filter {
-        $0.secondMessage == targetStation.stationName // 메시지2가 타겟역인 경우만 가져옴 (떠났다는 뜻)
+        $0.previousStationID == targetStation.stationID
+        && ($0.arrivalState == .previousArrived || $0.arrivalState == .previousApproaching)
       }
 
       return nextList + filteredList
