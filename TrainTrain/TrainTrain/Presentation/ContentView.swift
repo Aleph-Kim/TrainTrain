@@ -38,7 +38,8 @@ struct ContentView: View {
         selectedStation: $selectedStation,
         directionStationID: $directionStationID,
         isKeyboardUp: _isKeyboardUp)
-        .padding(.vertical)
+        .padding(.top)
+        .padding(.bottom, 5)
 
       if !isKeyboardUp {
         Group {
