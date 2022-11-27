@@ -76,32 +76,44 @@ struct NewArrivalView: View {
 
     }
     .onReceive(timer) { _ in
-      Task {
-        let newTrainInfos = await networkManager.fetch(
-          targetStation: selectedStationInfo,
-          directionStationID: directionStationID)
-        
-        for newTrainInfo in newTrainInfos {
-          if !trainInfos.contains(where: { $0.id == newTrainInfo.id || newTrainInfo.secondMessage == selectedStationInfo.stationName }) {
-            trainInfos.append(newTrainInfo)
-          }
+      fetchSome()
+    }
+    .onChange(of: directionStationID) { _ in
+      trainInfos.removeAll()
+      fetchAll()
+    }
+    .onAppear {
+      fetchAll()
+    }
+  }
+  
+  private func fetchSome() {
+    Task {
+      let newTrainInfos = await networkManager.fetch(
+        targetStation: selectedStationInfo,
+        directionStationID: directionStationID)
+      
+      for newTrainInfo in newTrainInfos {
+        if !trainInfos.contains(where: { $0.id == newTrainInfo.id || newTrainInfo.secondMessage == selectedStationInfo.stationName }) {
+          trainInfos.append(newTrainInfo)
         }
-        
-        for oldTrainInfo in trainInfos {
-          if !newTrainInfos.contains(where: {$0.id == oldTrainInfo.id}) {
-            trainInfos.removeAll(where: {$0.id == oldTrainInfo.id})
-          }
+      }
+      
+      for oldTrainInfo in trainInfos {
+        if !newTrainInfos.contains(where: {$0.id == oldTrainInfo.id}) {
+          trainInfos.removeAll(where: {$0.id == oldTrainInfo.id})
         }
       }
     }
-    .onAppear {
-      Task {
-        trainInfos = await networkManager.fetch(
-          targetStation: selectedStationInfo,
-          directionStationID: directionStationID)
-        .filter {
-          $0.secondMessage != selectedStationInfo.stationName
-        }
+  }
+  
+  private func fetchAll() {
+    Task {
+      trainInfos = await networkManager.fetch(
+        targetStation: selectedStationInfo,
+        directionStationID: directionStationID)
+      .filter {
+        $0.secondMessage != selectedStationInfo.stationName
       }
     }
   }
