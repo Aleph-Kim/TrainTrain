@@ -32,6 +32,7 @@
 		CC37AE0128F2972E009190D0 /* TrainProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC37AE0028F2972E009190D0 /* TrainProgressView.swift */; };
 		CC40B97C28E9736100F784A7 /* ArrivalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC40B97B28E9736100F784A7 /* ArrivalView.swift */; };
 		CC83436929172782009F411F /* Array+safeExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC83436829172782009F411F /* Array+safeExport.swift */; };
+		CCB03F7429331A480066346A /* Int+clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB03F7329331A480066346A /* Int+clock.swift */; };
 		CF137AB728CDA8A10022B6AF /* TrainTrainApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */; };
 		CF137AB928CDA8A10022B6AF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF137AB828CDA8A10022B6AF /* ContentView.swift */; };
 		CF137ABB28CDA8A20022B6AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF137ABA28CDA8A20022B6AF /* Assets.xcassets */; };
@@ -64,6 +65,7 @@
 		CC37AE0028F2972E009190D0 /* TrainProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainProgressView.swift; sourceTree = "<group>"; };
 		CC40B97B28E9736100F784A7 /* ArrivalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrivalView.swift; sourceTree = "<group>"; };
 		CC83436829172782009F411F /* Array+safeExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+safeExport.swift"; sourceTree = "<group>"; };
+		CCB03F7329331A480066346A /* Int+clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+clock.swift"; sourceTree = "<group>"; };
 		CF137AB328CDA8A10022B6AF /* TrainTrain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrainTrain.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainTrainApp.swift; sourceTree = "<group>"; };
 		CF137AB828CDA8A10022B6AF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				C1D22DF328F29C0B00BE3368 /* String+cleaned.swift */,
 				C1D22DFD28F2CCAC00BE3368 /* Comparable+clamped.swift */,
 				CC83436829172782009F411F /* Array+safeExport.swift */,
+				CCB03F7329331A480066346A /* Int+clock.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 				C1D22E0028F315D100BE3368 /* SimplifiedArrivalView.swift in Sources */,
 				C1D22DF428F29C0B00BE3368 /* String+cleaned.swift in Sources */,
 				C1D22DFE28F2CCAC00BE3368 /* Comparable+clamped.swift in Sources */,
+				CCB03F7429331A480066346A /* Int+clock.swift in Sources */,
 				C1D22DF928F2A41600BE3368 /* AskCapsuleViewModifier.swift in Sources */,
 				C18E717428CEBCA7000C9BA5 /* SelectionView.swift in Sources */,
 				CC37AE0128F2972E009190D0 /* TrainProgressView.swift in Sources */,

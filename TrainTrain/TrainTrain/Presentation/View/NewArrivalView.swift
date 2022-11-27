@@ -56,7 +56,7 @@ struct NewArrivalView: View {
       VStack {
         HStack {
           Spacer()
-          Text("이번열차:" + (trainInfos[safe: 0]?.firstMessage ?? "정보 없음"))
+          Text("이번 열차: " + (trainInfos[safe: 0]?.firstMessage ?? "정보 없음"))
             .font(.caption2)
             .foregroundColor(.white)
         }
@@ -64,9 +64,10 @@ struct NewArrivalView: View {
         
         HStack() {
           Spacer()
-          Text("다음열차:" + (trainInfos[safe: 1]?.firstMessage ?? "정보 없음"))
+          Text("다음 열차: " + (trainInfos[safe: 1]?.firstMessage ?? "정보 없음"))
             .font(.caption2)
             .foregroundColor(.white)
+            .opacity(0.8)
         }
         .padding(.horizontal)
         
