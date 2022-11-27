@@ -36,26 +36,7 @@ struct NewTrainProgressView: View {
         .foregroundColor(.yellow)
         .offset(x: xOffset)
         .onReceive(refreshingTimer) { _ in
-          Task {
-            guard let newTrainInfo = await networkManager.fetch(targetStation: targetStation, directionStationID: directionStationID).filter({ $0.id == trainInfo.id }).first else { return }
-            
-            // 다음 역을 기준으로 fetch 했니?
-            if newTrainInfo.previousStationID == targetStation.stationID {
-              if newTrainInfo.arrivalState == .departed
-                  || newTrainInfo.arrivalState == .arrived
-                  || newTrainInfo.arrivalState == .approaching
-                  || newTrainInfo.arrivalState == .previousDeparted{
-                return
-              } else {
-                eta = 0
-              }
-            }
-            
-            if eta >= 30 {
-              eta = Int(newTrainInfo.eta)!
-              distancePerTic = remainDistance / CGFloat(eta)
-            }
-          }
+          fetch()
         }
         .onReceive(movingTimer) { _ in
           if eta >= 300 {
@@ -105,6 +86,33 @@ struct NewTrainProgressView: View {
           }
         }
         .opacity(eta <= 300 ? 1 : 0)
+    }
+    .onAppear {
+      fetch()
+    }
+  }
+  
+  private func fetch() {
+    Task {
+      guard let newTrainInfo = await networkManager.fetch(targetStation: targetStation, directionStationID: directionStationID).filter({ $0.id == trainInfo.id }).first else { return }
+      
+      // 다음 역을 기준으로 fetch 했니?
+      if newTrainInfo.previousStationID == targetStation.stationID {
+        if newTrainInfo.arrivalState == .departed
+            || newTrainInfo.arrivalState == .arrived
+            || newTrainInfo.arrivalState == .approaching
+            || newTrainInfo.arrivalState == .previousDeparted{
+          return
+        } else {
+          eta = 0
+          remainDistance = 0
+        }
+      }
+      
+      if eta >= 30 {
+        eta = Int(newTrainInfo.eta)!
+        distancePerTic = remainDistance / CGFloat(eta)
+      }
     }
   }
 }
