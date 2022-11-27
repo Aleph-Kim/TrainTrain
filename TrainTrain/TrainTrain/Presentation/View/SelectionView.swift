@@ -2,20 +2,20 @@ import SwiftUI
 import ConfettiSwiftUI
 
 struct SelectionView: View {
-
+  
   @Binding var selectedStation: StationInfo
   @Binding var directionStationID: String
-
+  
   @State private var selectionStep: SelectionStep = .pre
   @State private var selectedLine: SubwayLine?
   @State private var stationList: [StationInfo] = []
   @State private var searchText = ""
   @State private var confetti: Int = .zero
-
+  
   @FocusState private var isKeyboardUp: Bool?
-
+  
   private let customAnimation: Animation = .linear(duration: 0.1)
-
+  
   // MARK: - body
   var body: some View {
     VStack {
@@ -35,7 +35,7 @@ struct SelectionView: View {
       }
       .tabViewStyle(.page(indexDisplayMode: .never))
       .frame(height: 340) // SelectionView 의 높이
-
+      
       // MARK: - 커스텀 페이지 인디케이터
       HStack(spacing: 10) {
         ForEach(SelectionStep.allCases.indices, id: \.self) { index in
@@ -52,31 +52,36 @@ struct SelectionView: View {
       openingAngle: .degrees(45),
       closingAngle: .degrees(135),
       repetitions: 1)
+    .onChange(of: directionStationID) { newDirectionStationID in
+      // directionStationID 가 변경됐다면, 역과 방향에 대한 UserDefaults 를 모두 변경함
+      UserDefaults.standard.set(selectedStation.stationID, forKey: "selectedStationID")
+      UserDefaults.standard.set(newDirectionStationID, forKey: "directionStationID")
+    }
   }
-
+  
   // MARK: - 선택해주세요 / 완료 페이지
   private var preSelectionPage: some View {
     VStack(alignment: .leading, spacing: 10) {
       Spacer()
-
+      
       if let selectedLine, let selectedStation, let directionStationID {
         Text("완료됐습니다! 🎉\n이제 미리보기로\n확인해보세요.")
           .font(.title)
           .lineSpacing(6)
           .minimumScaleFactor(0.6)
-
+        
         Spacer()
-
+        
         VStack(alignment: .leading, spacing: 4) {
           Text(selectedLine.name)
             .colorCapsule(selectedLine.color)
-
+          
           HStack {
             Text(selectedStation.stationName)
               .colorCapsule(selectedLine.color)
-
+            
             Image(systemName: "arrow.right")
-
+            
             Text(StationInfo.findStationName(from: directionStationID))
               .colorCapsule(selectedLine.color)
           }
@@ -87,9 +92,9 @@ struct SelectionView: View {
           .lineSpacing(6)
           .minimumScaleFactor(0.6)
       }
-
+      
       Spacer()
-
+      
       Button {
         withAnimation(customAnimation) {
           selectionStep = .pre
@@ -108,7 +113,7 @@ struct SelectionView: View {
     .cornerRadius(16)
     .padding(.horizontal)
   }
-
+  
   // MARK: - 호선 선택 페이지
   private var lineNumberSelectionPage: some View {
     VStack(spacing: 10) {
@@ -116,7 +121,7 @@ struct SelectionView: View {
         Text("몇 호선 인가요?")
           .askCapsule()
         Spacer()
-
+        
         Button {
           withAnimation(customAnimation) {
             selectionStep = .lineNumber
@@ -129,7 +134,7 @@ struct SelectionView: View {
         }
         .buttonStyle(ReactiveButton())
       }
-
+      
       ScrollView(showsIndicators: false) {
         VStack(alignment: .leading, spacing: 20) {
           ForEach(SubwayLine.allCases) { line in
@@ -154,7 +159,7 @@ struct SelectionView: View {
     }
     .padding(.horizontal)
   }
-
+  
   // MARK: - 역 선택 페이지
   private var stationSelectionPage: some View {
     VStack(spacing: 10) {
@@ -163,12 +168,12 @@ struct SelectionView: View {
           Text(selectedLine.name)
             .colorCapsule(selectedLine.color)
         }
-
+        
         Text("어느 역에서 탑승하세요?")
           .askCapsule()
-
+        
         Spacer()
-
+        
         Button {
           withAnimation(customAnimation) {
             selectionStep = .station
@@ -181,7 +186,7 @@ struct SelectionView: View {
         }
         .buttonStyle(ReactiveButton())
       }
-
+      
       VStack(spacing: .zero) {
         TextField("➡️ 탑승역 검색", text: $searchText)
           .textFieldStyle(.roundedBorder)
@@ -190,7 +195,7 @@ struct SelectionView: View {
           .padding(.top, 8)
           .submitLabel(.search)
           .focused($isKeyboardUp, equals: true)
-
+        
         List(searchText.cleaned.isEmpty
              ? stationList
              : stationList.filter { $0.stationName.contains(searchText.cleaned) }
@@ -213,9 +218,9 @@ struct SelectionView: View {
           }
           .listRowInsets(.init(top: .zero, leading: 7, bottom: .zero, trailing: 16))
         }
-        .listStyle(.plain)
-        .cornerRadius(10)
-        .padding(8)
+             .listStyle(.plain)
+             .cornerRadius(10)
+             .padding(8)
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .background(selectedLine?.color ?? Color.bg)
@@ -223,7 +228,7 @@ struct SelectionView: View {
     }
     .padding(.horizontal)
   }
-
+  
   // MARK: - 방향 선택 페이지
   private var directionSelectionPage: some View {
     VStack(spacing: 10) {
@@ -231,7 +236,7 @@ struct SelectionView: View {
         Text("어느 방향으로 가세요?")
           .askCapsule()
         Spacer()
-
+        
         Button {
           withAnimation(customAnimation) {
             selectionStep = .direction
@@ -244,7 +249,7 @@ struct SelectionView: View {
         }
         .buttonStyle(ReactiveButton())
       }
-
+      
       VStack(spacing: 3) {
         HStack(spacing: 3) {
           // 상행선 1번
@@ -269,7 +274,7 @@ struct SelectionView: View {
               .opacity(0.5)
               .cornerRadius(16)
           }
-
+          
           // 하행선 1번
           if let lower1 = selectedStation.lowerStationID_1 {
             Button {
@@ -293,7 +298,7 @@ struct SelectionView: View {
               .cornerRadius(16)
           }
         }
-
+        
         // 상행선 2번 또는 하행선 2번 (둘 다 존재하는 케이스는 없음)
         Group {
           if let upper2 = selectedStation.upperStationID_2 {
@@ -349,7 +354,7 @@ struct SelectionView: View {
     }
     .padding(.horizontal)
   }
-
+  
   // MARK: 커스텀 인디케이터를 위한 페이지 판단 메서드
   private func isCurrentPage(`for` index: Int) -> Bool {
     let safeIndex = index.clamped(to: 0...SelectionStep.maxIndex)
@@ -362,7 +367,7 @@ fileprivate enum SelectionStep: CaseIterable {
   case lineNumber
   case station
   case direction
-
+  
   static var maxIndex: Int {
     SelectionStep.allCases.count - 1
   }

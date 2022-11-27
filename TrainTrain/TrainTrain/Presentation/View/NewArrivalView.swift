@@ -109,19 +109,7 @@ struct NewArrivalView: View {
 
 struct NewArrivalView_Previews: PreviewProvider {
   static var previews: some View {
-
-    let gangNam = StationInfo(
-      subwayLineID: "1002",
-      stationID: "1002000222",
-      stationName: "강남",
-      lowerStationID_1: "1002000223",
-      lowerStationETA_1: 60,
-      lowerStationID_2: "",
-      lowerStationETA_2: "",
-      upperStationID_1: "1002000221",
-      upperStationETA_1: 60,
-      upperStationID_2: "",
-      upperStationETA_2: "")
+    let gangNam = StationInfo.findStationInfo(from: "1002000222")
 
     NewArrivalView(selectedStationInfo: .constant(gangNam), directionStationID: .constant("1002000221"))
   }

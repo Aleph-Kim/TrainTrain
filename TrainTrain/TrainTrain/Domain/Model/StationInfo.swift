@@ -76,28 +76,15 @@ struct StationInfo: Equatable {
   static func fetchStationList(of line: SubwayLine) -> [StationInfo] {
     Self.allStationList.filter { $0.subwayLineID == line.id }
   }
-
+  
   /// 역의 ID 를 통해 역의 이름을 찾아 리턴합니다.
   static func findStationName(from stationID: String) -> String {
     Self.allStationList.first(where: { $0.stationID == stationID })?.stationName ?? ""
   }
-    
-  func makeThreeStationList(stationInfo: StationInfo, directionStationID: String) -> (Self, Self?, Self?) {
-    
-    let prevStationID = {
-      return stationInfo.upperStationID_1 == directionStationID ? stationInfo.lowerStationID_1 : stationInfo.upperStationID_1
-    }()
-    if let prevStation = Self.allStationList.first(where: { $0.stationID == prevStationID }) {
-      let prevPrevStationID = {
-        return prevStation.upperStationID_1 == stationInfo.stationID ? prevStation.lowerStationID_1 : prevStation.upperStationID_1
-      }()
-      if let prevPrevStation = Self.allStationList.first(where: { $0.stationID == prevPrevStationID }) {
-        return (stationInfo, prevStation, prevPrevStation)
-      } else {
-        return (stationInfo, prevStation, nil)
-      }
-    } else {
-      return (stationInfo, nil, nil)
-    }
+
+  /// 역의 ID 를 통해 역타입(StationInfo)을 리턴합니다.
+  /// 존재하지 않는 ID 라면, `nil` 을 리턴합니다.
+  static func findStationInfo(from stationID: String) -> StationInfo {
+    Self.allStationList.first(where: { $0.stationID == stationID })!
   }
 }

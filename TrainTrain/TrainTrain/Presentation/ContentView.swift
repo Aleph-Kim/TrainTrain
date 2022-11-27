@@ -2,20 +2,13 @@ import SwiftUI
 
 struct ContentView: View {
   
-  @State private var selectedStation = StationInfo(
-    subwayLineID: "1002",
-    stationID: "1002000222",
-    stationName: "강남",
-    lowerStationID_1: "1002000223",
-    lowerStationETA_1: 60,
-    lowerStationID_2: "",
-    lowerStationETA_2: "",
-    upperStationID_1: "1002000221",
-    upperStationETA_1: 60,
-    upperStationID_2: "",
-    upperStationETA_2: "")
+  @State private var selectedStation: StationInfo
+  @State private var directionStationID: String
 
-  @State private var directionStationID: String = "1002000221"
+  init(selectedStationID: String, directionStationID: String) {
+    self.selectedStation = StationInfo.findStationInfo(from: selectedStationID)
+    self.directionStationID = directionStationID
+  }
 
   var body: some View {
 
@@ -47,6 +40,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView()
+    ContentView(selectedStationID: "1002000222", directionStationID: "1002000221")
   }
 }
