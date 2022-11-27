@@ -208,7 +208,7 @@ struct SelectionView: View {
               Text(station.stationName)
               Spacer()
               Image(systemName: "chevron.right")
-                .fontWeight(.light)
+                .font(Font.body.weight(.light))
             }
           }
           .listRowInsets(.init(top: .zero, leading: 7, bottom: .zero, trailing: 16))

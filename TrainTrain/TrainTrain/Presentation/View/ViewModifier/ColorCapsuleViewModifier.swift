@@ -6,7 +6,7 @@ struct ColorCapsuleViewModifier: ViewModifier {
 
   func body(content: Content) -> some View {
     content
-      .bold()
+      .font(Font.body.bold())
       .padding(.horizontal, 16)
       .padding(.vertical, 10)
       .background(

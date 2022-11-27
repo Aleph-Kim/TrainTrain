@@ -6,7 +6,7 @@ struct AskCapsuleViewModifier: ViewModifier {
 
   func body(content: Content) -> some View {
     content
-      .bold(self.bold)
+      .font(bold ? Font.body.bold() : Font.body)
       .padding(.horizontal, 16)
       .padding(.vertical, 10)
       .background(Color.bg)

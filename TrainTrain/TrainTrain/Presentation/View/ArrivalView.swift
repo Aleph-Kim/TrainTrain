@@ -67,7 +67,7 @@ struct ArrivalView: View {
           .offset(x: proxy.size.width * 0.25 / 2, y: proxy.size.height / 2 + 10)
 
           Image(systemName: "chevron.right.2")
-            .fontWeight(.heavy)
+            .font(Font.body.weight(.heavy))
             .offset(x: proxy.size.width * 0.75 / 2, y: proxy.size.height / 2 - 4)
 
           VStack(spacing: 2) {
