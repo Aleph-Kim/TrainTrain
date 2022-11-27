@@ -6,7 +6,7 @@ struct NewTrainProgressView: View {
   let targetStation: StationInfo
   let directionStationID: String
   let networkManager = NetworkManager()
-  let randomString = ["영차열차!🐢", "신나는 하루에요!🥰", "파이팅💪", "걷기 좋은 날이에요🚶‍♂️", "🎶눈누난나", "🏝떠나고싶어요"].randomElement()!
+  let randomString = ["영차열차!🐢", "신나는 하루!🥰", "파이팅💪", "걷기 좋은날🚶‍♂️", "🎶눈누난나", "🏝떠나고 싶어", "🚀로켓처럼 갈게", "반짝이는 하루💡", "🎊나를 위한 날", "💤졸려...", "아메리카노~☕️", "🤖즐겁습니까휴먼?", "👀열차언제와~!!", "교통약자우선🧑‍🦽", "힘내게🦀", "🦞가재는내편", "🐝왱~", "🐄힘내소", "🐈힘드냥", "🐁재밌쥐?"].randomElement()!
   
   private let movingTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
   private let refreshingTimer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
