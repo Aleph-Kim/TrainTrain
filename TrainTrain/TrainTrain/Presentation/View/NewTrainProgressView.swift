@@ -62,24 +62,36 @@ struct NewTrainProgressView: View {
           }
         }
         .overlay {
-          if eta == .zero {
-            Text("도착")
-          } else if eta < 30 {
-            Text("곧 도착")
-          } else {
-            Text("약 \(eta)초")
-              .font(.caption2)
-              .foregroundColor(.white)
-              .offset(x: xOffset, y: +20)
-              .frame(width: 100)
+          if eta <= 300 {
+            if eta == .zero {
+              Text("도착")
+                .font(.caption2)
+                .foregroundColor(.white)
+                .offset(x: xOffset, y: +20)
+                .frame(width: 100)
+            } else if eta < 30 {
+              Text("곧 도착")
+                .font(.caption2)
+                .foregroundColor(.white)
+                .offset(x: xOffset, y: +20)
+                .frame(width: 100)
+            } else {
+              Text("약 \(eta)초")
+                .font(.caption2)
+                .foregroundColor(.white)
+                .offset(x: xOffset, y: +20)
+                .frame(width: 100)
+            }
           }
         }
         .overlay {
-          Text(randomString)
-            .font(.system(size: 9))
-            .foregroundColor(.white)
-            .offset(x: xOffset, y: -20)
-            .frame(width: 100)
+          if eta <= 300 {
+            Text(randomString)
+              .font(.system(size: 9))
+              .foregroundColor(.white)
+              .offset(x: xOffset, y: -20)
+              .frame(width: 100)
+          }
         }
         .opacity(eta <= 300 ? 1 : 0)
     }

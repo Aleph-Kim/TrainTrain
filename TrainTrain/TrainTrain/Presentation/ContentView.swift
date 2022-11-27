@@ -14,7 +14,7 @@ struct ContentView: View {
     VStack {
       NewArrivalView(selectedStationInfo: $selectedStation, directionStationID: $directionStationID)
         .frame(maxWidth: .infinity)
-        .frame(height: 200)
+        .frame(height: 160)
         .padding()
       
       //#if DEBUG

@@ -39,6 +39,7 @@ struct NewArrivalView: View {
             directionStationID: directionStationID)
         }
       }
+      .offset(y: 30)
       .frame(height: 15)
       .padding(.horizontal)
       
