@@ -12,8 +12,8 @@ struct SelectionView: View {
   @State private var searchText = ""
   @State private var confetti: Int = .zero
   
-  @FocusState private var isKeyboardUp: Bool?
-  
+  @FocusState var isKeyboardUp: Bool
+
   /// UserDefaults - 최초 설정 여부
   @AppStorage("firstSetting") private var firstSetting: Bool = true
   
@@ -129,6 +129,7 @@ struct SelectionView: View {
           withAnimation(customAnimation) {
             selectionStep = .lineNumber
             selectionStep = .pre
+            isKeyboardUp = false // 키보드 내리기
           }
         } label: {
           Image(systemName: "arrow.uturn.left")
@@ -181,6 +182,7 @@ struct SelectionView: View {
           withAnimation(customAnimation) {
             selectionStep = .station
             selectionStep = .lineNumber
+            isKeyboardUp = false // 키보드 내리기
           }
         } label: {
           Image(systemName: "arrow.uturn.left")
@@ -209,7 +211,7 @@ struct SelectionView: View {
               selectionStep = .station
               selectionStep = .direction
               searchText = ""
-              isKeyboardUp = nil // 키보드 내리기
+              isKeyboardUp = false // 키보드 내리기
             }
           } label: {
             HStack {
@@ -221,9 +223,9 @@ struct SelectionView: View {
           }
           .listRowInsets(.init(top: .zero, leading: 7, bottom: .zero, trailing: 16))
         }
-             .listStyle(.plain)
-             .cornerRadius(10)
-             .padding(8)
+        .listStyle(.plain)
+        .cornerRadius(10)
+        .padding(8)
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .background(selectedLine?.color ?? Color.bg)
@@ -244,6 +246,7 @@ struct SelectionView: View {
           withAnimation(customAnimation) {
             selectionStep = .direction
             selectionStep = .station
+            isKeyboardUp = false // 키보드 내리기
           }
         } label: {
           Image(systemName: "arrow.uturn.left")
