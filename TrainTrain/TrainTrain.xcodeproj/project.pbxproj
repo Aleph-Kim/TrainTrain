@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C10C137729333F61008E2CB2 /* ArrivalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C137529333F61008E2CB2 /* ArrivalView.swift */; };
+		C10C137829333F61008E2CB2 /* TrainProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C137629333F61008E2CB2 /* TrainProgressView.swift */; };
 		C1724B3029084C2F00A339BA /* ReactiveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1724B2F29084C2F00A339BA /* ReactiveButton.swift */; };
 		C18E716328CDAFB9000C9BA5 /* TrainInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716228CDAFB9000C9BA5 /* TrainInfo.swift */; };
 		C18E716628CDB2C6000C9BA5 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716528CDB2C6000C9BA5 /* ErrorMessage.swift */; };
@@ -29,8 +31,6 @@
 		C1F91BCF28CEF55700FC8DE9 /* Color+subwayLines.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F91BCE28CEF55700FC8DE9 /* Color+subwayLines.swift */; };
 		C1F91BD428CEF80600FC8DE9 /* SubwayLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F91BD328CEF80600FC8DE9 /* SubwayLine.swift */; };
 		CC15FCE12904BE4400A0ECE5 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC15FCE02904BE4400A0ECE5 /* Triangle.swift */; };
-		CC37AE0128F2972E009190D0 /* TrainProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC37AE0028F2972E009190D0 /* TrainProgressView.swift */; };
-		CC40B97C28E9736100F784A7 /* ArrivalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC40B97B28E9736100F784A7 /* ArrivalView.swift */; };
 		CC83436929172782009F411F /* Array+safeExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC83436829172782009F411F /* Array+safeExport.swift */; };
 		CCB03F7429331A480066346A /* Int+clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB03F7329331A480066346A /* Int+clock.swift */; };
 		CF137AB728CDA8A10022B6AF /* TrainTrainApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */; };
@@ -40,6 +40,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C10C137529333F61008E2CB2 /* ArrivalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrivalView.swift; sourceTree = "<group>"; };
+		C10C137629333F61008E2CB2 /* TrainProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainProgressView.swift; sourceTree = "<group>"; };
 		C1724B2F29084C2F00A339BA /* ReactiveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactiveButton.swift; sourceTree = "<group>"; };
 		C18E716228CDAFB9000C9BA5 /* TrainInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainInfo.swift; sourceTree = "<group>"; };
 		C18E716528CDB2C6000C9BA5 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
@@ -62,8 +64,6 @@
 		C1F91BCE28CEF55700FC8DE9 /* Color+subwayLines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+subwayLines.swift"; sourceTree = "<group>"; };
 		C1F91BD328CEF80600FC8DE9 /* SubwayLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubwayLine.swift; sourceTree = "<group>"; };
 		CC15FCE02904BE4400A0ECE5 /* Triangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
-		CC37AE0028F2972E009190D0 /* TrainProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainProgressView.swift; sourceTree = "<group>"; };
-		CC40B97B28E9736100F784A7 /* ArrivalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrivalView.swift; sourceTree = "<group>"; };
 		CC83436829172782009F411F /* Array+safeExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+safeExport.swift"; sourceTree = "<group>"; };
 		CCB03F7329331A480066346A /* Int+clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+clock.swift"; sourceTree = "<group>"; };
 		CF137AB328CDA8A10022B6AF /* TrainTrain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrainTrain.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,6 +85,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C10C137429333F61008E2CB2 /* Deprecated */ = {
+			isa = PBXGroup;
+			children = (
+				C10C137529333F61008E2CB2 /* ArrivalView.swift */,
+				C10C137629333F61008E2CB2 /* TrainProgressView.swift */,
+			);
+			path = Deprecated;
+			sourceTree = "<group>";
+		};
 		C18E716128CDAEE4000C9BA5 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -133,10 +142,9 @@
 			children = (
 				CC15FCDF2904B9E400A0ECE5 /* Shape */,
 				C1D22DF528F2A06F00BE3368 /* ViewModifier */,
+				C10C137429333F61008E2CB2 /* Deprecated */,
 				C18E717328CEBCA7000C9BA5 /* SelectionView.swift */,
 				C1D22DFF28F315D100BE3368 /* SimplifiedArrivalView.swift */,
-				CC40B97B28E9736100F784A7 /* ArrivalView.swift */,
-				CC37AE0028F2972E009190D0 /* TrainProgressView.swift */,
 				C1CF274F2928B4E20021B329 /* NewArrivalView.swift */,
 				C1CF27512928B7FB0021B329 /* NewTrainProgressView.swift */,
 			);
@@ -301,11 +309,12 @@
 				C1D22DF728F2A0A700BE3368 /* ColorCapsuleViewModifier.swift in Sources */,
 				C18E716628CDB2C6000C9BA5 /* ErrorMessage.swift in Sources */,
 				CF137AB928CDA8A10022B6AF /* ContentView.swift in Sources */,
-				CC40B97C28E9736100F784A7 /* ArrivalView.swift in Sources */,
+				C10C137729333F61008E2CB2 /* ArrivalView.swift in Sources */,
 				C18E716328CDAFB9000C9BA5 /* TrainInfo.swift in Sources */,
 				CC15FCE12904BE4400A0ECE5 /* Triangle.swift in Sources */,
 				C1F91BD428CEF80600FC8DE9 /* SubwayLine.swift in Sources */,
 				C18E716E28CDCD57000C9BA5 /* APIError.swift in Sources */,
+				C10C137829333F61008E2CB2 /* TrainProgressView.swift in Sources */,
 				CC83436929172782009F411F /* Array+safeExport.swift in Sources */,
 				C18E716A28CDBD24000C9BA5 /* TrainType.swift in Sources */,
 				CF137AB728CDA8A10022B6AF /* TrainTrainApp.swift in Sources */,
@@ -318,7 +327,6 @@
 				CCB03F7429331A480066346A /* Int+clock.swift in Sources */,
 				C1D22DF928F2A41600BE3368 /* AskCapsuleViewModifier.swift in Sources */,
 				C18E717428CEBCA7000C9BA5 /* SelectionView.swift in Sources */,
-				CC37AE0128F2972E009190D0 /* TrainProgressView.swift in Sources */,
 				C1724B3029084C2F00A339BA /* ReactiveButton.swift in Sources */,
 				C1F91BCF28CEF55700FC8DE9 /* Color+subwayLines.swift in Sources */,
 			);
