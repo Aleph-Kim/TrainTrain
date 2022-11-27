@@ -1,37 +1,38 @@
 import SwiftUI
 
 struct NewArrivalView: View {
-
+  
   @Binding var selectedStationInfo: StationInfo
   @Binding var directionStationID: String
-
+  @Environment(\.scenePhase) var scenePhase
+  
   @State private var trainInfos: [TrainInfo] = []
-
+  
   private let timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
   private let networkManager = NetworkManager()
-
+  
   var body: some View {
     ZStack {
       RoundedRectangle(cornerRadius: 20)
         .foregroundColor(.black)
-
+      
       Group {
         Capsule()
           .foregroundColor(.gray)
           .frame(height: 15)
-
+        
         HStack {
           Circle()
             .frame(width: 15, height: 15)
             .foregroundColor(.white)
-
+          
           Spacer()
-
+          
           Circle()
             .frame(width: 15, height: 15)
             .foregroundColor(.white)
         }
-
+        
         ForEach(trainInfos) { trainInfo in
           NewTrainProgressView(
             trainInfo: trainInfo,
@@ -69,17 +70,24 @@ struct NewArrivalView: View {
         
         Spacer()
       }
-
+      
     }
     .onReceive(timer) { _ in
       fetchSome()
     }
     .onChange(of: directionStationID) { _ in
-      trainInfos.removeAll()
       fetchAll()
     }
     .onAppear {
       fetchAll()
+    }
+    .onChange(of: scenePhase) { newScenePhase in
+      switch newScenePhase {
+      case .active:
+        fetchAll()
+      default:
+        return
+      }
     }
   }
   
@@ -105,15 +113,16 @@ struct NewArrivalView: View {
   
   private func fetchAll() {
     Task {
+      trainInfos.removeAll()
       trainInfos = await networkManager.fetch(
         targetStation: selectedStationInfo,
         directionStationID: directionStationID)
     }
   }
-
+  
   private var firstUpcomingTrain: some View {
     var message = "이번 열차: "
-
+    
     if let firstUpcoming = trainInfos[safe: 0] {
       if firstUpcoming.secondMessage == selectedStationInfo.stationName {
         // 타겟역에 진입 중이거나 도착한 열차라면 (ETA 는 이 시점에서 무의미함)
@@ -125,15 +134,15 @@ struct NewArrivalView: View {
     } else {
       message.append("정보 없음")
     }
-
+    
     return Text(message)
       .font(.caption)
       .foregroundColor(.white)
   }
-
+  
   private var secondUpcomingTrain: some View {
     var message = "다음 열차: "
-
+    
     if let secondUpcoming = trainInfos[safe: 1] {
       if secondUpcoming.secondMessage == selectedStationInfo.stationName {
         // 타겟역에 진입 중이거나 도착한 열차라면 (ETA 는 이 시점에서 무의미함)
@@ -145,7 +154,7 @@ struct NewArrivalView: View {
     } else {
       message.append("정보 없음")
     }
-
+    
     return Text(message)
       .font(.caption2)
       .foregroundColor(.white)
@@ -156,7 +165,7 @@ struct NewArrivalView: View {
 struct NewArrivalView_Previews: PreviewProvider {
   static var previews: some View {
     let gangNam = StationInfo.findStationInfo(from: "1002000222")
-
+    
     NewArrivalView(selectedStationInfo: .constant(gangNam), directionStationID: .constant("1002000221"))
   }
 }
