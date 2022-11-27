@@ -46,6 +46,11 @@ struct NewTrainProgressView: View {
           }
         }
         .onReceive(movingTimer) { _ in
+          
+          if eta >= 300 {
+            remainDistance = 100
+          }
+          
           if eta > 0 {
             eta -= 1
           }

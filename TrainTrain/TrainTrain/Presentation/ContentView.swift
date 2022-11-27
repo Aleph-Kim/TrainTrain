@@ -4,35 +4,32 @@ struct ContentView: View {
   
   @State private var selectedStation: StationInfo
   @State private var directionStationID: String
-
+  
   init(selectedStationID: String, directionStationID: String) {
     self.selectedStation = StationInfo.findStationInfo(from: selectedStationID)
     self.directionStationID = directionStationID
   }
-
+  
   var body: some View {
-
-    ScrollView {
-      NewArrivalView(selectedStationInfo: $selectedStation, directionStationID: $directionStationID)
-        .frame(maxWidth: .infinity)
-        .frame(height: 200)
-        .padding()
-
-//      ArrivalView(selectedStationInfo: $selectedStation, directionStationID: $directionStationID)
-//        .frame(maxWidth: .infinity)
-//        .frame(height: 200)
-//        .padding()
-
-//      SimplifiedArrivalView(
-//        selectedStation: $selectedStation,
-//        directionStationID: $directionStationID)
-
-      Divider()
-
-      SelectionView(
+    
+    NewArrivalView(selectedStationInfo: $selectedStation, directionStationID: $directionStationID)
+      .frame(maxWidth: .infinity)
+      .frame(height: 200)
+      .padding()
+    
+#if DEBUG
+    ScrollView{
+      SimplifiedArrivalView(
         selectedStation: $selectedStation,
         directionStationID: $directionStationID)
     }
+#endif
+    
+    Divider()
+    
+    SelectionView(
+      selectedStation: $selectedStation,
+      directionStationID: $directionStationID)
   }
 }
 
