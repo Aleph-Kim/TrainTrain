@@ -14,6 +14,9 @@ struct SelectionView: View {
   
   @FocusState private var isKeyboardUp: Bool?
   
+  /// UserDefaults - 최초 설정 여부
+  @AppStorage("firstSetting") private var firstSetting: Bool = true
+  
   private let customAnimation: Animation = .linear(duration: 0.1)
   
   // MARK: - body
@@ -56,6 +59,7 @@ struct SelectionView: View {
       // directionStationID 가 변경됐다면, 역과 방향에 대한 UserDefaults 를 모두 변경함
       UserDefaults.standard.set(selectedStation.stationID, forKey: "selectedStationID")
       UserDefaults.standard.set(newDirectionStationID, forKey: "directionStationID")
+      UserDefaults.standard.set(false, forKey: "firstSetting")
     }
   }
   
@@ -64,7 +68,7 @@ struct SelectionView: View {
     VStack(alignment: .leading, spacing: 10) {
       Spacer()
       
-      if let selectedLine, let selectedStation, let directionStationID {
+      if !firstSetting, let selectedLine = SubwayLine(rawValue: selectedStation.subwayLineID)! {
         Text("완료됐습니다! 🎉\n이제 미리보기로\n확인해보세요.")
           .font(.title)
           .lineSpacing(6)
