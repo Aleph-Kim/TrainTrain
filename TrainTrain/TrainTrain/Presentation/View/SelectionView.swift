@@ -37,7 +37,6 @@ struct SelectionView: View {
           .highPriorityGesture(DragGesture())
       }
       .tabViewStyle(.page(indexDisplayMode: .never))
-      .frame(height: 340) // SelectionView 의 높이
       
       // MARK: - 커스텀 페이지 인디케이터
       HStack(spacing: 10) {
@@ -339,7 +338,7 @@ struct SelectionView: View {
             .buttonStyle(ReactiveButton())
           }
         }
-        .frame(maxHeight: UIScreen.main.bounds.height * 0.1)
+        .frame(maxHeight: UIScreen.main.bounds.height * 0.15)
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
       .font(.largeTitle)
