@@ -57,18 +57,13 @@ struct NewArrivalView: View {
       VStack {
         HStack {
           Spacer()
-          Text("이번 열차: " + (trainInfos[safe: 0]?.firstMessage ?? "정보 없음"))
-            .font(.caption2)
-            .foregroundColor(.white)
+          firstUpcomingTrain
         }
         .padding([.horizontal, .top])
         
         HStack() {
           Spacer()
-          Text("다음 열차: " + (trainInfos[safe: 1]?.firstMessage ?? "정보 없음"))
-            .font(.caption2)
-            .foregroundColor(.white)
-            .opacity(0.8)
+          secondUpcomingTrain
         }
         .padding(.horizontal)
         
@@ -114,6 +109,47 @@ struct NewArrivalView: View {
         targetStation: selectedStationInfo,
         directionStationID: directionStationID)
     }
+  }
+
+  private var firstUpcomingTrain: some View {
+    var message = "이번 열차: "
+
+    if let firstUpcoming = trainInfos[safe: 0] {
+      if firstUpcoming.secondMessage == selectedStationInfo.stationName {
+        // 타겟역에 진입 중이거나 도착한 열차라면 (ETA 는 이 시점에서 무의미함)
+        message.append(firstUpcoming.firstMessage.contains("도착") ? "도착" : "곧 도착")
+      } else {
+        // 적당히 멀리있는 열차라면 (ETA 중요)
+        message.append(firstUpcoming.eta.asApproximateClock)
+      }
+    } else {
+      message.append("정보 없음")
+    }
+
+    return Text(message)
+      .font(.caption)
+      .foregroundColor(.white)
+  }
+
+  private var secondUpcomingTrain: some View {
+    var message = "다음 열차: "
+
+    if let secondUpcoming = trainInfos[safe: 1] {
+      if secondUpcoming.secondMessage == selectedStationInfo.stationName {
+        // 타겟역에 진입 중이거나 도착한 열차라면 (ETA 는 이 시점에서 무의미함)
+        message.append(secondUpcoming.firstMessage.contains("도착") ? "도착" : "곧 도착")
+      } else {
+        // 적당히 멀리있는 열차라면 (ETA 중요)
+        message.append(secondUpcoming.eta.asApproximateClock)
+      }
+    } else {
+      message.append("정보 없음")
+    }
+
+    return Text(message)
+      .font(.caption2)
+      .foregroundColor(.white)
+      .opacity(0.8)
   }
 }
 

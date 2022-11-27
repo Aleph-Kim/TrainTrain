@@ -35,16 +35,27 @@ struct SimplifiedArrivalView: View {
               Text("메시지2: \(trainInfo.secondMessage)")
               Text("도착코드: \(trainInfo.arrivalState.rawValue) - \(arrivalStateMessage(trainInfo))")
               Text("막차 여부: \(trainInfo.trainDestination.contains("막차") ? "⚠️ 막차!" : "false")")
+            } else if !trainInfo.trainDestination.contains(StationInfo.findStationName(from: directionStationID)), trainInfo.firstMessage.contains("진입") {
+              Text("ID: \(trainInfo.id)")
+                .fontWeight(.bold)
+              Text("💨 \(selectedStation.stationName)역에 진입 중입니다.")
+                .foregroundColor(.blue)
+              Text("메시지1: \(trainInfo.firstMessage)")
+              Text("메시지2: \(trainInfo.secondMessage)")
+              Text("도착코드: \(trainInfo.arrivalState.rawValue) - \(arrivalStateMessage(trainInfo))")
             } else if !trainInfo.trainDestination.contains(StationInfo.findStationName(from: directionStationID)), trainInfo.firstMessage.contains("도착") {
+              Text("ID: \(trainInfo.id)")
+                .fontWeight(.bold)
               Text("🏁 \(selectedStation.stationName)역에 도착했습니다.")
                 .foregroundColor(.blue)
+              Text("메시지1: \(trainInfo.firstMessage)")
+              Text("메시지2: \(trainInfo.secondMessage)")
+              Text("도착코드: \(trainInfo.arrivalState.rawValue) - \(arrivalStateMessage(trainInfo))")
+            } else {
               Text("ID: \(trainInfo.id)")
                 .fontWeight(.bold)
-            } else {
               Text("⚠️ \(selectedStation.stationName)역을 이미 떠난 열차입니다.")
                 .foregroundColor(.red)
-              Text("ID: \(trainInfo.id)")
-                .fontWeight(.bold)
               Text("방향: \(trainInfo.trainDestination)")
             }
           }

@@ -10,11 +10,12 @@ struct NewTrainProgressView: View {
   
   private let movingTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
   private let refreshingTimer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
-  
+
+  /// 열차 도착까지 남은 시간(초) - 1초씩 깎이는 실제 eta 입니다.
   @State private var eta: Int
-  // 0이 시작, 100이 끝
+  /// 0이 시작, 100이 끝
   @State private var remainDistance: CGFloat
-  // 초당 움직이는 거리
+  /// 초당 움직이는 거리
   @State private var distancePerTic: CGFloat
   
   init(trainInfo: TrainInfo, targetStation: StationInfo, directionStationID: String) {
@@ -68,7 +69,7 @@ struct NewTrainProgressView: View {
                 .offset(x: xOffset, y: +20)
                 .frame(width: 100)
             } else {
-              Text("약 \(eta)초")
+              Text(eta.asClock)
                 .font(.caption2)
                 .foregroundColor(.white)
                 .offset(x: xOffset, y: +20)

@@ -268,6 +268,7 @@ struct SelectionView: View {
               Text(StationInfo.findStationName(from: upper1))
                 .bold()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding(.horizontal, 10)
                 .background(selectedLine?.color ?? Color.bg)
                 .cornerRadius(16)
             }
@@ -291,6 +292,7 @@ struct SelectionView: View {
               Text(StationInfo.findStationName(from: lower1))
                 .bold()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding(.horizontal, 10)
                 .background(selectedLine?.color ?? Color.bg)
                 .cornerRadius(16)
             }
@@ -332,6 +334,7 @@ struct SelectionView: View {
               Text(StationInfo.findStationName(from: lower2))
                 .bold()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding(.horizontal, 10)
                 .background(selectedLine?.color ?? Color.bg)
                 .cornerRadius(16)
             }

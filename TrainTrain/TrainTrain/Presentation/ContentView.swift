@@ -31,7 +31,7 @@ struct ContentView: View {
       SelectionView(
         selectedStation: $selectedStation,
         directionStationID: $directionStationID)
-      .padding(.vertical)
+        .padding(.vertical)
       
       Group {
         Text("NOTICE")
