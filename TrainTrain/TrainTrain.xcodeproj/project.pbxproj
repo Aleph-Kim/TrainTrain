@@ -7,65 +7,92 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C10C137729333F61008E2CB2 /* ArrivalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C137529333F61008E2CB2 /* ArrivalView.swift */; };
-		C10C137829333F61008E2CB2 /* TrainProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C137629333F61008E2CB2 /* TrainProgressView.swift */; };
+		AA073DAA2956BF9200187023 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA073DA92956BF9200187023 /* APIClient.swift */; };
+		AA073DAC2956C16B00187023 /* APIClientLive.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA073DAB2956C16B00187023 /* APIClientLive.swift */; };
+		AA073DB629570AE300187023 /* SubwayClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA073DB529570AE200187023 /* SubwayClient.swift */; };
+		AA073DB829570AEB00187023 /* SubwayAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA073DB729570AEB00187023 /* SubwayAPI.swift */; };
+		AA073DBA29570BA900187023 /* APIRoutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA073DB929570BA900187023 /* APIRoutable.swift */; };
+		AA073DBE29571AE200187023 /* SubwayClientLive.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA073DBD29571AE200187023 /* SubwayClientLive.swift */; };
+		AA073DC029571DA700187023 /* SubwayAPI+APIRoutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA073DBF29571DA700187023 /* SubwayAPI+APIRoutable.swift */; };
+		AABFAE2729606F8D000DEE4C /* TrainTrainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABFAE2629606F8D000DEE4C /* TrainTrainTests.swift */; };
 		C1724B3029084C2F00A339BA /* ReactiveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1724B2F29084C2F00A339BA /* ReactiveButton.swift */; };
 		C18E716328CDAFB9000C9BA5 /* TrainInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716228CDAFB9000C9BA5 /* TrainInfo.swift */; };
 		C18E716628CDB2C6000C9BA5 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716528CDB2C6000C9BA5 /* ErrorMessage.swift */; };
 		C18E716828CDB8ED000C9BA5 /* ArrivalInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716728CDB8ED000C9BA5 /* ArrivalInfo.swift */; };
 		C18E716A28CDBD24000C9BA5 /* TrainType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716928CDBD24000C9BA5 /* TrainType.swift */; };
-		C18E716C28CDC177000C9BA5 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716B28CDC177000C9BA5 /* NetworkManager.swift */; };
 		C18E716E28CDCD57000C9BA5 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E716D28CDCD57000C9BA5 /* APIError.swift */; };
 		C18E717428CEBCA7000C9BA5 /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18E717328CEBCA7000C9BA5 /* SelectionView.swift */; };
-		C1CF27502928B4E20021B329 /* NewArrivalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CF274F2928B4E20021B329 /* NewArrivalView.swift */; };
-		C1CF27522928B7FB0021B329 /* NewTrainProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CF27512928B7FB0021B329 /* NewTrainProgressView.swift */; };
+		C1CF27502928B4E20021B329 /* ArrivalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CF274F2928B4E20021B329 /* ArrivalView.swift */; };
+		C1CF27522928B7FB0021B329 /* TrainProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CF27512928B7FB0021B329 /* TrainProgressView.swift */; };
 		C1D22DF428F29C0B00BE3368 /* String+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D22DF328F29C0B00BE3368 /* String+extensions.swift */; };
 		C1D22DF728F2A0A700BE3368 /* ColorCapsuleViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D22DF628F2A0A700BE3368 /* ColorCapsuleViewModifier.swift */; };
 		C1D22DF928F2A41600BE3368 /* AskCapsuleViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D22DF828F2A41600BE3368 /* AskCapsuleViewModifier.swift */; };
 		C1D22DFC28F2B73600BE3368 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = C1D22DFB28F2B73600BE3368 /* ConfettiSwiftUI */; };
 		C1D22DFE28F2CCAC00BE3368 /* Comparable+clamped.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D22DFD28F2CCAC00BE3368 /* Comparable+clamped.swift */; };
-		C1D22E0028F315D100BE3368 /* SimplifiedArrivalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D22DFF28F315D100BE3368 /* SimplifiedArrivalView.swift */; };
+		C1D22E0028F315D100BE3368 /* DebugArrivalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1D22DFF28F315D100BE3368 /* DebugArrivalView.swift */; };
 		C1E04BBA28E987E700FAD6D1 /* StationList221023.plist in Resources */ = {isa = PBXBuildFile; fileRef = C1E04BB928E987E700FAD6D1 /* StationList221023.plist */; };
 		C1E04BBC28E9AEC600FAD6D1 /* StationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E04BBB28E9AEC600FAD6D1 /* StationInfo.swift */; };
 		C1E93EBA2903D7B3000284C2 /* HalfCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E93EB92903D7B3000284C2 /* HalfCapsule.swift */; };
 		C1F91BCF28CEF55700FC8DE9 /* Color+subwayLines.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F91BCE28CEF55700FC8DE9 /* Color+subwayLines.swift */; };
 		C1F91BD428CEF80600FC8DE9 /* SubwayLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F91BD328CEF80600FC8DE9 /* SubwayLine.swift */; };
-		CC15FCE12904BE4400A0ECE5 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC15FCE02904BE4400A0ECE5 /* Triangle.swift */; };
 		CC83436929172782009F411F /* Array+safeExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC83436829172782009F411F /* Array+safeExport.swift */; };
 		CCB03F7429331A480066346A /* Int+clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB03F7329331A480066346A /* Int+clock.swift */; };
+		CCBCB6EE2968E0D600132DA9 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCB6ED2968E0D600132DA9 /* Color+Extension.swift */; };
+		CCBCB6F02968E75400132DA9 /* Color+AdditionalGray.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCB6EF2968E75400132DA9 /* Color+AdditionalGray.swift */; };
+		CCE0D5582969A988002345CD /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE0D5572969A988002345CD /* Line.swift */; };
+		CCE0D55A2969B1EB002345CD /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE0D5592969B1EB002345CD /* RoundedCorner.swift */; };
 		CF137AB728CDA8A10022B6AF /* TrainTrainApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */; };
 		CF137AB928CDA8A10022B6AF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF137AB828CDA8A10022B6AF /* ContentView.swift */; };
 		CF137ABB28CDA8A20022B6AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF137ABA28CDA8A20022B6AF /* Assets.xcassets */; };
 		CF137ABE28CDA8A20022B6AF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF137ABD28CDA8A20022B6AF /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		AABFAE2829606F8D000DEE4C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CF137AAB28CDA8A10022B6AF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CF137AB228CDA8A10022B6AF;
+			remoteInfo = TrainTrain;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		C10C137529333F61008E2CB2 /* ArrivalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrivalView.swift; sourceTree = "<group>"; };
-		C10C137629333F61008E2CB2 /* TrainProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainProgressView.swift; sourceTree = "<group>"; };
+		AA073DA92956BF9200187023 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		AA073DAB2956C16B00187023 /* APIClientLive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientLive.swift; sourceTree = "<group>"; };
+		AA073DB529570AE200187023 /* SubwayClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubwayClient.swift; sourceTree = "<group>"; };
+		AA073DB729570AEB00187023 /* SubwayAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubwayAPI.swift; sourceTree = "<group>"; };
+		AA073DB929570BA900187023 /* APIRoutable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRoutable.swift; sourceTree = "<group>"; };
+		AA073DBD29571AE200187023 /* SubwayClientLive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubwayClientLive.swift; sourceTree = "<group>"; };
+		AA073DBF29571DA700187023 /* SubwayAPI+APIRoutable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubwayAPI+APIRoutable.swift"; sourceTree = "<group>"; };
+		AABFAE2429606F8D000DEE4C /* TrainTrainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrainTrainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABFAE2629606F8D000DEE4C /* TrainTrainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainTrainTests.swift; sourceTree = "<group>"; };
 		C1724B2F29084C2F00A339BA /* ReactiveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactiveButton.swift; sourceTree = "<group>"; };
 		C18E716228CDAFB9000C9BA5 /* TrainInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainInfo.swift; sourceTree = "<group>"; };
 		C18E716528CDB2C6000C9BA5 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
 		C18E716728CDB8ED000C9BA5 /* ArrivalInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrivalInfo.swift; sourceTree = "<group>"; };
 		C18E716928CDBD24000C9BA5 /* TrainType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainType.swift; sourceTree = "<group>"; };
-		C18E716B28CDC177000C9BA5 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		C18E716D28CDCD57000C9BA5 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
-		C18E716F28CDD5F2000C9BA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		C18E716F28CDD5F2000C9BA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C18E717328CEBCA7000C9BA5 /* SelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
-		C1CF274F2928B4E20021B329 /* NewArrivalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewArrivalView.swift; sourceTree = "<group>"; };
-		C1CF27512928B7FB0021B329 /* NewTrainProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTrainProgressView.swift; sourceTree = "<group>"; };
+		C1CF274F2928B4E20021B329 /* ArrivalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrivalView.swift; sourceTree = "<group>"; };
+		C1CF27512928B7FB0021B329 /* TrainProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainProgressView.swift; sourceTree = "<group>"; };
 		C1D22DF328F29C0B00BE3368 /* String+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extensions.swift"; sourceTree = "<group>"; };
 		C1D22DF628F2A0A700BE3368 /* ColorCapsuleViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCapsuleViewModifier.swift; sourceTree = "<group>"; };
 		C1D22DF828F2A41600BE3368 /* AskCapsuleViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskCapsuleViewModifier.swift; sourceTree = "<group>"; };
 		C1D22DFD28F2CCAC00BE3368 /* Comparable+clamped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comparable+clamped.swift"; sourceTree = "<group>"; };
-		C1D22DFF28F315D100BE3368 /* SimplifiedArrivalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplifiedArrivalView.swift; sourceTree = "<group>"; };
+		C1D22DFF28F315D100BE3368 /* DebugArrivalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugArrivalView.swift; sourceTree = "<group>"; };
 		C1E04BB928E987E700FAD6D1 /* StationList221023.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = StationList221023.plist; sourceTree = "<group>"; };
 		C1E04BBB28E9AEC600FAD6D1 /* StationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationInfo.swift; sourceTree = "<group>"; };
 		C1E93EB92903D7B3000284C2 /* HalfCapsule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfCapsule.swift; sourceTree = "<group>"; };
 		C1F91BCE28CEF55700FC8DE9 /* Color+subwayLines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+subwayLines.swift"; sourceTree = "<group>"; };
 		C1F91BD328CEF80600FC8DE9 /* SubwayLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubwayLine.swift; sourceTree = "<group>"; };
-		CC15FCE02904BE4400A0ECE5 /* Triangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
 		CC83436829172782009F411F /* Array+safeExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+safeExport.swift"; sourceTree = "<group>"; };
 		CCB03F7329331A480066346A /* Int+clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+clock.swift"; sourceTree = "<group>"; };
+		CCBCB6ED2968E0D600132DA9 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		CCBCB6EF2968E75400132DA9 /* Color+AdditionalGray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+AdditionalGray.swift"; sourceTree = "<group>"; };
+		CCE0D5572969A988002345CD /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		CCE0D5592969B1EB002345CD /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
 		CF137AB328CDA8A10022B6AF /* TrainTrain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrainTrain.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainTrainApp.swift; sourceTree = "<group>"; };
 		CF137AB828CDA8A10022B6AF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -74,6 +101,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		AABFAE2129606F8D000DEE4C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CF137AB028CDA8A10022B6AF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -85,22 +119,151 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C10C137429333F61008E2CB2 /* Deprecated */ = {
+		AA073DA82956BF6900187023 /* APIClient */ = {
 			isa = PBXGroup;
 			children = (
-				C10C137529333F61008E2CB2 /* ArrivalView.swift */,
-				C10C137629333F61008E2CB2 /* TrainProgressView.swift */,
+				AA073DB929570BA900187023 /* APIRoutable.swift */,
+				AA073DA92956BF9200187023 /* APIClient.swift */,
+				AA073DAB2956C16B00187023 /* APIClientLive.swift */,
 			);
-			path = Deprecated;
+			path = APIClient;
 			sourceTree = "<group>";
 		};
-		C18E716128CDAEE4000C9BA5 /* Network */ = {
+		AA073DAD2956C45C00187023 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				C18E716B28CDC177000C9BA5 /* NetworkManager.swift */,
 				C18E716D28CDCD57000C9BA5 /* APIError.swift */,
 			);
-			path = Network;
+			path = API;
+			sourceTree = "<group>";
+		};
+		AA073DB429570AA500187023 /* SubwayClient */ = {
+			isa = PBXGroup;
+			children = (
+				AA073DB729570AEB00187023 /* SubwayAPI.swift */,
+				AA073DBF29571DA700187023 /* SubwayAPI+APIRoutable.swift */,
+				AA073DB529570AE200187023 /* SubwayClient.swift */,
+				AA073DBD29571AE200187023 /* SubwayClientLive.swift */,
+			);
+			path = SubwayClient;
+			sourceTree = "<group>";
+		};
+		AABFAE2529606F8D000DEE4C /* TrainTrainTests */ = {
+			isa = PBXGroup;
+			children = (
+				AABFAE2629606F8D000DEE4C /* TrainTrainTests.swift */,
+			);
+			path = TrainTrainTests;
+			sourceTree = "<group>";
+		};
+		AAD907F1294A070F00534536 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				CF137AB828CDA8A10022B6AF /* ContentView.swift */,
+				CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		AAD907F2294A071B00534536 /* Arrival */ = {
+			isa = PBXGroup;
+			children = (
+				AAD907F6294A089800534536 /* Model */,
+				AAD907F5294A082600534536 /* TrainProgress */,
+				C1CF274F2928B4E20021B329 /* ArrivalView.swift */,
+				C1D22DFF28F315D100BE3368 /* DebugArrivalView.swift */,
+			);
+			path = Arrival;
+			sourceTree = "<group>";
+		};
+		AAD907F3294A07B700534536 /* TTDesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				AAD907F8294A098E00534536 /* Color */,
+				CC15FCDF2904B9E400A0ECE5 /* Shape */,
+				C1D22DF528F2A06F00BE3368 /* ViewModifier */,
+			);
+			path = TTDesignSystem;
+			sourceTree = "<group>";
+		};
+		AAD907F4294A07FA00534536 /* Selection */ = {
+			isa = PBXGroup;
+			children = (
+				C18E717328CEBCA7000C9BA5 /* SelectionView.swift */,
+			);
+			path = Selection;
+			sourceTree = "<group>";
+		};
+		AAD907F5294A082600534536 /* TrainProgress */ = {
+			isa = PBXGroup;
+			children = (
+				C1CF27512928B7FB0021B329 /* TrainProgressView.swift */,
+			);
+			path = TrainProgress;
+			sourceTree = "<group>";
+		};
+		AAD907F6294A089800534536 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C18E716728CDB8ED000C9BA5 /* ArrivalInfo.swift */,
+				C18E716528CDB2C6000C9BA5 /* ErrorMessage.swift */,
+				C18E716228CDAFB9000C9BA5 /* TrainInfo.swift */,
+				C18E716928CDBD24000C9BA5 /* TrainType.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AAD907F7294A08D900534536 /* SharedModel */ = {
+			isa = PBXGroup;
+			children = (
+				AA073DAD2956C45C00187023 /* API */,
+				C1E04BBB28E9AEC600FAD6D1 /* StationInfo.swift */,
+				C1F91BD328CEF80600FC8DE9 /* SubwayLine.swift */,
+			);
+			path = SharedModel;
+			sourceTree = "<group>";
+		};
+		AAD907F8294A098E00534536 /* Color */ = {
+			isa = PBXGroup;
+			children = (
+				CCBCB6ED2968E0D600132DA9 /* Color+Extension.swift */,
+				C1F91BCE28CEF55700FC8DE9 /* Color+subwayLines.swift */,
+				CCBCB6EF2968E75400132DA9 /* Color+AdditionalGray.swift */,
+			);
+			path = Color;
+			sourceTree = "<group>";
+		};
+		AAD907F9294A0A2200534536 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				AA073DA82956BF6900187023 /* APIClient */,
+				AAD907F1294A070F00534536 /* Application */,
+				AAD907F2294A071B00534536 /* Arrival */,
+				AAD907F4294A07FA00534536 /* Selection */,
+				AAD907F7294A08D900534536 /* SharedModel */,
+				AA073DB429570AA500187023 /* SubwayClient */,
+				AAD907F3294A07B700534536 /* TTDesignSystem */,
+				C1F91BCD28CEF53400FC8DE9 /* TTFoundation */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		AAD907FA294A0A2700534536 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CF137ABC28CDA8A20022B6AF /* Preview Content */,
+				CF137ABA28CDA8A20022B6AF /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		AAD907FB294A0A3100534536 /* SupportFiles */ = {
+			isa = PBXGroup;
+			children = (
+				C18E716F28CDD5F2000C9BA5 /* Info.plist */,
+				C1E04BB928E987E700FAD6D1 /* StationList221023.plist */,
+			);
+			path = SupportFiles;
 			sourceTree = "<group>";
 		};
 		C1D22DF528F2A06F00BE3368 /* ViewModifier */ = {
@@ -112,84 +275,33 @@
 			path = ViewModifier;
 			sourceTree = "<group>";
 		};
-		C1F91BCD28CEF53400FC8DE9 /* Extension */ = {
+		C1F91BCD28CEF53400FC8DE9 /* TTFoundation */ = {
 			isa = PBXGroup;
 			children = (
-				C1F91BCE28CEF55700FC8DE9 /* Color+subwayLines.swift */,
 				C1D22DF328F29C0B00BE3368 /* String+extensions.swift */,
 				C1D22DFD28F2CCAC00BE3368 /* Comparable+clamped.swift */,
 				CC83436829172782009F411F /* Array+safeExport.swift */,
 				CCB03F7329331A480066346A /* Int+clock.swift */,
 			);
-			path = Extension;
-			sourceTree = "<group>";
-		};
-		C1F91BD228CEF7E400FC8DE9 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				C18E716728CDB8ED000C9BA5 /* ArrivalInfo.swift */,
-				C18E716228CDAFB9000C9BA5 /* TrainInfo.swift */,
-				C1E04BBB28E9AEC600FAD6D1 /* StationInfo.swift */,
-				C18E716528CDB2C6000C9BA5 /* ErrorMessage.swift */,
-				C18E716928CDBD24000C9BA5 /* TrainType.swift */,
-				C1F91BD328CEF80600FC8DE9 /* SubwayLine.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		C1F91BD728CF071800FC8DE9 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				CC15FCDF2904B9E400A0ECE5 /* Shape */,
-				C1D22DF528F2A06F00BE3368 /* ViewModifier */,
-				C10C137429333F61008E2CB2 /* Deprecated */,
-				C18E717328CEBCA7000C9BA5 /* SelectionView.swift */,
-				C1D22DFF28F315D100BE3368 /* SimplifiedArrivalView.swift */,
-				C1CF274F2928B4E20021B329 /* NewArrivalView.swift */,
-				C1CF27512928B7FB0021B329 /* NewTrainProgressView.swift */,
-			);
-			path = View;
+			path = TTFoundation;
 			sourceTree = "<group>";
 		};
 		CC15FCDF2904B9E400A0ECE5 /* Shape */ = {
 			isa = PBXGroup;
 			children = (
-				CC15FCE02904BE4400A0ECE5 /* Triangle.swift */,
 				C1E93EB92903D7B3000284C2 /* HalfCapsule.swift */,
 				C1724B2F29084C2F00A339BA /* ReactiveButton.swift */,
+				CCE0D5572969A988002345CD /* Line.swift */,
+				CCE0D5592969B1EB002345CD /* RoundedCorner.swift */,
 			);
 			path = Shape;
-			sourceTree = "<group>";
-		};
-		CC40B97828E9717600F784A7 /* Presentation */ = {
-			isa = PBXGroup;
-			children = (
-				CF137AB828CDA8A10022B6AF /* ContentView.swift */,
-				C1F91BD728CF071800FC8DE9 /* View */,
-			);
-			path = Presentation;
-			sourceTree = "<group>";
-		};
-		CC40B97928E9718100F784A7 /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-				C1F91BD228CEF7E400FC8DE9 /* Model */,
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
-		CC40B97A28E9719500F784A7 /* Repository */ = {
-			isa = PBXGroup;
-			children = (
-				C18E716128CDAEE4000C9BA5 /* Network */,
-			);
-			path = Repository;
 			sourceTree = "<group>";
 		};
 		CF137AAA28CDA8A10022B6AF = {
 			isa = PBXGroup;
 			children = (
 				CF137AB528CDA8A10022B6AF /* TrainTrain */,
+				AABFAE2529606F8D000DEE4C /* TrainTrainTests */,
 				CF137AB428CDA8A10022B6AF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -198,6 +310,7 @@
 			isa = PBXGroup;
 			children = (
 				CF137AB328CDA8A10022B6AF /* TrainTrain.app */,
+				AABFAE2429606F8D000DEE4C /* TrainTrainTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -205,15 +318,9 @@
 		CF137AB528CDA8A10022B6AF /* TrainTrain */ = {
 			isa = PBXGroup;
 			children = (
-				CF137AB628CDA8A10022B6AF /* TrainTrainApp.swift */,
-				CC40B97828E9717600F784A7 /* Presentation */,
-				CC40B97A28E9719500F784A7 /* Repository */,
-				CC40B97928E9718100F784A7 /* Domain */,
-				C1F91BCD28CEF53400FC8DE9 /* Extension */,
-				C18E716F28CDD5F2000C9BA5 /* Info.plist */,
-				C1E04BB928E987E700FAD6D1 /* StationList221023.plist */,
-				CF137ABA28CDA8A20022B6AF /* Assets.xcassets */,
-				CF137ABC28CDA8A20022B6AF /* Preview Content */,
+				AAD907FA294A0A2700534536 /* Resources */,
+				AAD907F9294A0A2200534536 /* Sources */,
+				AAD907FB294A0A3100534536 /* SupportFiles */,
 			);
 			path = TrainTrain;
 			sourceTree = "<group>";
@@ -229,6 +336,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		AABFAE2329606F8D000DEE4C /* TrainTrainTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AABFAE2C29606F8D000DEE4C /* Build configuration list for PBXNativeTarget "TrainTrainTests" */;
+			buildPhases = (
+				AABFAE2029606F8D000DEE4C /* Sources */,
+				AABFAE2129606F8D000DEE4C /* Frameworks */,
+				AABFAE2229606F8D000DEE4C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AABFAE2929606F8D000DEE4C /* PBXTargetDependency */,
+			);
+			name = TrainTrainTests;
+			productName = TrainTrainTests;
+			productReference = AABFAE2429606F8D000DEE4C /* TrainTrainTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		CF137AB228CDA8A10022B6AF /* TrainTrain */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CF137AC128CDA8A20022B6AF /* Build configuration list for PBXNativeTarget "TrainTrain" */;
@@ -256,9 +381,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1400;
+				LastSwiftUpdateCheck = 1410;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
+					AABFAE2329606F8D000DEE4C = {
+						CreatedOnToolsVersion = 14.1;
+						TestTargetID = CF137AB228CDA8A10022B6AF;
+					};
 					CF137AB228CDA8A10022B6AF = {
 						CreatedOnToolsVersion = 14.0;
 					};
@@ -281,11 +410,19 @@
 			projectRoot = "";
 			targets = (
 				CF137AB228CDA8A10022B6AF /* TrainTrain */,
+				AABFAE2329606F8D000DEE4C /* TrainTrainTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		AABFAE2229606F8D000DEE4C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CF137AB128CDA8A10022B6AF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -299,31 +436,46 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		AABFAE2029606F8D000DEE4C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABFAE2729606F8D000DEE4C /* TrainTrainTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CF137AAF28CDA8A10022B6AF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				C18E716828CDB8ED000C9BA5 /* ArrivalInfo.swift in Sources */,
-				C1CF27522928B7FB0021B329 /* NewTrainProgressView.swift in Sources */,
-				C18E716C28CDC177000C9BA5 /* NetworkManager.swift in Sources */,
+				CCBCB6EE2968E0D600132DA9 /* Color+Extension.swift in Sources */,
+				C1CF27522928B7FB0021B329 /* TrainProgressView.swift in Sources */,
+				AA073DBE29571AE200187023 /* SubwayClientLive.swift in Sources */,
+				AA073DAC2956C16B00187023 /* APIClientLive.swift in Sources */,
 				C1D22DF728F2A0A700BE3368 /* ColorCapsuleViewModifier.swift in Sources */,
 				C18E716628CDB2C6000C9BA5 /* ErrorMessage.swift in Sources */,
 				CF137AB928CDA8A10022B6AF /* ContentView.swift in Sources */,
-				C10C137729333F61008E2CB2 /* ArrivalView.swift in Sources */,
 				C18E716328CDAFB9000C9BA5 /* TrainInfo.swift in Sources */,
-				CC15FCE12904BE4400A0ECE5 /* Triangle.swift in Sources */,
+				CCE0D55A2969B1EB002345CD /* RoundedCorner.swift in Sources */,
 				C1F91BD428CEF80600FC8DE9 /* SubwayLine.swift in Sources */,
 				C18E716E28CDCD57000C9BA5 /* APIError.swift in Sources */,
-				C10C137829333F61008E2CB2 /* TrainProgressView.swift in Sources */,
+				AA073DBA29570BA900187023 /* APIRoutable.swift in Sources */,
 				CC83436929172782009F411F /* Array+safeExport.swift in Sources */,
+				CCE0D5582969A988002345CD /* Line.swift in Sources */,
 				C18E716A28CDBD24000C9BA5 /* TrainType.swift in Sources */,
+				AA073DAA2956BF9200187023 /* APIClient.swift in Sources */,
+				AA073DC029571DA700187023 /* SubwayAPI+APIRoutable.swift in Sources */,
 				CF137AB728CDA8A10022B6AF /* TrainTrainApp.swift in Sources */,
-				C1CF27502928B4E20021B329 /* NewArrivalView.swift in Sources */,
+				C1CF27502928B4E20021B329 /* ArrivalView.swift in Sources */,
 				C1E04BBC28E9AEC600FAD6D1 /* StationInfo.swift in Sources */,
+				AA073DB629570AE300187023 /* SubwayClient.swift in Sources */,
 				C1E93EBA2903D7B3000284C2 /* HalfCapsule.swift in Sources */,
-				C1D22E0028F315D100BE3368 /* SimplifiedArrivalView.swift in Sources */,
+				AA073DB829570AEB00187023 /* SubwayAPI.swift in Sources */,
+				C1D22E0028F315D100BE3368 /* DebugArrivalView.swift in Sources */,
 				C1D22DF428F29C0B00BE3368 /* String+extensions.swift in Sources */,
 				C1D22DFE28F2CCAC00BE3368 /* Comparable+clamped.swift in Sources */,
+				CCBCB6F02968E75400132DA9 /* Color+AdditionalGray.swift in Sources */,
 				CCB03F7429331A480066346A /* Int+clock.swift in Sources */,
 				C1D22DF928F2A41600BE3368 /* AskCapsuleViewModifier.swift in Sources */,
 				C18E717428CEBCA7000C9BA5 /* SelectionView.swift in Sources */,
@@ -334,7 +486,63 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		AABFAE2929606F8D000DEE4C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CF137AB228CDA8A10022B6AF /* TrainTrain */;
+			targetProxy = AABFAE2829606F8D000DEE4C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		AABFAE2A29606F8D000DEE4C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = space.codable.trainHardTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrainTrain.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TrainTrain";
+			};
+			name = Debug;
+		};
+		AABFAE2B29606F8D000DEE4C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = space.codable.trainHardTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrainTrain.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TrainTrain";
+			};
+			name = Release;
+		};
 		CF137ABF28CDA8A20022B6AF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -452,15 +660,19 @@
 		CF137AC228CDA8A20022B6AF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = AppIcon_B;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_ASSET_PATHS = "\"TrainTrain/Preview Content\"";
-				DEVELOPMENT_TEAM = GMASX5K78J;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_ASSET_PATHS = "\"TrainTrain/Resources/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = GMASX5K78J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = TrainTrain/Info.plist;
+				INFOPLIST_FILE = TrainTrain/SupportFiles/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "영차열차";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -472,9 +684,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = space.codable.trainHard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = TrainTrain_Profile;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -487,15 +701,19 @@
 		CF137AC328CDA8A20022B6AF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = AppIcon_B;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_ASSET_PATHS = "\"TrainTrain/Preview Content\"";
-				DEVELOPMENT_TEAM = GMASX5K78J;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_ASSET_PATHS = "\"TrainTrain/Resources/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = GMASX5K78J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = TrainTrain/Info.plist;
+				INFOPLIST_FILE = TrainTrain/SupportFiles/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "영차열차";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -507,9 +725,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = space.codable.trainHard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = TrainTrain_Profile;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -522,6 +742,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AABFAE2C29606F8D000DEE4C /* Build configuration list for PBXNativeTarget "TrainTrainTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AABFAE2A29606F8D000DEE4C /* Debug */,
+				AABFAE2B29606F8D000DEE4C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CF137AAE28CDA8A10022B6AF /* Build configuration list for PBXProject "TrainTrain" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
