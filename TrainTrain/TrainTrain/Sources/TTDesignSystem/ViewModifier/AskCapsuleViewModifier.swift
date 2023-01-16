@@ -9,7 +9,7 @@ struct AskCapsuleViewModifier: ViewModifier {
       .font(bold ? Font.body.bold() : Font.body)
       .padding(.horizontal, 16)
       .padding(.vertical, 10)
-      .background(Color.bg)
+      .backgroundColor(.secondarySystemBackground)
       .clipShape(Capsule())
   }
 }

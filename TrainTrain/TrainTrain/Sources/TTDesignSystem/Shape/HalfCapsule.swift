@@ -2,12 +2,11 @@ import SwiftUI
 
 struct HalfCapsule: View {
 
-  @Environment(\.colorScheme) var scheme
   let line: SubwayLine
 
   var body: some View {
     Rectangle()
-      .fill(line.color(for: scheme))
+      .fill(line.color)
       .frame(height: 42)
       .cornerRadius(.infinity, corners: .topLeft)
       .cornerRadius(.infinity, corners: .bottomLeft)

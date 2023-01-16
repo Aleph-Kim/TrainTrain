@@ -3,7 +3,6 @@ import ConfettiSwiftUI
 
 struct SelectionView: View {
 
-  @Environment(\.colorScheme) var scheme
   @Binding var selectedStation: StationInfo
   @Binding var directionStationID: String
   @Binding var selectedLine: SubwayLine
@@ -68,7 +67,7 @@ struct SelectionView: View {
       Spacer()
       
       if !firstSetting, let selectedLine = SubwayLine(rawValue: selectedStation.subwayLineID)! {
-        let lineColor = selectedLine.color(for: scheme)
+        let lineColor = selectedLine.color
         Text("완료됐습니다! 🎉\n이제 미리보기로\n확인해보세요.")
           .font(.title)
           .lineSpacing(6)
@@ -113,7 +112,7 @@ struct SelectionView: View {
     }
     .padding(12)
     .frame(maxWidth: .infinity, maxHeight: .infinity)
-    .background(Color.bg)
+    .backgroundColor(.secondarySystemBackground)
     .cornerRadius(16)
     .padding(.horizontal)
   }
@@ -159,7 +158,7 @@ struct SelectionView: View {
         .padding(.vertical, 20)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
       }
-      .background(Color.bg)
+      .backgroundColor(.secondarySystemBackground)
       .cornerRadius(16)
     }
     .padding(.horizontal)
@@ -170,7 +169,7 @@ struct SelectionView: View {
     VStack(spacing: 10) {
       HStack {
         if let selectedLine {
-          let lineColor = selectedLine.color(for: scheme)
+          let lineColor = selectedLine.color
           Text(selectedLine.name)
             .colorCapsule(lineColor)
         }
@@ -230,7 +229,7 @@ struct SelectionView: View {
         .padding(8)
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
-      .background(selectedLine.color(for: scheme) ?? Color.bg)
+      .background(selectedLine.color)
       .cornerRadius(16)
     }
     .padding(.horizontal)
@@ -274,12 +273,12 @@ struct SelectionView: View {
                 .bold()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(.horizontal, 10)
-                .background(selectedLine.color(for: scheme))
+                .background(selectedLine.color)
                 .cornerRadius(16)
             }
             .buttonStyle(ReactiveButton())
           } else {
-            selectedLine.color(for: scheme)
+            selectedLine.color
               .opacity(0.5)
               .cornerRadius(16)
           }
@@ -298,12 +297,12 @@ struct SelectionView: View {
                 .bold()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(.horizontal, 10)
-                .background(selectedLine.color(for: scheme))
+                .background(selectedLine.color)
                 .cornerRadius(16)
             }
             .buttonStyle(ReactiveButton())
           } else {
-            selectedLine.color(for: scheme)
+            selectedLine.color
               .opacity(0.5)
               .cornerRadius(16)
           }
@@ -323,7 +322,7 @@ struct SelectionView: View {
               Text(StationInfo.findStationName(from: upper2))
                 .bold()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(selectedLine.color(for: scheme))
+                .background(selectedLine.color)
                 .cornerRadius(16)
             }
             .buttonStyle(ReactiveButton())
@@ -340,7 +339,7 @@ struct SelectionView: View {
                 .bold()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(.horizontal, 10)
-                .background(selectedLine.color(for: scheme))
+                .background(selectedLine.color)
                 .cornerRadius(16)
             }
             .buttonStyle(ReactiveButton())

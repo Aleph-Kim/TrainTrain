@@ -6,7 +6,6 @@ struct ArrivalView: View {
   @Binding var directionStationID: String
   @Binding var selectedSubwayLine: SubwayLine
   @Environment(\.scenePhase) var scenePhase
-  @Environment(\.colorScheme) var colorScheme
   
   @State private var trainInfos: [TrainInfo] = []
   @State private var firstUpcomingTrainInfo: TrainInfo?
@@ -16,7 +15,7 @@ struct ArrivalView: View {
   private let subwayClient: SubwayClient = .live()
   
   var body: some View {
-    let subwayLineColor: Color = selectedSubwayLine.color(for: colorScheme)
+    let subwayLineColor: Color = selectedSubwayLine.color
     
     ZStack {
       backgroundView()
@@ -34,7 +33,7 @@ struct ArrivalView: View {
         ZStack {
           strokedLine()
           goalLineWithCircle()
-          TrainProgressisStack(of: trainInfos)
+          TrainProgressStack(of: trainInfos)
         }
         .frame(height: 12)
         .padding(.horizontal)
@@ -66,7 +65,7 @@ struct ArrivalView: View {
     let roundedRectangleCornerRadius: CGFloat = 20.0
     
     return RoundedRectangle(cornerRadius: roundedRectangleCornerRadius)
-      .foregroundColor(Color(uiColor: UIColor.secondarySystemBackground))
+      .foregroundColor(.secondarySystemBackground)
   }
   
   private func subwayLineIndicatorCircle(lineColor: Color) -> some View {
@@ -81,7 +80,7 @@ struct ArrivalView: View {
       .overlay {
         Text(subwayLinePrefix)
           .bold()
-          .foregroundColor(.additionalGray(of: .additionalGray4, for: colorScheme))
+          .foregroundColor(.additionalGray4)
       }
   }
   
@@ -89,7 +88,7 @@ struct ArrivalView: View {
     Text(selectedStationInfo.stationName)
       .font(.title3)
       .bold()
-      .foregroundColor(.additionalGray(of: .additionalGray4, for: colorScheme))
+      .foregroundColor(.additionalGray4)
   }
   
   private func nextStationIndicator() -> some View {
@@ -106,12 +105,12 @@ struct ArrivalView: View {
         .font(.system(size: fontSize))
         .bold()
     }
-    .foregroundColor(.additionalGray(of: .additionalGray3, for: colorScheme))
+    .foregroundColor(.additionalGray3)
     .padding(.horizontal, horizontalPadding)
     .padding(.vertical, verticalPadding)
     .background {
       RoundedRectangle(cornerRadius: backgroundCornerRadius)
-        .foregroundColor(Color(uiColor: .systemGray5))
+        .foregroundColor(.systemGray5)
     }
   }
   
@@ -124,7 +123,7 @@ struct ArrivalView: View {
     
     return Line()
       .stroke(style: StrokeStyle(lineWidth: lineWidth, dash: dash, dashPhase: dashPhase))
-      .foregroundColor(Color(uiColor: .systemGray5))
+      .foregroundColor(.systemGray5)
       .padding(.trailing, trailingPadding)
       .offset(y: yOffset)
   }
@@ -144,16 +143,16 @@ struct ArrivalView: View {
         .strokeBorder(lineWidth: strokeBorderLineWidth)
         .frame(width: frameSize, height: frameSize)
         .offset(y: yOffset)
-        .foregroundColor(.lineColor(subwayLine: selectedSubwayLine))
+        .foregroundColor(selectedSubwayLine.color)
       Line()
         .stroke(style: StrokeStyle(lineWidth: lineWidth))
-        .foregroundColor(Color(uiColor: .systemGray5))
+        .foregroundColor(.systemGray5)
         .frame(width: lineFrameWidth)
         .offset(y: lineYOffset)
     }
   }
   
-  private func TrainProgressisStack(of trainInfos: [TrainInfo]) -> some View {
+  private func TrainProgressStack(of trainInfos: [TrainInfo]) -> some View {
     let trailingPadding: CGFloat = 16.0
     
     return ForEach(trainInfos) { trainInfo in
@@ -161,7 +160,7 @@ struct ArrivalView: View {
         trainInfo: trainInfo,
         targetStation: selectedStationInfo,
         directionStationID: directionStationID,
-        subwayLineColor: .lineColor(subwayLine: selectedSubwayLine)
+        subwayLineColor: selectedSubwayLine.color
       )
       .padding(.trailing, trailingPadding)
     }
@@ -173,7 +172,7 @@ struct ArrivalView: View {
     return Rectangle()
       .cornerRadius(cornerRadius, corners: .bottomLeft)
       .cornerRadius(cornerRadius, corners: .bottomRight)
-      .foregroundColor(Color(uiColor: .systemGray5))
+      .foregroundColor(.accessibleSystemGray6)
   }
   
   private func secondaryInformationView() -> some View {
@@ -181,12 +180,12 @@ struct ArrivalView: View {
       if let firstUpcomingTrainInfo {
         HStack {
           Text("도착예정")
-            .foregroundColor(.additionalGray(of: .additionalGray5, for: colorScheme))
+            .foregroundColor(.additionalGray5)
           Text(Int(firstUpcomingTrainInfo.eta)!.asClock)
             .bold()
-            .foregroundColor(.indigo)
+            .foregroundColor(.accessibleSystemIndigo)
           Text("후")
-            .foregroundColor(.additionalGray(of: .additionalGray5, for: colorScheme))
+            .foregroundColor(.additionalGray5)
         }
         .font(.title2)
       }
@@ -194,7 +193,7 @@ struct ArrivalView: View {
         if let secondUpcomingTrainInfo {
           Text("다음열차 약 \(Int(secondUpcomingTrainInfo.eta)!/60)분 후")
             .font(.subheadline)
-            .foregroundColor(Color(uiColor: .systemGray))
+            .foregroundColor(.secondary)
         }
       }
     }

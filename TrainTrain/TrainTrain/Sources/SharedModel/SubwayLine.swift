@@ -13,8 +13,18 @@ enum SubwayLine: String, CaseIterable, Identifiable {
   case line9 = "1009"
 
   /// 각 지하철 호선의 고유 컬러
-  func color(for scheme: ColorScheme) -> Color {
-    .lineColor(subwayLine: self, for: scheme)
+  var color: Color {
+    switch self {
+    case .line1: return .line1
+    case .line2: return .line2
+    case .line3: return .line3
+    case .line4: return .line4
+    case .line5: return .line5
+    case .line6: return .line6
+    case .line7: return .line7
+    case .line8: return .line8
+    case .line9: return .line9
+    }
   }
 
   /// 각 지하철 호선의 출력용 이름

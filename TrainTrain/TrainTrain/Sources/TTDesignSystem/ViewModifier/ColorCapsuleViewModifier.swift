@@ -26,6 +26,6 @@ extension View {
 struct ColorCapsuleViewModifier_Previews: PreviewProvider {
   static var previews: some View {
     Text(SubwayLine.line2.rawValue)
-      .colorCapsule(Color.lineColor(subwayLine: .line2))
+      .colorCapsule(.line2)
   }
 }
