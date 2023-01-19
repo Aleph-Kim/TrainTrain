@@ -2,10 +2,10 @@ import SwiftUI
 
 struct TrainProgressView: View {
   
+  private let subwayClient: SubwayClient
   private let trainInfo: TrainInfo
   private let targetStation: StationInfo
   private let directionStationID: String
-  private let subwayClient: SubwayClient = .live()
   private let subwayLineColor: Color
   
   private let movingTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -18,7 +18,14 @@ struct TrainProgressView: View {
   /// 초당 움직이는 거리
   @State private var distancePerTic: CGFloat
   
-  init(trainInfo: TrainInfo, targetStation: StationInfo, directionStationID: String, subwayLineColor: Color) {
+  init(
+    subwayClient: SubwayClient,
+    trainInfo: TrainInfo,
+    targetStation: StationInfo,
+    directionStationID: String,
+    subwayLineColor: Color
+  ) {
+    self.subwayClient = subwayClient
     self.trainInfo = trainInfo
     self.targetStation = targetStation
     self.directionStationID = directionStationID
@@ -119,9 +126,15 @@ struct TrainProgressView: View {
 }
 
 struct TrainProgressView_Previews: PreviewProvider {
+  static let stationInfoClient: StationInfoClient = .live()
+  static let subwayClient: SubwayClient = .live(
+    apiClient: .live(),
+    stationInfoClient: stationInfoClient
+  )
+
   static var previews: some View {
     
-    let gangNam = StationInfo.findStationInfo(from: "1002000222")
+    let gangNam = stationInfoClient.findStationInfo(from: "1002000222")
     let mock = TrainInfo(
       subwayLineID: "1002",
       trainDestination: "성수행 - 역삼방면",
@@ -140,6 +153,7 @@ struct TrainProgressView_Previews: PreviewProvider {
       id: "3245")
     
     TrainProgressView(
+      subwayClient: subwayClient,
       trainInfo: mock,
       targetStation: gangNam,
       directionStationID: "1002000221",

@@ -1,7 +1,9 @@
 import SwiftUI
 
 struct ContentView: View {
-  
+
+  private let stationInfoClient: StationInfoClient
+  private let subwayClient: SubwayClient
   @State private var selectedStation: StationInfo
   @State private var directionStationID: String
   @State private var selectedSubwayLine: SubwayLine
@@ -9,8 +11,16 @@ struct ContentView: View {
   
   private let arrivalViewHeight: CGFloat = 160
   
-  init(selectedStationID: String, directionStationID: String, subwayLine: SubwayLine) {
-    self.selectedStation = StationInfo.findStationInfo(from: selectedStationID)
+  init(
+    stationInfoClient: StationInfoClient,
+    subwayClient: SubwayClient,
+    selectedStationID: String,
+    directionStationID: String,
+    subwayLine: SubwayLine
+  ) {
+    self.stationInfoClient = stationInfoClient
+    self.subwayClient = subwayClient
+    self.selectedStation = stationInfoClient.findStationInfo(from: selectedStationID)
     self.directionStationID = directionStationID
     self.selectedSubwayLine = subwayLine
   }
@@ -29,6 +39,8 @@ struct ContentView: View {
   @ViewBuilder
   private func upperSectionView() -> some View {
     ArrivalView(
+      stationInfoClient: stationInfoClient,
+      subwayClient: subwayClient,
       selectedStationInfo: $selectedStation,
       directionStationID: $directionStationID,
       selectedSubwayLine: $selectedSubwayLine)
@@ -48,6 +60,7 @@ struct ContentView: View {
   @ViewBuilder
   private func lowerSectionView() -> some View {
     SelectionView(
+      stationInfoClient: stationInfoClient,
       selectedStation: $selectedStation,
       directionStationID: $directionStationID,
       selectedLine: $selectedSubwayLine,
@@ -64,7 +77,9 @@ struct ContentView: View {
     ScrollView{
       DebugArrivalView(
         selectedStation: $selectedStation,
-        directionStationID: $directionStationID)
+        directionStationID: $directionStationID,
+        stationInfoClient: stationInfoClient,
+        subwayClient: subwayClient)
     }
   }
   
@@ -86,7 +101,17 @@ struct ContentView: View {
 // MARK: SwiftUI previews
 
 struct ContentView_Previews: PreviewProvider {
+  static let stationInfoClient: StationInfoClient = .live()
+  static let subwayClient: SubwayClient = .live(
+    apiClient: .live(),
+    stationInfoClient: stationInfoClient
+  )
   static var previews: some View {
-    ContentView(selectedStationID: "1002000222", directionStationID: "1002000221", subwayLine: .line2)
+    ContentView(
+      stationInfoClient: stationInfoClient,
+      subwayClient: subwayClient,
+      selectedStationID: "1002000222",
+      directionStationID: "1002000221",
+      subwayLine: .line2)
   }
 }

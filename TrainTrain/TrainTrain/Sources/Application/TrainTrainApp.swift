@@ -13,7 +13,14 @@ struct TrainTrainApp: App {
 
   var body: some Scene {
     WindowGroup {
+      let stationInfoClient: StationInfoClient = .live(bundle: .main)
+      let subwayClient: SubwayClient = .live(
+        apiClient: .live(session: .shared),
+        stationInfoClient: stationInfoClient
+      )
       ContentView(
+        stationInfoClient: stationInfoClient,
+        subwayClient: subwayClient,
         selectedStationID: selectedStationID,
         directionStationID: directionStationID,
         subwayLine: subwayLine)

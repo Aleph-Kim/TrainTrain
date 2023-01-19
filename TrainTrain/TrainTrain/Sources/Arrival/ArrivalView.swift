@@ -1,7 +1,10 @@
 import SwiftUI
 
 struct ArrivalView: View {
-  
+
+  private let stationInfoClient: StationInfoClient
+  private let subwayClient: SubwayClient
+
   @Binding var selectedStationInfo: StationInfo
   @Binding var directionStationID: String
   @Binding var selectedSubwayLine: SubwayLine
@@ -12,7 +15,26 @@ struct ArrivalView: View {
   @State private var secondUpcomingTrainInfo: TrainInfo?
   
   private let timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
-  private let subwayClient: SubwayClient = .live()
+
+  init(
+    stationInfoClient: StationInfoClient,
+    subwayClient: SubwayClient,
+    selectedStationInfo: Binding<StationInfo>,
+    directionStationID: Binding<String>,
+    selectedSubwayLine: Binding<SubwayLine>,
+    trainInfos: [TrainInfo] = [],
+    firstUpcomingTrainInfo: TrainInfo? = nil,
+    secondUpcomingTrainInfo: TrainInfo? = nil
+  ) {
+    self.stationInfoClient = stationInfoClient
+    self.subwayClient = subwayClient
+    self._selectedStationInfo = selectedStationInfo
+    self._directionStationID = directionStationID
+    self._selectedSubwayLine = selectedSubwayLine
+    self.trainInfos = trainInfos
+    self.firstUpcomingTrainInfo = firstUpcomingTrainInfo
+    self.secondUpcomingTrainInfo = secondUpcomingTrainInfo
+  }
   
   var body: some View {
     let subwayLineColor: Color = selectedSubwayLine.color
@@ -101,7 +123,9 @@ struct ArrivalView: View {
     return  HStack(spacing: spacing) {
       Text("다음역")
         .font(.system(size: fontSize))
-      Text(StationInfo.findStationName(from: directionStationID))
+
+      let stationName = stationInfoClient.findStationName(from: directionStationID)
+      Text(stationName)
         .font(.system(size: fontSize))
         .bold()
     }
@@ -157,6 +181,7 @@ struct ArrivalView: View {
     
     return ForEach(trainInfos) { trainInfo in
       TrainProgressView(
+        subwayClient: subwayClient,
         trainInfo: trainInfo,
         targetStation: selectedStationInfo,
         directionStationID: directionStationID,
@@ -244,9 +269,21 @@ struct ArrivalView: View {
 }
 
 struct ArrivalView_Previews: PreviewProvider {
+  static let stationInfoClient: StationInfoClient = .live()
+  static let subwayClient: SubwayClient = .live(
+    apiClient: .live(),
+    stationInfoClient: stationInfoClient
+  )
+
   static var previews: some View {
-    let gangNam = StationInfo.findStationInfo(from: "1002000222")
+    let gangNam = stationInfoClient.findStationInfo(from: "1002000222")
     
-    ArrivalView(selectedStationInfo: .constant(gangNam), directionStationID: .constant("1002000221"), selectedSubwayLine: .constant(.line2))
+    ArrivalView(
+      stationInfoClient: stationInfoClient,
+      subwayClient: subwayClient,
+      selectedStationInfo: .constant(gangNam),
+      directionStationID: .constant("1002000221"),
+      selectedSubwayLine: .constant(.line2)
+    )
   }
 }

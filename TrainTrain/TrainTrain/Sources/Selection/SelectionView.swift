@@ -3,6 +3,18 @@ import ConfettiSwiftUI
 
 struct SelectionView: View {
 
+  enum SelectionStep: CaseIterable {
+    case pre
+    case lineNumber
+    case station
+    case direction
+
+    static var maxIndex: Int {
+      SelectionStep.allCases.count - 1
+    }
+  }
+
+  private let stationInfoClient: StationInfoClient
   @Binding var selectedStation: StationInfo
   @Binding var directionStationID: String
   @Binding var selectedLine: SubwayLine
@@ -17,6 +29,30 @@ struct SelectionView: View {
   @AppStorage("firstSetting") private var firstSetting: Bool = true
   
   private let customAnimation: Animation = .linear(duration: 0.1)
+
+  init(
+    stationInfoClient: StationInfoClient,
+    selectedStation: Binding<StationInfo>,
+    directionStationID: Binding<String>,
+    selectedLine: Binding<SubwayLine>,
+    isKeyboardUp: FocusState<Bool>,
+    selectionStep: SelectionStep = .pre,
+    stationList: [StationInfo] = [],
+    searchText: String = "",
+    confetti: Int = .zero,
+    firstSetting: Bool = true
+  ) {
+    self.stationInfoClient = stationInfoClient
+    self._selectedStation = selectedStation
+    self._directionStationID = directionStationID
+    self._selectedLine = selectedLine
+    self._isKeyboardUp = isKeyboardUp
+    self.selectionStep = selectionStep
+    self.stationList = stationList
+    self.searchText = searchText
+    self.confetti = confetti
+    self.firstSetting = firstSetting
+  }
   
   // MARK: - body
   var body: some View {
@@ -85,7 +121,7 @@ struct SelectionView: View {
             
             Image(systemName: "arrow.right")
             
-            Text(StationInfo.findStationName(from: directionStationID))
+            Text(stationInfoClient.findStationName(from: directionStationID))
               .colorCapsule(lineColor)
           }
         }
@@ -147,7 +183,7 @@ struct SelectionView: View {
                 selectedLine = line
                 selectionStep = .lineNumber
                 selectionStep = .station
-                stationList = StationInfo.fetchStationList(of: line)
+                stationList = stationInfoClient.stationList(on: line)
               }
             } label: {
               HalfCapsule(line: line)
@@ -269,7 +305,7 @@ struct SelectionView: View {
                 confetti += 1
               }
             } label: {
-              Text(StationInfo.findStationName(from: upper1))
+              Text(stationInfoClient.findStationName(from: upper1))
                 .bold()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(.horizontal, 10)
@@ -293,7 +329,7 @@ struct SelectionView: View {
                 confetti += 1
               }
             } label: {
-              Text(StationInfo.findStationName(from: lower1))
+              Text(stationInfoClient.findStationName(from: lower1))
                 .bold()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(.horizontal, 10)
@@ -319,7 +355,7 @@ struct SelectionView: View {
                 confetti += 1
               }
             } label: {
-              Text(StationInfo.findStationName(from: upper2))
+              Text(stationInfoClient.findStationName(from: upper2))
                 .bold()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(selectedLine.color)
@@ -335,7 +371,7 @@ struct SelectionView: View {
                 confetti += 1
               }
             } label: {
-              Text(StationInfo.findStationName(from: lower2))
+              Text(stationInfoClient.findStationName(from: lower2))
                 .bold()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(.horizontal, 10)
@@ -372,24 +408,14 @@ struct SelectionView: View {
   }
 }
 
-fileprivate enum SelectionStep: CaseIterable {
-  case pre
-  case lineNumber
-  case station
-  case direction
-  
-  static var maxIndex: Int {
-    SelectionStep.allCases.count - 1
-  }
-}
-
 // MARK: SwiftUI previews
 
 struct SelectionView_Previews: PreviewProvider {
   static var previews: some View {
     SelectionView(
+      stationInfoClient: .live(),
       selectedStation: .constant(
-        .init(
+        StationInfo(
           subwayLineID: "1002",
           stationID: "1002000228",
           stationName: "서울대입구",
@@ -402,6 +428,7 @@ struct SelectionView_Previews: PreviewProvider {
           upperStationID_2: "",
           upperStationETA_2: "")),
       directionStationID: .constant("1002000227"),
-      selectedLine: .constant(.line2))
+      selectedLine: .constant(.line2),
+      isKeyboardUp: FocusState<Bool>())
   }
 }

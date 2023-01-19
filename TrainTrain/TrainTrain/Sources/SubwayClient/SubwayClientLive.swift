@@ -6,11 +6,14 @@
 //
 
 extension SubwayClient {
-  static func live(apiClient: APIClient<SubwayAPI> = .live()) -> Self {
+  static func live(
+    apiClient: APIClient<SubwayAPI>,
+    stationInfoClient: StationInfoClient
+  ) -> Self {
     /// 특정 지하철역을 기준으로, 접근하는 모든 방향의 실시간 도착정보를 배열 형태로 가져옵니다.
     @Sendable
     func fetch(stationID: String) async throws -> ArrivalInfo {
-      let stationName = StationInfo.findStationName(from: stationID)
+      let stationName = stationInfoClient.findStationName(from: stationID)
 
       return try await apiClient.request(
         .realTimeStationArrival(.init(stationName: stationName)),
@@ -27,7 +30,7 @@ extension SubwayClient {
           async let nextInfo = fetch(stationID: directionStationID)
 
           let filteredList = try await arrivalInfo.realtimeArrivalList.filter {
-            $0.trainDestination.contains(StationInfo.findStationName(from: directionStationID))
+            $0.trainDestination.contains(stationInfoClient.findStationName(from: directionStationID))
               && $0.secondMessage != targetStation.stationName // 중복 방지
           }
 

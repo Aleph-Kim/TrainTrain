@@ -2,15 +2,34 @@ import SwiftUI
 
 struct DebugArrivalView: View {
 
-  @Binding var selectedStation: StationInfo
-  @Binding var directionStationID: String
+  @Binding private var selectedStation: StationInfo
+  @Binding private var directionStationID: String
 
   @State private var realtime: [TrainInfo] = []
   @State private var isLoading: Bool = false
   @State private var refreshTimer = 5
 
-  private let subwayClient: SubwayClient = .live()
+  private let stationInfoClient: StationInfoClient
+  private let subwayClient: SubwayClient
   private let timer = Timer.publish(every: 1 , on: .main, in: .common).autoconnect()
+
+  init(
+    selectedStation: Binding<StationInfo>,
+    directionStationID: Binding<String>,
+    realtime: [TrainInfo] = [],
+    isLoading: Bool = false,
+    refreshTimer: Int = 5,
+    stationInfoClient: StationInfoClient,
+    subwayClient: SubwayClient
+  ) {
+    self._selectedStation = selectedStation
+    self._directionStationID = directionStationID
+    self.realtime = realtime
+    self.isLoading = isLoading
+    self.refreshTimer = refreshTimer
+    self.stationInfoClient = stationInfoClient
+    self.subwayClient = subwayClient
+  }
 
   var body: some View {
     VStack {
@@ -24,7 +43,9 @@ struct DebugArrivalView: View {
       ForEach(realtime) { trainInfo in
         GroupBox {
           VStack(alignment: .leading) {
-            if trainInfo.trainDestination.contains(StationInfo.findStationName(from: directionStationID)) {
+            let directionStationName = stationInfoClient.findStationName(from: directionStationID)
+
+            if trainInfo.trainDestination.contains(directionStationName) {
               Text("ID: \(trainInfo.id)")
                 .fontWeight(.bold)
               Text("방향: \(trainInfo.trainDestination)")
@@ -35,7 +56,7 @@ struct DebugArrivalView: View {
               Text("메시지2: \(trainInfo.secondMessage)")
               Text("도착코드: \(trainInfo.arrivalState.rawValue) - \(arrivalStateMessage(trainInfo))")
               Text("막차 여부: \(trainInfo.trainDestination.contains("막차") ? "⚠️ 막차!" : "false")")
-            } else if !trainInfo.trainDestination.contains(StationInfo.findStationName(from: directionStationID)), trainInfo.firstMessage.contains("진입") {
+            } else if !trainInfo.trainDestination.contains(directionStationName), trainInfo.firstMessage.contains("진입") {
               Text("ID: \(trainInfo.id)")
                 .fontWeight(.bold)
               Text("💨 \(selectedStation.stationName)역에 진입 중입니다.")
@@ -43,7 +64,7 @@ struct DebugArrivalView: View {
               Text("메시지1: \(trainInfo.firstMessage)")
               Text("메시지2: \(trainInfo.secondMessage)")
               Text("도착코드: \(trainInfo.arrivalState.rawValue) - \(arrivalStateMessage(trainInfo))")
-            } else if !trainInfo.trainDestination.contains(StationInfo.findStationName(from: directionStationID)), trainInfo.firstMessage.contains("도착") {
+            } else if !trainInfo.trainDestination.contains(directionStationName), trainInfo.firstMessage.contains("도착") {
               Text("ID: \(trainInfo.id)")
                 .fontWeight(.bold)
               Text("🏁 \(selectedStation.stationName)역에 도착했습니다.")
@@ -122,10 +143,16 @@ struct DebugArrivalView: View {
 // MARK: SwiftUI previews
 
 struct DebugArrivalView_Previews: PreviewProvider {
+  static let stationInfoClient: StationInfoClient = .live()
+  static let subwayClient: SubwayClient = .live(
+    apiClient: .live(),
+    stationInfoClient: stationInfoClient
+  )
+
   static var previews: some View {
     DebugArrivalView(
       selectedStation: .constant(
-        .init(
+        StationInfo(
           subwayLineID: "1002",
           stationID: "1002000228",
           stationName: "서울대입구",
@@ -137,6 +164,8 @@ struct DebugArrivalView_Previews: PreviewProvider {
           upperStationETA_1: 120,
           upperStationID_2: "",
           upperStationETA_2: "")),
-      directionStationID: .constant("1002000227"))
+      directionStationID: .constant("1002000227"),
+      stationInfoClient: .live(),
+      subwayClient: subwayClient)
   }
 }

@@ -14,6 +14,8 @@
 		AA073DBA29570BA900187023 /* APIRoutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA073DB929570BA900187023 /* APIRoutable.swift */; };
 		AA073DBE29571AE200187023 /* SubwayClientLive.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA073DBD29571AE200187023 /* SubwayClientLive.swift */; };
 		AA073DC029571DA700187023 /* SubwayAPI+APIRoutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA073DBF29571DA700187023 /* SubwayAPI+APIRoutable.swift */; };
+		AAA8D41D29725CA3002B8FFA /* StationInfoClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA8D41C29725CA3002B8FFA /* StationInfoClient.swift */; };
+		AAA8D41F29725D6E002B8FFA /* StationInfoClientLive.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA8D41E29725D6D002B8FFA /* StationInfoClientLive.swift */; };
 		AAA8D42329727364002B8FFA /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAA8D42229727364002B8FFA /* Colors.xcassets */; };
 		AAA8D42529727373002B8FFA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAA8D42429727373002B8FFA /* Images.xcassets */; };
 		AABFAE2729606F8D000DEE4C /* TrainTrainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABFAE2629606F8D000DEE4C /* TrainTrainTests.swift */; };
@@ -67,6 +69,8 @@
 		AA073DB929570BA900187023 /* APIRoutable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRoutable.swift; sourceTree = "<group>"; };
 		AA073DBD29571AE200187023 /* SubwayClientLive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubwayClientLive.swift; sourceTree = "<group>"; };
 		AA073DBF29571DA700187023 /* SubwayAPI+APIRoutable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubwayAPI+APIRoutable.swift"; sourceTree = "<group>"; };
+		AAA8D41C29725CA3002B8FFA /* StationInfoClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationInfoClient.swift; sourceTree = "<group>"; };
+		AAA8D41E29725D6D002B8FFA /* StationInfoClientLive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationInfoClientLive.swift; sourceTree = "<group>"; };
 		AAA8D42229727364002B8FFA /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		AAA8D42429727373002B8FFA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		AAA8D42729727424002B8FFA /* Assets.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Assets.stencil; sourceTree = "<group>"; };
@@ -154,6 +158,15 @@
 			path = SubwayClient;
 			sourceTree = "<group>";
 		};
+		AAA8D41B29725C8C002B8FFA /* StationInfoClient */ = {
+			isa = PBXGroup;
+			children = (
+				AAA8D41C29725CA3002B8FFA /* StationInfoClient.swift */,
+				AAA8D41E29725D6D002B8FFA /* StationInfoClientLive.swift */,
+			);
+			path = StationInfoClient;
+            sourceTree = "<group>";
+        };
 		AAA8D4262972740A002B8FFA /* Templates */ = {
 			isa = PBXGroup;
 			children = (
@@ -262,6 +275,7 @@
 				AAD907F2294A071B00534536 /* Arrival */,
 				AAD907F4294A07FA00534536 /* Selection */,
 				AAD907F7294A08D900534536 /* SharedModel */,
+				AAA8D41B29725C8C002B8FFA /* StationInfoClient */,
 				AA073DB429570AA500187023 /* SubwayClient */,
 				AAD907F3294A07B700534536 /* TTDesignSystem */,
 				C1F91BCD28CEF53400FC8DE9 /* TTFoundation */,
@@ -517,6 +531,7 @@
 				C18E716628CDB2C6000C9BA5 /* ErrorMessage.swift in Sources */,
 				CF137AB928CDA8A10022B6AF /* ContentView.swift in Sources */,
 				C18E716328CDAFB9000C9BA5 /* TrainInfo.swift in Sources */,
+				AAA8D41D29725CA3002B8FFA /* StationInfoClient.swift in Sources */,
 				CCE0D55A2969B1EB002345CD /* RoundedCorner.swift in Sources */,
 				C1F91BD428CEF80600FC8DE9 /* SubwayLine.swift in Sources */,
 				C18E716E28CDCD57000C9BA5 /* APIError.swift in Sources */,
@@ -532,6 +547,7 @@
 				AA073DB629570AE300187023 /* SubwayClient.swift in Sources */,
 				C1E93EBA2903D7B3000284C2 /* HalfCapsule.swift in Sources */,
 				AA073DB829570AEB00187023 /* SubwayAPI.swift in Sources */,
+				AAA8D41F29725D6E002B8FFA /* StationInfoClientLive.swift in Sources */,
 				C1D22E0028F315D100BE3368 /* DebugArrivalView.swift in Sources */,
 				C1D22DF428F29C0B00BE3368 /* String+extensions.swift in Sources */,
 				C1D22DFE28F2CCAC00BE3368 /* Comparable+clamped.swift in Sources */,

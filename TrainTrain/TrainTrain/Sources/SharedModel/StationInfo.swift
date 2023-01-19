@@ -49,42 +49,4 @@ struct StationInfo: Equatable {
     self.upperStationETA_1 = "\(upperStationETA_1)".isEmpty ? nil : upperStationETA_1 as? Int
     self.upperStationETA_2 = "\(upperStationETA_2)".isEmpty ? nil : upperStationETA_2 as? Int
   }
-
-  /// plist 에 포함된 모든 노선의 지하철 역 정보의 배열
-  static let allStationList: [StationInfo] = {
-    let path = Bundle.main.path(forResource: "StationList221023", ofType: "plist")!
-    let arrOfDict = NSArray(contentsOfFile: path)! as! [[String: Any]]
-    let stations = arrOfDict.map {
-      StationInfo(
-        subwayLineID: $0["SUBWAY_ID"]!,
-        stationID: $0["STATN_ID"]!,
-        stationName: $0["STATN_NM"]!,
-        lowerStationID_1: $0["LOWER_STATN_ID_1"]!,
-        lowerStationETA_1: $0["LOWER_STATN_ETA_1"]!,
-        lowerStationID_2: $0["LOWER_STATN_ID_2"]!,
-        lowerStationETA_2: $0["LOWER_STATN_ETA_2"]!,
-        upperStationID_1: $0["UPPER_STATN_ID_1"]!,
-        upperStationETA_1: $0["UPPER_STATN_ETA_1"]!,
-        upperStationID_2: $0["UPPER_STATN_ID_2"]!,
-        upperStationETA_2: $0["UPPER_STATN_ETA_2"]!
-      )
-    }
-    return stations
-  }()
-
-  /// 특정 호선의 모든 역 정보를 배열 형태로 가져오기
-  static func fetchStationList(of line: SubwayLine) -> [StationInfo] {
-    Self.allStationList.filter { $0.subwayLineID == line.id }
-  }
-  
-  /// 역의 ID 를 통해 역의 이름을 찾아 리턴합니다.
-  static func findStationName(from stationID: String) -> String {
-    Self.allStationList.first(where: { $0.stationID == stationID })?.stationName ?? ""
-  }
-
-  /// 역의 ID 를 통해 역타입(StationInfo)을 리턴합니다.
-  /// 존재하지 않는 ID 라면, `nil` 을 리턴합니다.
-  static func findStationInfo(from stationID: String) -> StationInfo {
-    Self.allStationList.first(where: { $0.stationID == stationID })!
-  }
 }
