@@ -165,8 +165,8 @@
 				AAA8D41E29725D6D002B8FFA /* StationInfoClientLive.swift */,
 			);
 			path = StationInfoClient;
-            sourceTree = "<group>";
-        };
+			sourceTree = "<group>";
+		};
 		AAA8D4262972740A002B8FFA /* Templates */ = {
 			isa = PBXGroup;
 			children = (
@@ -504,7 +504,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftgen >/dev/null; then\n  $SRCROOT/Scripts/SwiftGen.sh\nelse\n  echo \"warning: SwiftGen is not installed.\"\nfi\n";
+			shellScript = "if test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftgen >/dev/null; then\n  \"$SRCROOT/Scripts/SwiftGen.sh\"\nelse\n  echo \"warning: SwiftGen is not installed.\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
