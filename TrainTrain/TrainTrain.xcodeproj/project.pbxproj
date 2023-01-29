@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA0707F029866554004A3C43 /* Occupiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0707EF29866554004A3C43 /* Occupiable.swift */; };
 		AA073DAA2956BF9200187023 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA073DA92956BF9200187023 /* APIClient.swift */; };
 		AA073DAC2956C16B00187023 /* APIClientLive.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA073DAB2956C16B00187023 /* APIClientLive.swift */; };
 		AA073DB629570AE300187023 /* SubwayClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA073DB529570AE200187023 /* SubwayClient.swift */; };
@@ -41,6 +42,16 @@
 		C1E93EBA2903D7B3000284C2 /* HalfCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E93EB92903D7B3000284C2 /* HalfCapsule.swift */; };
 		C1F91BCF28CEF55700FC8DE9 /* Color+System.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F91BCE28CEF55700FC8DE9 /* Color+System.swift */; };
 		C1F91BD428CEF80600FC8DE9 /* SubwayLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1F91BD328CEF80600FC8DE9 /* SubwayLine.swift */; };
+		CC4236CD297D51E7000BC7B4 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC4236CC297D51E7000BC7B4 /* WidgetKit.framework */; };
+		CC4236CF297D51E7000BC7B4 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC4236CE297D51E7000BC7B4 /* SwiftUI.framework */; };
+		CC4236D2297D51E7000BC7B4 /* TrainTrainWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4236D1297D51E7000BC7B4 /* TrainTrainWidgetBundle.swift */; };
+		CC4236D4297D51E7000BC7B4 /* TrainTrainWidgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4236D3297D51E7000BC7B4 /* TrainTrainWidgetLiveActivity.swift */; };
+		CC4236DD297D51E8000BC7B4 /* TrainTrainWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = CC4236CA297D51E7000BC7B4 /* TrainTrainWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CC4236FE297E6739000BC7B4 /* ActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4236FD297E6739000BC7B4 /* ActivityAttributes.swift */; };
+		CC4236FF297E6769000BC7B4 /* ActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4236FD297E6739000BC7B4 /* ActivityAttributes.swift */; };
+		CC423707297E97C8000BC7B4 /* BackgroundColorViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADE9EF72972E7C100ED632A /* BackgroundColorViewModifier.swift */; };
+		CC42370B297E98A6000BC7B4 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4236E4297D6A80000BC7B4 /* Color+Extension.swift */; };
+		CC42370C297E98AB000BC7B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC4236D7297D51E8000BC7B4 /* Assets.xcassets */; };
 		CC83436929172782009F411F /* Array+safeExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC83436829172782009F411F /* Array+safeExport.swift */; };
 		CCB03F7429331A480066346A /* Int+clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB03F7329331A480066346A /* Int+clock.swift */; };
 		CCBCB6EE2968E0D600132DA9 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBCB6ED2968E0D600132DA9 /* Color+Extension.swift */; };
@@ -59,9 +70,31 @@
 			remoteGlobalIDString = CF137AB228CDA8A10022B6AF;
 			remoteInfo = TrainTrain;
 		};
+		CC4236DA297D51E8000BC7B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CF137AAB28CDA8A10022B6AF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC4236C9297D51E7000BC7B4;
+			remoteInfo = TrainTrainWidgetExtension;
+		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		CC4236DC297D51E8000BC7B4 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				CC4236DD297D51E8000BC7B4 /* TrainTrainWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		AA0707EF29866554004A3C43 /* Occupiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Occupiable.swift; sourceTree = "<group>"; };
 		AA073DA92956BF9200187023 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		AA073DAB2956C16B00187023 /* APIClientLive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientLive.swift; sourceTree = "<group>"; };
 		AA073DB529570AE200187023 /* SubwayClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubwayClient.swift; sourceTree = "<group>"; };
@@ -99,6 +132,15 @@
 		C1E93EB92903D7B3000284C2 /* HalfCapsule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfCapsule.swift; sourceTree = "<group>"; };
 		C1F91BCE28CEF55700FC8DE9 /* Color+System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+System.swift"; sourceTree = "<group>"; };
 		C1F91BD328CEF80600FC8DE9 /* SubwayLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubwayLine.swift; sourceTree = "<group>"; };
+		CC4236CA297D51E7000BC7B4 /* TrainTrainWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TrainTrainWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC4236CC297D51E7000BC7B4 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		CC4236CE297D51E7000BC7B4 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		CC4236D1297D51E7000BC7B4 /* TrainTrainWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainTrainWidgetBundle.swift; sourceTree = "<group>"; };
+		CC4236D3297D51E7000BC7B4 /* TrainTrainWidgetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainTrainWidgetLiveActivity.swift; sourceTree = "<group>"; };
+		CC4236D7297D51E8000BC7B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CC4236D9297D51E8000BC7B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC4236E4297D6A80000BC7B4 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		CC4236FD297E6739000BC7B4 /* ActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAttributes.swift; sourceTree = "<group>"; };
 		CC83436829172782009F411F /* Array+safeExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+safeExport.swift"; sourceTree = "<group>"; };
 		CCB03F7329331A480066346A /* Int+clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+clock.swift"; sourceTree = "<group>"; };
 		CCBCB6ED2968E0D600132DA9 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
@@ -115,6 +157,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC4236C7297D51E7000BC7B4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC4236CF297D51E7000BC7B4 /* SwiftUI.framework in Frameworks */,
+				CC4236CD297D51E7000BC7B4 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,6 +380,7 @@
 				C1D22DFD28F2CCAC00BE3368 /* Comparable+clamped.swift */,
 				CC83436829172782009F411F /* Array+safeExport.swift */,
 				CCB03F7329331A480066346A /* Int+clock.swift */,
+				AA0707EF29866554004A3C43 /* Occupiable.swift */,
 			);
 			path = TTFoundation;
 			sourceTree = "<group>";
@@ -344,12 +396,84 @@
 			path = Shape;
 			sourceTree = "<group>";
 		};
+		CC4236CB297D51E7000BC7B4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CC4236CC297D51E7000BC7B4 /* WidgetKit.framework */,
+				CC4236CE297D51E7000BC7B4 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CC4236D0297D51E7000BC7B4 /* TrainTrainWidget */ = {
+			isa = PBXGroup;
+			children = (
+				CC423705297E8DE3000BC7B4 /* Application */,
+				CC423703297E8D99000BC7B4 /* Resources */,
+				CC4236FC297E6727000BC7B4 /* Model */,
+				CC423701297E8D6C000BC7B4 /* LiveActivity */,
+				CC423706297E8E43000BC7B4 /* TTWFoundation */,
+				CC423704297E8DB8000BC7B4 /* SupportFiles */,
+			);
+			path = TrainTrainWidget;
+			sourceTree = "<group>";
+		};
+		CC4236FC297E6727000BC7B4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CC4236FD297E6739000BC7B4 /* ActivityAttributes.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CC423701297E8D6C000BC7B4 /* LiveActivity */ = {
+			isa = PBXGroup;
+			children = (
+				CC4236D3297D51E7000BC7B4 /* TrainTrainWidgetLiveActivity.swift */,
+			);
+			path = LiveActivity;
+			sourceTree = "<group>";
+		};
+		CC423703297E8D99000BC7B4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CC4236D7297D51E8000BC7B4 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		CC423704297E8DB8000BC7B4 /* SupportFiles */ = {
+			isa = PBXGroup;
+			children = (
+				CC4236D9297D51E8000BC7B4 /* Info.plist */,
+			);
+			path = SupportFiles;
+			sourceTree = "<group>";
+		};
+		CC423705297E8DE3000BC7B4 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				CC4236D1297D51E7000BC7B4 /* TrainTrainWidgetBundle.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		CC423706297E8E43000BC7B4 /* TTWFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				CC4236E4297D6A80000BC7B4 /* Color+Extension.swift */,
+			);
+			path = TTWFoundation;
+			sourceTree = "<group>";
+		};
 		CF137AAA28CDA8A10022B6AF = {
 			isa = PBXGroup;
 			children = (
 				AAA8D429297276A4002B8FFA /* Scripts */,
 				CF137AB528CDA8A10022B6AF /* TrainTrain */,
 				AABFAE2529606F8D000DEE4C /* TrainTrainTests */,
+				CC4236D0297D51E7000BC7B4 /* TrainTrainWidget */,
+				CC4236CB297D51E7000BC7B4 /* Frameworks */,
 				CF137AB428CDA8A10022B6AF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -359,6 +483,7 @@
 			children = (
 				CF137AB328CDA8A10022B6AF /* TrainTrain.app */,
 				AABFAE2429606F8D000DEE4C /* TrainTrainTests.xctest */,
+				CC4236CA297D51E7000BC7B4 /* TrainTrainWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -402,6 +527,23 @@
 			productReference = AABFAE2429606F8D000DEE4C /* TrainTrainTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		CC4236C9297D51E7000BC7B4 /* TrainTrainWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC4236E0297D51E8000BC7B4 /* Build configuration list for PBXNativeTarget "TrainTrainWidgetExtension" */;
+			buildPhases = (
+				CC4236C6297D51E7000BC7B4 /* Sources */,
+				CC4236C7297D51E7000BC7B4 /* Frameworks */,
+				CC4236C8297D51E7000BC7B4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TrainTrainWidgetExtension;
+			productName = TrainTrainWidgetExtension;
+			productReference = CC4236CA297D51E7000BC7B4 /* TrainTrainWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		CF137AB228CDA8A10022B6AF /* TrainTrain */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CF137AC128CDA8A20022B6AF /* Build configuration list for PBXNativeTarget "TrainTrain" */;
@@ -410,10 +552,12 @@
 				CF137AAF28CDA8A10022B6AF /* Sources */,
 				CF137AB028CDA8A10022B6AF /* Frameworks */,
 				CF137AB128CDA8A10022B6AF /* Resources */,
+				CC4236DC297D51E8000BC7B4 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				CC4236DB297D51E8000BC7B4 /* PBXTargetDependency */,
 			);
 			name = TrainTrain;
 			packageProductDependencies = (
@@ -430,12 +574,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1410;
+				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					AABFAE2329606F8D000DEE4C = {
 						CreatedOnToolsVersion = 14.1;
 						TestTargetID = CF137AB228CDA8A10022B6AF;
+					};
+					CC4236C9297D51E7000BC7B4 = {
+						CreatedOnToolsVersion = 14.2;
 					};
 					CF137AB228CDA8A10022B6AF = {
 						CreatedOnToolsVersion = 14.0;
@@ -460,6 +607,7 @@
 			targets = (
 				CF137AB228CDA8A10022B6AF /* TrainTrain */,
 				AABFAE2329606F8D000DEE4C /* TrainTrainTests */,
+				CC4236C9297D51E7000BC7B4 /* TrainTrainWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -469,6 +617,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC4236C8297D51E7000BC7B4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC42370C297E98AB000BC7B4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,6 +673,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CC4236C6297D51E7000BC7B4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC4236D4297D51E7000BC7B4 /* TrainTrainWidgetLiveActivity.swift in Sources */,
+				CC42370B297E98A6000BC7B4 /* Color+Extension.swift in Sources */,
+				CC4236D2297D51E7000BC7B4 /* TrainTrainWidgetBundle.swift in Sources */,
+				CC4236FE297E6739000BC7B4 /* ActivityAttributes.swift in Sources */,
+				CC423707297E97C8000BC7B4 /* BackgroundColorViewModifier.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CF137AAF28CDA8A10022B6AF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -541,6 +709,7 @@
 				C18E716A28CDBD24000C9BA5 /* TrainType.swift in Sources */,
 				AA073DAA2956BF9200187023 /* APIClient.swift in Sources */,
 				AA073DC029571DA700187023 /* SubwayAPI+APIRoutable.swift in Sources */,
+				CC4236FF297E6769000BC7B4 /* ActivityAttributes.swift in Sources */,
 				CF137AB728CDA8A10022B6AF /* TrainTrainApp.swift in Sources */,
 				C1CF27502928B4E20021B329 /* ArrivalView.swift in Sources */,
 				C1E04BBC28E9AEC600FAD6D1 /* StationInfo.swift in Sources */,
@@ -556,6 +725,7 @@
 				C1D22DF928F2A41600BE3368 /* AskCapsuleViewModifier.swift in Sources */,
 				C18E717428CEBCA7000C9BA5 /* SelectionView.swift in Sources */,
 				C1724B3029084C2F00A339BA /* ReactiveButton.swift in Sources */,
+				AA0707F029866554004A3C43 /* Occupiable.swift in Sources */,
 				C1F91BCF28CEF55700FC8DE9 /* Color+System.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -567,6 +737,11 @@
 			isa = PBXTargetDependency;
 			target = CF137AB228CDA8A10022B6AF /* TrainTrain */;
 			targetProxy = AABFAE2829606F8D000DEE4C /* PBXContainerItemProxy */;
+		};
+		CC4236DB297D51E8000BC7B4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC4236C9297D51E7000BC7B4 /* TrainTrainWidgetExtension */;
+			targetProxy = CC4236DA297D51E8000BC7B4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -616,6 +791,62 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrainTrain.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TrainTrain";
+			};
+			name = Release;
+		};
+		CC4236DE297D51E8000BC7B4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GMASX5K78J;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TrainTrainWidget/SupportFiles/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TrainTrainWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = space.codable.trainHard.TrainTrainWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CC4236DF297D51E8000BC7B4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GMASX5K78J;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TrainTrainWidget/SupportFiles/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TrainTrainWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = space.codable.trainHard.TrainTrainWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -736,13 +967,14 @@
 		CF137AC228CDA8A20022B6AF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = AppIcon_B;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TrainTrain/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = GMASX5K78J;
@@ -751,6 +983,7 @@
 				INFOPLIST_FILE = TrainTrain/SupportFiles/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "영차열차";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -760,7 +993,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = space.codable.trainHard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -777,13 +1010,14 @@
 		CF137AC328CDA8A20022B6AF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = AppIcon_B;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TrainTrain/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = GMASX5K78J;
@@ -792,6 +1026,7 @@
 				INFOPLIST_FILE = TrainTrain/SupportFiles/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "영차열차";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -801,7 +1036,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = space.codable.trainHard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -823,6 +1058,15 @@
 			buildConfigurations = (
 				AABFAE2A29606F8D000DEE4C /* Debug */,
 				AABFAE2B29606F8D000DEE4C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC4236E0297D51E8000BC7B4 /* Build configuration list for PBXNativeTarget "TrainTrainWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC4236DE297D51E8000BC7B4 /* Debug */,
+				CC4236DF297D51E8000BC7B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
