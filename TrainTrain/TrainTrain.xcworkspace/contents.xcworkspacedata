@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:Modules/APIClient/APIClient.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Modules/Arrival/Arrival.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Modules/Selection/Selection.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Modules/SharedModels/SharedModels.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Modules/StationInfoClient/StationInfoClient.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Modules/SubwayInfoClient/SubwayInfoClient.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Modules/App/TrainTrain.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Modules/TTDesignSystem/TTDesignSystem.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Modules/TTFoundation/TTFoundation.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Modules/WidgetHelper/WidgetHelper.xcodeproj">
+   </FileRef>
+</Workspace>
