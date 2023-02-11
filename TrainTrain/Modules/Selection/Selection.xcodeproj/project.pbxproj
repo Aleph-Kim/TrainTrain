@@ -19,6 +19,8 @@
 		AA486BE12986BA9500E2CF89 /* StationInfoClient.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA486BDF2986BA9500E2CF89 /* StationInfoClient.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AA486BE32986BA9B00E2CF89 /* TTDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA486BE22986BA9B00E2CF89 /* TTDesignSystem.framework */; };
 		AA486BE42986BA9B00E2CF89 /* TTDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA486BE22986BA9B00E2CF89 /* TTDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AACC2F7C2993EE440023A41D /* TTUserDefaults.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACC2F7B2993EE440023A41D /* TTUserDefaults.framework */; };
+		AACC2F7D2993EE440023A41D /* TTUserDefaults.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AACC2F7B2993EE440023A41D /* TTUserDefaults.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +43,7 @@
 				AA486BE12986BA9500E2CF89 /* StationInfoClient.framework in Embed Frameworks */,
 				AA486BDD2986BA8700E2CF89 /* SharedModels.framework in Embed Frameworks */,
 				AA486BE42986BA9B00E2CF89 /* TTDesignSystem.framework in Embed Frameworks */,
+				AACC2F7D2993EE440023A41D /* TTUserDefaults.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -57,6 +60,7 @@
 		AA486BDB2986BA8700E2CF89 /* SharedModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SharedModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA486BDF2986BA9500E2CF89 /* StationInfoClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StationInfoClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA486BE22986BA9B00E2CF89 /* TTDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TTDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AACC2F7B2993EE440023A41D /* TTUserDefaults.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TTUserDefaults.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AACC2F7C2993EE440023A41D /* TTUserDefaults.framework in Frameworks */,
 				AA486BD92986BA7800E2CF89 /* ConfettiSwiftUI in Frameworks */,
 				AA486BE02986BA9500E2CF89 /* StationInfoClient.framework in Frameworks */,
 				AA486BDC2986BA8700E2CF89 /* SharedModels.framework in Frameworks */,
@@ -130,6 +135,7 @@
 		AA486BDA2986BA8700E2CF89 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AACC2F7B2993EE440023A41D /* TTUserDefaults.framework */,
 				AA486BE22986BA9B00E2CF89 /* TTDesignSystem.framework */,
 				AA486BDF2986BA9500E2CF89 /* StationInfoClient.framework */,
 				AA486BDB2986BA8700E2CF89 /* SharedModels.framework */,

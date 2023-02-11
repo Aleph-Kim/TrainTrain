@@ -4,11 +4,13 @@ import SharedModels
 import StationInfoClient
 import SubwayInfoClient
 import SwiftUI
+import TTUserDefaults
 
 struct ContentView: View {
 
   private let stationInfoClient: StationInfoClient
   private let subwayInfoClient: SubwayInfoClient
+  private let userDefaultsManager: UserDefaultsManager
   @State private var selectedStation: StationInfo
   @State private var directionStationID: String
   @State private var selectedSubwayLine: SubwayLine
@@ -19,15 +21,14 @@ struct ContentView: View {
   init(
     stationInfoClient: StationInfoClient,
     subwayInfoClient: SubwayInfoClient,
-    selectedStationID: String,
-    directionStationID: String,
-    subwayLine: SubwayLine
+    userDefaultsManager: UserDefaultsManager
   ) {
     self.stationInfoClient = stationInfoClient
     self.subwayInfoClient = subwayInfoClient
-    self.selectedStation = stationInfoClient.findStationInfo(from: selectedStationID)
-    self.directionStationID = directionStationID
-    self.selectedSubwayLine = subwayLine
+    self.userDefaultsManager = userDefaultsManager
+    self.selectedStation = stationInfoClient.findStationInfo(from: userDefaultsManager.selectedStationID)
+    self.directionStationID = userDefaultsManager.directionStationID
+    self.selectedSubwayLine = SubwayLine(rawValue: userDefaultsManager.subwayLine) ?? .line2
   }
   
   var body: some View {
@@ -66,6 +67,7 @@ struct ContentView: View {
   private func lowerSectionView() -> some View {
     SelectionView(
       stationInfoClient: stationInfoClient,
+      userDefaultsManager: userDefaultsManager,
       selectedStation: $selectedStation,
       directionStationID: $directionStationID,
       selectedLine: $selectedSubwayLine,
@@ -115,8 +117,7 @@ struct ContentView_Previews: PreviewProvider {
     ContentView(
       stationInfoClient: stationInfoClient,
       subwayInfoClient: subwayInfoClient,
-      selectedStationID: "1002000222",
-      directionStationID: "1002000221",
-      subwayLine: .line2)
+      userDefaultsManager: UserDefaultsManager()
+    )
   }
 }

@@ -25,6 +25,8 @@
 		AA486BA92986B8A700E2CF89 /* TrainTrainWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA486BA82986B8A700E2CF89 /* TrainTrainWidgetBundle.swift */; };
 		AA486BD52986BA1700E2CF89 /* Selection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA486BD42986BA1700E2CF89 /* Selection.framework */; };
 		AA486BD62986BA1700E2CF89 /* Selection.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA486BD42986BA1700E2CF89 /* Selection.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AAAA935D2993EB55001A761E /* TTUserDefaults.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAAA935C2993EB55001A761E /* TTUserDefaults.framework */; };
+		AAAA935E2993EB55001A761E /* TTUserDefaults.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AAAA935C2993EB55001A761E /* TTUserDefaults.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AABFAE2729606F8D000DEE4C /* TrainTrainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABFAE2629606F8D000DEE4C /* TrainTrainTests.swift */; };
 		AAEE43F12986A3A900F10709 /* SharedModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAEE43EF2986A3A900F10709 /* SharedModels.framework */; };
 		AAEE43F22986A3A900F10709 /* SharedModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AAEE43EF2986A3A900F10709 /* SharedModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -81,6 +83,7 @@
 				AAEE43F22986A3A900F10709 /* SharedModels.framework in Embed Frameworks */,
 				AAEE43F42986A3A900F10709 /* TTDesignSystem.framework in Embed Frameworks */,
 				AA486A222986A97600E2CF89 /* APIClient.framework in Embed Frameworks */,
+				AAAA935E2993EB55001A761E /* TTUserDefaults.framework in Embed Frameworks */,
 				AA2CDDD8298E37ED007CAEE0 /* SubwayInfoClient.framework in Embed Frameworks */,
 				AA2CDDDD298E3885007CAEE0 /* WidgetHelper.framework in Embed Frameworks */,
 				AA2CDDD6298E37E9007CAEE0 /* StationInfoClient.framework in Embed Frameworks */,
@@ -112,6 +115,7 @@
 		AA486BA52986B84200E2CF89 /* WidgetHelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WidgetHelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA486BA82986B8A700E2CF89 /* TrainTrainWidgetBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainTrainWidgetBundle.swift; sourceTree = "<group>"; };
 		AA486BD42986BA1700E2CF89 /* Selection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Selection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAAA935C2993EB55001A761E /* TTUserDefaults.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TTUserDefaults.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AABFAE2429606F8D000DEE4C /* TrainTrainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrainTrainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AABFAE2629606F8D000DEE4C /* TrainTrainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainTrainTests.swift; sourceTree = "<group>"; };
 		AAEE43EF2986A3A900F10709 /* SharedModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SharedModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,6 +160,7 @@
 				AA486B262986B15100E2CF89 /* Arrival.framework in Frameworks */,
 				AAEE43F12986A3A900F10709 /* SharedModels.framework in Frameworks */,
 				AA486BD52986BA1700E2CF89 /* Selection.framework in Frameworks */,
+				AAAA935D2993EB55001A761E /* TTUserDefaults.framework in Frameworks */,
 				AA2CDDD7298E37ED007CAEE0 /* SubwayInfoClient.framework in Frameworks */,
 				AA2CDDDC298E3885007CAEE0 /* WidgetHelper.framework in Frameworks */,
 				AA2CDDD5298E37E9007CAEE0 /* StationInfoClient.framework in Frameworks */,
@@ -229,6 +234,7 @@
 		CC4236CB297D51E7000BC7B4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AAAA935C2993EB55001A761E /* TTUserDefaults.framework */,
 				AA2CDDD9298E386B007CAEE0 /* TTFoundation.framework */,
 				AA2CDDD2298E3799007CAEE0 /* SubwayInfoClient.framework */,
 				AA486BD42986BA1700E2CF89 /* Selection.framework */,

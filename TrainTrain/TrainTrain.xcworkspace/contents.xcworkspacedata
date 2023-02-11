@@ -29,6 +29,9 @@
       location = "group:Modules/TTFoundation/TTFoundation.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:Modules/TTUserDefaults/TTUserDefaults.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Modules/WidgetHelper/WidgetHelper.xcodeproj">
    </FileRef>
 </Workspace>

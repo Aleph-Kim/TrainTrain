@@ -4,6 +4,7 @@ import StationInfoClient
 import SwiftUI
 import TTDesignSystem
 import TTFoundation
+import TTUserDefaults
 
 public struct SelectionView: View {
 
@@ -19,6 +20,7 @@ public struct SelectionView: View {
   }
 
   private let stationInfoClient: StationInfoClient
+  private let userDefaultsManager: UserDefaultsManager
   @Binding var selectedStation: StationInfo
   @Binding var directionStationID: String
   @Binding var selectedLine: SubwayLine
@@ -28,14 +30,12 @@ public struct SelectionView: View {
   @State private var stationList: [StationInfo] = []
   @State private var searchText = ""
   @State private var confetti: Int = .zero
-
-  /// UserDefaults - 최초 설정 여부
-  @AppStorage("firstSetting") private var firstSetting: Bool = true
   
   private let customAnimation: Animation = .linear(duration: 0.1)
 
   public init(
     stationInfoClient: StationInfoClient,
+    userDefaultsManager: UserDefaultsManager,
     selectedStation: Binding<StationInfo>,
     directionStationID: Binding<String>,
     selectedLine: Binding<SubwayLine>,
@@ -43,10 +43,10 @@ public struct SelectionView: View {
     selectionStep: SelectionStep = .pre,
     stationList: [StationInfo] = [],
     searchText: String = "",
-    confetti: Int = .zero,
-    firstSetting: Bool = true
+    confetti: Int = .zero
   ) {
     self.stationInfoClient = stationInfoClient
+    self.userDefaultsManager = userDefaultsManager
     self._selectedStation = selectedStation
     self._directionStationID = directionStationID
     self._selectedLine = selectedLine
@@ -55,7 +55,6 @@ public struct SelectionView: View {
     self.stationList = stationList
     self.searchText = searchText
     self.confetti = confetti
-    self.firstSetting = firstSetting
   }
   
   // MARK: - body
@@ -94,10 +93,10 @@ public struct SelectionView: View {
       closingAngle: .degrees(135),
       repetitions: 1)
     .onChange(of: directionStationID) { newDirectionStationID in
-      // directionStationID 가 변경됐다면, 역과 방향에 대한 UserDefaults 를 모두 변경함
-      UserDefaults.standard.set(selectedStation.stationID, forKey: "selectedStationID")
-      UserDefaults.standard.set(newDirectionStationID, forKey: "directionStationID")
-      UserDefaults.standard.set(false, forKey: "firstSetting")
+      userDefaultsManager.selectedStationID = selectedStation.stationID
+      userDefaultsManager.directionStationID = newDirectionStationID
+      userDefaultsManager.subwayLine = selectedLine.rawValue
+      userDefaultsManager.firstSetting = false
     }
   }
   
@@ -105,6 +104,7 @@ public struct SelectionView: View {
   private func preSelectionPage() -> some View {
     VStack(alignment: .leading, spacing: 10) {
       Spacer()
+      let firstSetting = userDefaultsManager.firstSetting
       
       if !firstSetting, let selectedLine = SubwayLine(rawValue: selectedStation.subwayLineID)! {
         let lineColor = selectedLine.color
@@ -418,6 +418,7 @@ struct SelectionView_Previews: PreviewProvider {
   static var previews: some View {
     SelectionView(
       stationInfoClient: .live(),
+      userDefaultsManager: UserDefaultsManager(),
       selectedStation: .constant(
         StationInfo(
           subwayLineID: "1002",
