@@ -1,18 +1,15 @@
+import Combine
 import SharedModels
 import StationInfoClient
-import SubwayInfoClient
 import SwiftUI
 
 struct TrainProgressView: View {
   
-  private let subwayInfoClient: SubwayInfoClient
   private let trainInfo: TrainInfo
   private let targetStation: StationInfo
   private let directionStationID: String
   private let subwayLineColor: Color
-  
-  private let movingTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-  private let refreshingTimer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
+  private let movingTimer: Publishers.Autoconnect<Timer.TimerPublisher>
   
   /// 열차 도착까지 남은 시간(초) - 1초씩 깎이는 실제 eta 입니다.
   @State private var eta: Int
@@ -22,17 +19,17 @@ struct TrainProgressView: View {
   @State private var distancePerTic: CGFloat
   
   init(
-    subwayInfoClient: SubwayInfoClient,
     trainInfo: TrainInfo,
     targetStation: StationInfo,
     directionStationID: String,
-    subwayLineColor: Color
+    subwayLineColor: Color,
+    movingTimer: Publishers.Autoconnect<Timer.TimerPublisher>
   ) {
-    self.subwayInfoClient = subwayInfoClient
     self.trainInfo = trainInfo
     self.targetStation = targetStation
     self.directionStationID = directionStationID
     self.subwayLineColor = subwayLineColor
+    self.movingTimer = movingTimer
     self.eta = Int(trainInfo.eta)!
     self.remainDistance = CGFloat(Int(trainInfo.eta)!) / 300 * 100
     self.distancePerTic = 100 / 300
@@ -44,9 +41,6 @@ struct TrainProgressView: View {
       let xOffset = width * (1 - remainDistance / 100)
       
       trainCircle(xOffset: xOffset)
-        .onReceive(refreshingTimer) { _ in
-          fetch()
-        }
         .onReceive(movingTimer) { _ in
           moveTrainCirclePerTic()
         }
@@ -55,8 +49,9 @@ struct TrainProgressView: View {
         }
         .opacity(eta <= 300 ? 1 : 0)
     }
-    .onAppear {
-      fetch()
+    .onChange(of: trainInfo) { newTrainInfo in
+      repositionIfNeeded(with: newTrainInfo)
+      update(with: newTrainInfo)
     }
   }
   
@@ -102,38 +97,52 @@ struct TrainProgressView: View {
       remainDistance -= distancePerTic
     }
   }
+
+  /// 새로운 열차 정보를 토대로 열차의 위치를 변경합니다.
+  ///
+  /// - 새 열차 정보가 다음과 같을 경우 다시 렌더링합니다.
+  /// 1. 새 열차 ID가 기존 열차 ID와 다를 경우
+  /// 2. 새 열차의 전역이 기존 열차의 전역과 다른 경우
+  /// 3. 새 열차의 현재역이 기존 열차의 현재역과 다른 경우
+  /// 4. 새 열차의 다음역이 기존 열차의 다음역과 다른 경우
+  /// - Parameter newTrainInfo: 새로운 기차 정보
+  private func repositionIfNeeded(with newTrainInfo: TrainInfo) {
+    let needsRerender = (newTrainInfo.id != trainInfo.id) ||
+      (newTrainInfo.previousStationID != trainInfo.previousStationID) ||
+      (newTrainInfo.stationID != trainInfo.stationID) ||
+      (newTrainInfo.nextStationID != trainInfo.nextStationID)
+
+    guard needsRerender else { return }
+    guard let eta = Int(newTrainInfo.eta) else { return }
+    self.eta = eta
+    self.remainDistance = CGFloat(eta) / 300 * 100
+    self.distancePerTic = 100 / 300
+  }
   
-  private func fetch() {
-    Task {
-      guard let newTrainInfo = try await subwayInfoClient.fetchTrainInfos(targetStation: targetStation, directionStationID: directionStationID).filter({ $0.id == trainInfo.id }).first else { return }
-      
-      // 다음 역을 기준으로 fetch 했니?
-      if newTrainInfo.previousStationID == targetStation.stationID {
-        if newTrainInfo.arrivalState == .departed
-            || newTrainInfo.arrivalState == .arrived
-            || newTrainInfo.arrivalState == .approaching
-            || newTrainInfo.arrivalState == .previousDeparted {
-          return
-        } else {
-          eta = 0
-          remainDistance = 0
-        }
-      }
-      
-      if eta >= 30 {
-        eta = Int(newTrainInfo.eta)!
-        distancePerTic = remainDistance / CGFloat(eta)
-      }
+  private func update(with newTrainInfo: TrainInfo) {
+    let isFetchedFromNextStation = newTrainInfo.previousStationID == targetStation.stationID
+
+    // 목표역에 근접한 열차는 다음역에서 가져온 열차 목록이 신뢰도가 높음
+    if isFetchedFromNextStation {
+      let hasArrivedTargetStation = (newTrainInfo.arrivalState == .previousApproaching) ||
+        (newTrainInfo.arrivalState == .previousArrived)
+      // 목표역인 전역에 근접 또는 도착한 경우 eta와 남은 거리를 0으로 설정하여 도착 위치로 이동
+      guard hasArrivedTargetStation else { return }
+      eta = 0
+      remainDistance = 0
+      return
+    }
+
+    // 목표역 -> 방향역 설정으로 가져온 열차 목록(목표역에 근접하지 않은 경우 신뢰도가 높음)
+    if eta >= 30 {
+      eta = Int(newTrainInfo.eta)!
+      distancePerTic = remainDistance / CGFloat(eta)
     }
   }
 }
 
 struct TrainProgressView_Previews: PreviewProvider {
   static let stationInfoClient: StationInfoClient = .live()
-  static let subwayInfoClient: SubwayInfoClient = .live(
-    apiClient: .live(),
-    stationInfoClient: stationInfoClient
-  )
 
   static var previews: some View {
     
@@ -156,10 +165,11 @@ struct TrainProgressView_Previews: PreviewProvider {
       id: "3245")
     
     TrainProgressView(
-      subwayInfoClient: subwayInfoClient,
       trainInfo: mock,
       targetStation: gangNam,
       directionStationID: "1002000221",
-      subwayLineColor: .red)
+      subwayLineColor: .red,
+      movingTimer: Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    )
   }
 }

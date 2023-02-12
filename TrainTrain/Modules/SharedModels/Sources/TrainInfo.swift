@@ -1,6 +1,6 @@
 import Foundation
 
-public struct TrainInfo: Decodable, Identifiable {
+public struct TrainInfo: Decodable, Identifiable, Equatable {
 
   /// 지하철 호선 ID
   public let subwayLineID: String
@@ -17,7 +17,7 @@ public struct TrainInfo: Decodable, Identifiable {
   /// 열차 종류 (급행, ITX) - 일반 지하철인 경우, 'normal' 이 나옵니다.
   public let trainType: TrainType
   /// 열차 도착 예정 시간 (단위:초) - Estimated Time of Arrival
-  public let eta: String
+  public var eta: String
   /// 종착 지하철역ID
   public let terminusStationID: String
   /// 종착 지하철역명
@@ -66,6 +66,27 @@ public struct TrainInfo: Decodable, Identifiable {
     self.secondMessage = secondMessage
     self.arrivalState = arrivalState
     self.id = id
+  }
+
+  public init(
+    from trainInfo: TrainInfo,
+    eta: String
+  ) {
+    self.subwayLineID = trainInfo.subwayLineID
+    self.trainDestination = trainInfo.trainDestination
+    self.previousStationID = trainInfo.previousStationID
+    self.nextStationID = trainInfo.nextStationID
+    self.stationID = trainInfo.stationID
+    self.stationName = trainInfo.stationName
+    self.trainType = trainInfo.trainType
+    self.eta = eta
+    self.terminusStationID = trainInfo.terminusStationID
+    self.terminusStationName = trainInfo.terminusStationName
+    self.createdAt = trainInfo.createdAt
+    self.firstMessage = trainInfo.firstMessage
+    self.secondMessage = trainInfo.secondMessage
+    self.arrivalState = trainInfo.arrivalState
+    self.id = trainInfo.id
   }
 
   public init(from decoder: Decoder) throws {
@@ -139,5 +160,15 @@ public struct TrainInfo: Decodable, Identifiable {
 
     /// 99: 운행중
     case driving = "99"
+  }
+}
+
+public extension TrainInfo {
+  var isArrived: Bool {
+    return Int(eta) == 0
+  }
+
+  var isNotArrived: Bool {
+    return !isArrived
   }
 }

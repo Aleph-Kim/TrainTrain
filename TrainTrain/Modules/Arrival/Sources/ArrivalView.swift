@@ -17,11 +17,11 @@ public struct ArrivalView: View {
   @Binding var selectedSubwayLine: SubwayLine
   @Environment(\.scenePhase) var scenePhase
   
-  @State private var trainInfos: [TrainInfo] = []
-  @State private var firstUpcomingTrainInfo: TrainInfo?
-  @State private var secondUpcomingTrainInfo: TrainInfo?
+  @State private var upcomingTrainInfos: [TrainInfo] = []
+  @State private var upcomingTrainInfoETAs: [Int] = []
   
   private let timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
+  private let movingTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
   public init(
     stationInfoClient: StationInfoClient,
@@ -29,18 +29,16 @@ public struct ArrivalView: View {
     selectedStationInfo: Binding<StationInfo>,
     directionStationID: Binding<String>,
     selectedSubwayLine: Binding<SubwayLine>,
-    trainInfos: [TrainInfo] = [],
-    firstUpcomingTrainInfo: TrainInfo? = nil,
-    secondUpcomingTrainInfo: TrainInfo? = nil
+    upcomingTrainInfos: [TrainInfo] = [],
+    upcomingTrainInfoETAs: [Int] = []
   ) {
     self.stationInfoClient = stationInfoClient
     self.subwayInfoClient = subwayInfoClient
     self._selectedStationInfo = selectedStationInfo
     self._directionStationID = directionStationID
     self._selectedSubwayLine = selectedSubwayLine
-    self.trainInfos = trainInfos
-    self.firstUpcomingTrainInfo = firstUpcomingTrainInfo
-    self.secondUpcomingTrainInfo = secondUpcomingTrainInfo
+    self.upcomingTrainInfos = upcomingTrainInfos
+    self.upcomingTrainInfoETAs = upcomingTrainInfoETAs
   }
 
   public var body: some View {
@@ -62,7 +60,7 @@ public struct ArrivalView: View {
         ZStack {
           strokedLine()
           goalLineWithCircle()
-          TrainProgressStack(of: trainInfos)
+          trainProgressStack(of: upcomingTrainInfos)
         }
         .frame(height: 12)
         .padding(.horizontal)
@@ -71,9 +69,6 @@ public struct ArrivalView: View {
           secondaryBackgroundView()
           secondaryInformationView()
         }
-      }
-      .onAppear {
-        fetchAll()
       }
       .onReceive(timer) { _ in
         fetchSome()
@@ -86,7 +81,7 @@ public struct ArrivalView: View {
         case .active:
           fetchAll()
         case .background:
-          if #available(iOS 16.2, *) { handleLiveActivity() }
+          if #available(iOS 16.1, *) { Task { await handleLiveActivity() } }
         default: return
         }
       }
@@ -186,16 +181,16 @@ public struct ArrivalView: View {
     }
   }
 
-  private func TrainProgressStack(of trainInfos: [TrainInfo]) -> some View {
+  private func trainProgressStack(of trainInfos: [TrainInfo]) -> some View {
     let trailingPadding: CGFloat = 16.0
 
     return ForEach(trainInfos) { trainInfo in
       TrainProgressView(
-        subwayInfoClient: subwayInfoClient,
         trainInfo: trainInfo,
         targetStation: selectedStationInfo,
         directionStationID: directionStationID,
-        subwayLineColor: selectedSubwayLine.color
+        subwayLineColor: selectedSubwayLine.color,
+        movingTimer: movingTimer
       )
       .padding(.trailing, trailingPadding)
     }
@@ -210,26 +205,50 @@ public struct ArrivalView: View {
       .foregroundColor(.accessibleSystemGray6)
   }
 
+  @ViewBuilder
   private func secondaryInformationView() -> some View {
     VStack {
-      if let firstUpcomingTrainInfo {
-        HStack {
+      secondaryInformationMainTimerView()
+      secondaryInformationSecondaryTimerView()
+    }
+  }
+
+  func secondaryInformationMainTimerView() -> some View {
+    HStack {
+      if let firstTrainETA = upcomingTrainInfoETAs[safe: 0] {
+        if firstTrainETA >= 30 {
           Text("도착예정")
             .foregroundColor(.additionalGray5)
-          Text(Int(firstUpcomingTrainInfo.eta)!.asClock)
+          Text(firstTrainETA.asClock)
             .bold()
             .foregroundColor(.accessibleSystemIndigo)
+            .onReceive(movingTimer) { timer in
+              if firstTrainETA > 0 && upcomingTrainInfoETAs.isNotEmpty {
+                upcomingTrainInfoETAs[0] -= 1
+              }
+            }
           Text("후")
             .foregroundColor(.additionalGray5)
+        } else {
+          Text("곧 도착")
+            .bold()
+            .foregroundColor(.accessibleSystemIndigo)
         }
-        .font(.title2)
+      } else {
+        Text("도착예정 열차가 없습니다.")
+          .font(.body)
+          .foregroundColor(.additionalGray4)
       }
-      HStack {
-        if let secondUpcomingTrainInfo {
-          Text("다음열차 약 \(Int(secondUpcomingTrainInfo.eta)!/60)분 후")
-            .font(.subheadline)
-            .foregroundColor(.secondary)
-        }
+    }
+    .font(.title2)
+  }
+
+  func secondaryInformationSecondaryTimerView() -> some View {
+    HStack {
+      if let secondTrainETA = upcomingTrainInfoETAs[safe: 1] {
+        Text("다음열차 약 \(secondTrainETA/60)분 후")
+          .font(.subheadline)
+          .foregroundColor(.secondary)
       }
     }
   }
@@ -241,88 +260,108 @@ public struct ArrivalView: View {
         targetStation: selectedStationInfo,
         directionStationID: directionStationID)
 
+      for newTrainInfo in newTrainInfos {
+        appendTrainInfoIfNew(newTrainInfo)
+        updateTrainInfoIfExists(newTrainInfo)
+      }
+
+      for oldTrainInfo in upcomingTrainInfos {
+        removeTrainInfoIfDeparted(newTrainInfos: newTrainInfos, oldTrainInfo: oldTrainInfo)
+      }
+
+      upcomingTrainInfoETAs = filterAvailableETAs(from: upcomingTrainInfos)
+    }
+
+    @Sendable
+    func appendTrainInfoIfNew(_ trainInfo: TrainInfo) {
       // id 가 일치하는 열차가 없으면서, 그 열차의 secondMessage 가 타겟역이 아닌 경우에만
       // 기존 열차 배열에 새로운 열차를 추가함
-      for newTrainInfo in newTrainInfos {
-        if !trainInfos.contains(where: { $0.id == newTrainInfo.id || newTrainInfo.secondMessage == selectedStationInfo.stationName }) {
-          trainInfos.append(newTrainInfo)
-        }
-      }
+      let isNewTrain: Bool = upcomingTrainInfos
+        .notContains(where: { $0.id == trainInfo.id || trainInfo.secondMessage == selectedStationInfo.stationName })
 
+      if isNewTrain {
+        upcomingTrainInfos.append(trainInfo)
+      }
+    }
+    @Sendable
+    func updateTrainInfoIfExists(_ trainInfo: TrainInfo) {
+      let existingTrainIndex = upcomingTrainInfos.firstIndex(where: { $0.id == trainInfo.id })
+
+      if let existingTrainIndex {
+        upcomingTrainInfos[existingTrainIndex] = trainInfo
+      }
+    }
+    @Sendable
+    func removeTrainInfoIfDeparted(newTrainInfos: [TrainInfo], oldTrainInfo: TrainInfo) {
       // 기존 열차 배열에 존재했던 열차의 id 가, 새로운 열차 배열에서 사라졌다면
       // 기존 열차 배열에서 그 id 를 가진 열차를 삭제함 (이미 떠난 열차)
-      for oldTrainInfo in trainInfos {
-        if !newTrainInfos.contains(where: { $0.id == oldTrainInfo.id }) {
-          trainInfos.removeAll(where: { $0.id == oldTrainInfo.id })
-        }
-      }
+      let hasDeparted = newTrainInfos.notContains(where: { $0.id == oldTrainInfo.id })
 
-      // 전광판을 위한 State 업데이트
-      firstUpcomingTrainInfo = newTrainInfos[safe: 0]
-      secondUpcomingTrainInfo = newTrainInfos[safe: 1]
+      if hasDeparted {
+        upcomingTrainInfos.removeAll(where: { $0.id == oldTrainInfo.id })
+      }
     }
   }
 
   /// 실시간 열차의 배열을 전부 새롭게 갱신합니다.
   private func fetchAll() {
     Task {
-      trainInfos.removeAll()
-      trainInfos = try await subwayInfoClient.fetchTrainInfos(
+      upcomingTrainInfos.removeAll()
+      upcomingTrainInfoETAs.removeAll()
+      upcomingTrainInfos = try await subwayInfoClient.fetchTrainInfos(
         targetStation: selectedStationInfo,
         directionStationID: directionStationID)
-
-      // 전광판을 위한 State 업데이트
-      firstUpcomingTrainInfo = trainInfos[safe: 0]
-      secondUpcomingTrainInfo = trainInfos[safe: 1]
+      upcomingTrainInfoETAs = filterAvailableETAs(from: upcomingTrainInfos)
     }
   }
 
-  @available(iOS 16.2, *)
-  private func handleLiveActivity() {
-    guard let eta = firstUpcomingTrainInfo?.eta,
-          let etaInt = Int(eta) else { return }
+  private func filterAvailableETAs(from trainInfos: [TrainInfo]) -> [Int] {
+    return trainInfos
+      .filter(\.isNotArrived)
+      .compactMap { Int($0.eta) }
+  }
+
+  @available(iOS 16.1, *)
+  private func handleLiveActivity() async {
+    let availableETAs = filterAvailableETAs(from: upcomingTrainInfos)
+    guard let eta = availableETAs[safe: 0] else { return }
 
     let attributes = TrainTrainWidgetAttributes()
     let contentState = TrainTrainWidgetAttributes.ContentState(
-      eta: etaInt,
+      eta: eta,
       selectedStationName: selectedStationInfo.stationName,
       directionStationName: stationInfoClient.findStationName(from: directionStationID),
       subwayLineName: String(selectedSubwayLine.name.prefix(1))
-    )
-    let activityContent = ActivityContent(
-      state: contentState,
-      staleDate: Date().addingTimeInterval(TimeInterval(etaInt))
     )
     let existingActivities = Activity<TrainTrainWidgetAttributes>.activities
     let hasExistingActivity = existingActivities.isNotEmpty
 
     if hasExistingActivity {
-      updateActivity(existingActivities: existingActivities, activityContent: activityContent)
+      await updateActivity(existingActivities: existingActivities, contentState: contentState)
     } else {
-      _ = createActivity(attributes: attributes, activityContent: activityContent)
+      _ = createActivity(attributes: attributes, contentState: contentState)
     }
   }
 
-  @available(iOS 16.2, *)
+  @available(iOS 16.1, *)
   private func updateActivity(
     existingActivities: [Activity<TrainTrainWidgetAttributes>],
-    activityContent: ActivityContent<Activity<TrainTrainWidgetAttributes>.ContentState>
-  ) {
-    Task {
-      // Activity는 하나 이상 생성하지 않으므로 유일한 업데이트 대상임
-      await existingActivities.first?.update(activityContent)
-    }
+    contentState: Activity<TrainTrainWidgetAttributes>.ContentState
+  ) async {
+    // Activity는 하나 이상 생성하지 않으므로 유일한 업데이트 대상임
+    await existingActivities.first?.update(using: contentState)
   }
 
-  @available(iOS 16.2, *)
+  @available(iOS 16.1, *)
   private func createActivity(
     attributes: TrainTrainWidgetAttributes,
-    activityContent: ActivityContent<Activity<TrainTrainWidgetAttributes>.ContentState>
+    contentState: Activity<TrainTrainWidgetAttributes>.ContentState
   ) -> Activity<TrainTrainWidgetAttributes>? {
     do {
       return try Activity<TrainTrainWidgetAttributes>.request(
         attributes: attributes,
-        content: activityContent
+        contentState: contentState,
+        pushType: nil
       )
     } catch {
       print(error.localizedDescription)
