@@ -47,7 +47,7 @@ public struct ArrivalView: View {
     ZStack {
       backgroundView()
 
-      VStack(spacing: 5) {
+      VStack(spacing: .zero) {
         HStack {
           subwayLineIndicatorCircle(lineColor: subwayLineColor)
           stationName()
@@ -57,6 +57,8 @@ public struct ArrivalView: View {
         .padding()
         .padding(.bottom, 5)
 
+        Spacer(minLength: 16)
+
         ZStack {
           strokedLine()
           goalLineWithCircle()
@@ -64,6 +66,8 @@ public struct ArrivalView: View {
         }
         .frame(height: 12)
         .padding(.horizontal)
+
+        Spacer(minLength: 12)
 
         ZStack {
           secondaryBackgroundView()
@@ -106,7 +110,8 @@ public struct ArrivalView: View {
       .foregroundColor(lineColor)
       .overlay {
         Text(subwayLinePrefix)
-          .bold()
+          .font(.body)
+          .fontWeight(.bold)
           .foregroundColor(.additionalGray4)
       }
   }
@@ -114,25 +119,24 @@ public struct ArrivalView: View {
   private func stationName() -> some View {
     Text(selectedStationInfo.stationName)
       .font(.title3)
-      .bold()
+      .fontWeight(.bold)
       .foregroundColor(.additionalGray4)
   }
 
   private func nextStationIndicator() -> some View {
     let spacing: CGFloat = 2.0
-    let fontSize: CGFloat = 13.0
     let horizontalPadding: CGFloat = 4.0
     let verticalPadding: CGFloat = 2.0
     let backgroundCornerRadius: CGFloat = 2.0
 
     return  HStack(spacing: spacing) {
       Text("다음역")
-        .font(.system(size: fontSize))
+        .font(.footnote)
 
       let stationName = stationInfoClient.findStationName(from: directionStationID)
       Text(stationName)
-        .font(.system(size: fontSize))
-        .bold()
+        .font(.footnote)
+        .fontWeight(.bold)
     }
     .foregroundColor(.additionalGray3)
     .padding(.horizontal, horizontalPadding)
@@ -207,32 +211,39 @@ public struct ArrivalView: View {
 
   @ViewBuilder
   private func secondaryInformationView() -> some View {
-    VStack {
+    let hasSecondUpcomingTrain = (upcomingTrainInfoETAs[safe: 1] != nil)
+
+    VStack(spacing: hasSecondUpcomingTrain ? 6 : .zero) {
       secondaryInformationMainTimerView()
       secondaryInformationSecondaryTimerView()
     }
+    .padding(.vertical, 12)
   }
 
   func secondaryInformationMainTimerView() -> some View {
-    HStack {
+    VStack(spacing: .zero) {
       if let firstTrainETA = upcomingTrainInfoETAs[safe: 0] {
         if firstTrainETA >= 30 {
-          Text("도착예정")
-            .foregroundColor(.additionalGray5)
-          Text(firstTrainETA.asClock)
-            .bold()
-            .foregroundColor(.accessibleSystemIndigo)
-            .onReceive(movingTimer) { timer in
-              if firstTrainETA > 0 && upcomingTrainInfoETAs.isNotEmpty {
-                upcomingTrainInfoETAs[0] -= 1
+          HStack(spacing: 4) {
+            Text("도착예정")
+              .foregroundColor(.additionalGray5)
+            Text(firstTrainETA.asClock)
+              .fontWeight(.bold)
+              .foregroundColor(.accessibleSystemIndigo)
+              .onReceive(movingTimer) { timer in
+                if firstTrainETA > 0 && upcomingTrainInfoETAs.isNotEmpty {
+                  upcomingTrainInfoETAs[0] -= 1
+                }
               }
-            }
-          Text("후")
-            .foregroundColor(.additionalGray5)
+            Text("후")
+              .foregroundColor(.additionalGray5)
+          }
+          .font(.title2)
         } else {
           Text("곧 도착")
-            .bold()
+            .fontWeight(.bold)
             .foregroundColor(.accessibleSystemIndigo)
+            .font(.title2)
         }
       } else {
         Text("도착예정 열차가 없습니다.")
@@ -240,12 +251,12 @@ public struct ArrivalView: View {
           .foregroundColor(.additionalGray4)
       }
     }
-    .font(.title2)
   }
 
+  @ViewBuilder
   func secondaryInformationSecondaryTimerView() -> some View {
-    HStack {
-      if let secondTrainETA = upcomingTrainInfoETAs[safe: 1] {
+    if let secondTrainETA = upcomingTrainInfoETAs[safe: 1] {
+      HStack {
         Text("다음열차 약 \(secondTrainETA/60)분 후")
           .font(.subheadline)
           .foregroundColor(.secondary)
