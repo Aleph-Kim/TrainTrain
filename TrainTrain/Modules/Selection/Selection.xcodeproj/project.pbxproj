@@ -21,6 +21,7 @@
 		AA486BE42986BA9B00E2CF89 /* TTDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA486BE22986BA9B00E2CF89 /* TTDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AACC2F7C2993EE440023A41D /* TTUserDefaults.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACC2F7B2993EE440023A41D /* TTUserDefaults.framework */; };
 		AACC2F7D2993EE440023A41D /* TTUserDefaults.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AACC2F7B2993EE440023A41D /* TTUserDefaults.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CCAA1E78299888F00075BD01 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAA1E77299888F00075BD01 /* Selection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		AA486BDF2986BA9500E2CF89 /* StationInfoClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StationInfoClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA486BE22986BA9B00E2CF89 /* TTDesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TTDesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AACC2F7B2993EE440023A41D /* TTUserDefaults.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TTUserDefaults.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCAA1E77299888F00075BD01 /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 			children = (
 				AA486BB92986B9D100E2CF89 /* Selection.h */,
 				AA486BD22986B9EE00E2CF89 /* SelectionView.swift */,
+				CCAA1E77299888F00075BD01 /* Selection.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCAA1E78299888F00075BD01 /* Selection.swift in Sources */,
 				AA486BBB2986B9D100E2CF89 /* Selection.docc in Sources */,
 				AA486BD32986B9EE00E2CF89 /* SelectionView.swift in Sources */,
 			);

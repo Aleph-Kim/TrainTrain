@@ -25,7 +25,9 @@ public struct SelectionView: View {
   @Binding var directionStationID: String
   @Binding var selectedLine: SubwayLine
   @FocusState var isKeyboardUp: Bool
-  
+
+  // MARK: - 선택화면 확정전 정보입니다.
+  @State private var temporarySelection: Selection = Selection()
   @State private var selectionStep: SelectionStep = .pre
   @State private var stationList: [StationInfo] = []
   @State private var searchText = ""
@@ -112,6 +114,12 @@ public struct SelectionView: View {
           .font(.title)
           .lineSpacing(6)
           .minimumScaleFactor(0.6)
+          .onAppear {
+            if temporarySelection.isSelectionCompleted {
+              commitSelection()
+              temporarySelection.removeAllSelction()
+            }
+          }
         
         Spacer()
         
@@ -184,7 +192,7 @@ public struct SelectionView: View {
           ForEach(SubwayLine.allCases) { line in
             Button {
               withAnimation(customAnimation) {
-                selectedLine = line
+                temporarySelection.selectedLine = line
                 selectionStep = .lineNumber
                 selectionStep = .station
                 stationList = stationInfoClient.stationList(on: line)
@@ -208,9 +216,9 @@ public struct SelectionView: View {
   private func stationSelectionPage() -> some View {
     VStack(spacing: 10) {
       HStack {
-        if let selectedLine {
-          let lineColor = selectedLine.color
-          Text(selectedLine.name)
+        if let temporarySelectedLine = temporarySelection.selectedLine {
+          let lineColor = temporarySelectedLine.color
+          Text(temporarySelectedLine.name)
             .colorCapsule(lineColor)
         }
         
@@ -248,7 +256,7 @@ public struct SelectionView: View {
              , id: \.stationID) { station in
           Button {
             withAnimation(customAnimation) {
-              selectedStation = station
+              temporarySelection.selectedStation = station
               selectionStep = .station
               selectionStep = .direction
               searchText = ""
@@ -269,7 +277,7 @@ public struct SelectionView: View {
         .padding(8)
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
-      .background(selectedLine.color)
+      .background(temporarySelection.selectedLine?.color ?? selectedLine.color)
       .cornerRadius(16)
     }
     .padding(.horizontal)
@@ -300,10 +308,10 @@ public struct SelectionView: View {
       VStack(spacing: 3) {
         HStack(spacing: 3) {
           // 상행선 1번
-          if let upper1 = selectedStation.upperStationID_1 {
+          if let upper1 = temporarySelection.selectedStation?.upperStationID_1 {
             Button {
               withAnimation(customAnimation) {
-                directionStationID = upper1
+                temporarySelection.directionStationID = upper1
                 selectionStep = .direction
                 selectionStep = .pre
                 confetti += 1
@@ -313,7 +321,7 @@ public struct SelectionView: View {
                 .bold()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(.horizontal, 10)
-                .background(selectedLine.color)
+                .background(temporarySelection.selectedLine?.color ?? selectedLine.color)
                 .cornerRadius(16)
             }
             .buttonStyle(ReactiveButton())
@@ -324,10 +332,10 @@ public struct SelectionView: View {
           }
           
           // 하행선 1번
-          if let lower1 = selectedStation.lowerStationID_1 {
+          if let lower1 = temporarySelection.selectedStation?.lowerStationID_1 {
             Button {
               withAnimation(customAnimation) {
-                directionStationID = lower1
+                temporarySelection.directionStationID = lower1
                 selectionStep = .direction
                 selectionStep = .pre
                 confetti += 1
@@ -337,7 +345,7 @@ public struct SelectionView: View {
                 .bold()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(.horizontal, 10)
-                .background(selectedLine.color)
+                .background(temporarySelection.selectedLine?.color ?? selectedLine.color)
                 .cornerRadius(16)
             }
             .buttonStyle(ReactiveButton())
@@ -350,10 +358,10 @@ public struct SelectionView: View {
         
         // 상행선 2번 또는 하행선 2번 (둘 다 존재하는 케이스는 없음)
         Group {
-          if let upper2 = selectedStation.upperStationID_2 {
+          if let upper2 = temporarySelection.selectedStation?.upperStationID_2 {
             Button {
               withAnimation(customAnimation) {
-                directionStationID = upper2
+                temporarySelection.directionStationID = upper2
                 selectionStep = .direction
                 selectionStep = .pre
                 confetti += 1
@@ -362,14 +370,14 @@ public struct SelectionView: View {
               Text(stationInfoClient.findStationName(from: upper2))
                 .bold()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(selectedLine.color)
+                .background(temporarySelection.selectedLine?.color ?? selectedLine.color)
                 .cornerRadius(16)
             }
             .buttonStyle(ReactiveButton())
-          } else if let lower2 = selectedStation.lowerStationID_2 {
+          } else if let lower2 = temporarySelection.selectedStation?.lowerStationID_2 {
             Button {
               withAnimation(customAnimation) {
-                directionStationID = lower2
+                temporarySelection.directionStationID = lower2
                 selectionStep = .direction
                 selectionStep = .pre
                 confetti += 1
@@ -379,7 +387,7 @@ public struct SelectionView: View {
                 .bold()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(.horizontal, 10)
-                .background(selectedLine.color)
+                .background(temporarySelection.selectedLine?.color ?? selectedLine.color)
                 .cornerRadius(16)
             }
             .buttonStyle(ReactiveButton())
@@ -392,7 +400,7 @@ public struct SelectionView: View {
       .foregroundColor(.white)
       .cornerRadius(16)
       .overlay(alignment: .top) {
-        Text(selectedStation.stationName)
+        Text(temporarySelection.selectedStation?.stationName ?? selectedStation.stationName)
           .bold()
           .foregroundColor(.black)
           .padding(.horizontal, 20)
@@ -409,6 +417,16 @@ public struct SelectionView: View {
   private func isCurrentPage(`for` index: Int) -> Bool {
     let safeIndex = index.clamped(to: 0...SelectionStep.maxIndex)
     return selectionStep == SelectionStep.allCases[safeIndex]
+  }
+
+  private func commitSelection() {
+    if let temporarySelectedLine = temporarySelection.selectedLine,
+       let temporarySelectedStation = temporarySelection.selectedStation,
+       let temporaryDirectionStationID = temporarySelection.directionStationID {
+      selectedLine = temporarySelectedLine
+      selectedStation = temporarySelectedStation
+      directionStationID = temporaryDirectionStationID
+    }
   }
 }
 
