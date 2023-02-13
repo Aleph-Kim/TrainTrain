@@ -14,13 +14,9 @@
 		AA486BD32986B9EE00E2CF89 /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA486BD22986B9EE00E2CF89 /* SelectionView.swift */; };
 		AA486BD92986BA7800E2CF89 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = AA486BD82986BA7800E2CF89 /* ConfettiSwiftUI */; };
 		AA486BDC2986BA8700E2CF89 /* SharedModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA486BDB2986BA8700E2CF89 /* SharedModels.framework */; };
-		AA486BDD2986BA8700E2CF89 /* SharedModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA486BDB2986BA8700E2CF89 /* SharedModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AA486BE02986BA9500E2CF89 /* StationInfoClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA486BDF2986BA9500E2CF89 /* StationInfoClient.framework */; };
-		AA486BE12986BA9500E2CF89 /* StationInfoClient.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA486BDF2986BA9500E2CF89 /* StationInfoClient.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AA486BE32986BA9B00E2CF89 /* TTDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA486BE22986BA9B00E2CF89 /* TTDesignSystem.framework */; };
-		AA486BE42986BA9B00E2CF89 /* TTDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA486BE22986BA9B00E2CF89 /* TTDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AACC2F7C2993EE440023A41D /* TTUserDefaults.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACC2F7B2993EE440023A41D /* TTUserDefaults.framework */; };
-		AACC2F7D2993EE440023A41D /* TTUserDefaults.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AACC2F7B2993EE440023A41D /* TTUserDefaults.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CCAA1E78299888F00075BD01 /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAA1E77299888F00075BD01 /* Selection.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,23 +29,6 @@
 			remoteInfo = Selection;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		AA486BDE2986BA8700E2CF89 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				AA486BE12986BA9500E2CF89 /* StationInfoClient.framework in Embed Frameworks */,
-				AA486BDD2986BA8700E2CF89 /* SharedModels.framework in Embed Frameworks */,
-				AA486BE42986BA9B00E2CF89 /* TTDesignSystem.framework in Embed Frameworks */,
-				AACC2F7D2993EE440023A41D /* TTUserDefaults.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		AA486BB62986B9D100E2CF89 /* Selection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Selection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -168,7 +147,6 @@
 				AA486BB22986B9D100E2CF89 /* Sources */,
 				AA486BB32986B9D100E2CF89 /* Frameworks */,
 				AA486BB42986B9D100E2CF89 /* Resources */,
-				AA486BDE2986BA8700E2CF89 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

@@ -15,13 +15,9 @@
 		AA486A822986AC5400E2CF89 /* DebugArrivalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA486A7B2986AC5400E2CF89 /* DebugArrivalView.swift */; };
 		AA486A832986AC5400E2CF89 /* ArrivalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA486A7C2986AC5400E2CF89 /* ArrivalView.swift */; };
 		AA486B652986B36E00E2CF89 /* WidgetHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA486B642986B36E00E2CF89 /* WidgetHelper.framework */; };
-		AA486B662986B36E00E2CF89 /* WidgetHelper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA486B642986B36E00E2CF89 /* WidgetHelper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AA486B692986B38900E2CF89 /* StationInfoClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA486B682986B38900E2CF89 /* StationInfoClient.framework */; };
-		AA486B6A2986B38900E2CF89 /* StationInfoClient.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA486B682986B38900E2CF89 /* StationInfoClient.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AA486B6C2986B39900E2CF89 /* SubwayInfoClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA486B6B2986B39900E2CF89 /* SubwayInfoClient.framework */; };
-		AA486B6D2986B39900E2CF89 /* SubwayInfoClient.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA486B6B2986B39900E2CF89 /* SubwayInfoClient.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AA486BA22986B5E200E2CF89 /* TTFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA486BA12986B5E200E2CF89 /* TTFoundation.framework */; };
-		AA486BA32986B5E200E2CF89 /* TTFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA486BA12986B5E200E2CF89 /* TTFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,23 +29,6 @@
 			remoteInfo = Arrival;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		AA486B672986B36E00E2CF89 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				AA486B6A2986B38900E2CF89 /* StationInfoClient.framework in Embed Frameworks */,
-				AA486BA32986B5E200E2CF89 /* TTFoundation.framework in Embed Frameworks */,
-				AA486B662986B36E00E2CF89 /* WidgetHelper.framework in Embed Frameworks */,
-				AA486B6D2986B39900E2CF89 /* SubwayInfoClient.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		AA486A2D2986ABE400E2CF89 /* Arrival.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Arrival.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -177,7 +156,6 @@
 				AA486A292986ABE400E2CF89 /* Sources */,
 				AA486A2A2986ABE400E2CF89 /* Frameworks */,
 				AA486A2B2986ABE400E2CF89 /* Resources */,
-				AA486B672986B36E00E2CF89 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

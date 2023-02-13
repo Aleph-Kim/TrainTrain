@@ -16,11 +16,8 @@
 		AA486B0D2986ADE700E2CF89 /* SubwayAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA486B092986ADE700E2CF89 /* SubwayAPI.swift */; };
 		AA486B0E2986ADE700E2CF89 /* SubwayInfoClientLive.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA486B0A2986ADE700E2CF89 /* SubwayInfoClientLive.swift */; };
 		AA486B112986AE2800E2CF89 /* SharedModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA486B102986AE2800E2CF89 /* SharedModels.framework */; };
-		AA486B122986AE2800E2CF89 /* SharedModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA486B102986AE2800E2CF89 /* SharedModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AA486B152986AE3600E2CF89 /* StationInfoClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA486B142986AE3600E2CF89 /* StationInfoClient.framework */; };
-		AA486B162986AE3600E2CF89 /* StationInfoClient.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA486B142986AE3600E2CF89 /* StationInfoClient.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AA486B6F2986B3F700E2CF89 /* APIClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA486B6E2986B3F700E2CF89 /* APIClient.framework */; };
-		AA486B702986B3F700E2CF89 /* APIClient.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA486B6E2986B3F700E2CF89 /* APIClient.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,22 +29,6 @@
 			remoteInfo = SubwayInfoClient;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		AA486B132986AE2800E2CF89 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				AA486B162986AE3600E2CF89 /* StationInfoClient.framework in Embed Frameworks */,
-				AA486B122986AE2800E2CF89 /* SharedModels.framework in Embed Frameworks */,
-				AA486B702986B3F700E2CF89 /* APIClient.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		AA486AEB2986ADB200E2CF89 /* SubwayInfoClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SubwayInfoClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,7 +147,6 @@
 				AA486AE72986ADB200E2CF89 /* Sources */,
 				AA486AE82986ADB200E2CF89 /* Frameworks */,
 				AA486AE92986ADB200E2CF89 /* Resources */,
-				AA486B132986AE2800E2CF89 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

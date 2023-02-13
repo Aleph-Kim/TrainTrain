@@ -12,7 +12,6 @@
 		AA486B422986B20F00E2CF89 /* WidgetHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA486B412986B20F00E2CF89 /* WidgetHelperTests.swift */; };
 		AA486B432986B20F00E2CF89 /* WidgetHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = AA486B352986B20F00E2CF89 /* WidgetHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AA486B602986B33D00E2CF89 /* TTDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA486B5F2986B33D00E2CF89 /* TTDesignSystem.framework */; };
-		AA486B612986B33D00E2CF89 /* TTDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA486B5F2986B33D00E2CF89 /* TTDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AA486BA42986B7F800E2CF89 /* ActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA486B502986B28300E2CF89 /* ActivityAttributes.swift */; };
 		AA486BAB2986B8E200E2CF89 /* TrainTrainWidgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA486B522986B28300E2CF89 /* TrainTrainWidgetLiveActivity.swift */; };
 /* End PBXBuildFile section */
@@ -26,20 +25,6 @@
 			remoteInfo = WidgetHelper;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		AA486B622986B33D00E2CF89 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				AA486B612986B33D00E2CF89 /* TTDesignSystem.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		AA486B322986B20F00E2CF89 /* WidgetHelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WidgetHelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,7 +149,6 @@
 				AA486B2E2986B20F00E2CF89 /* Sources */,
 				AA486B2F2986B20F00E2CF89 /* Frameworks */,
 				AA486B302986B20F00E2CF89 /* Resources */,
-				AA486B622986B33D00E2CF89 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

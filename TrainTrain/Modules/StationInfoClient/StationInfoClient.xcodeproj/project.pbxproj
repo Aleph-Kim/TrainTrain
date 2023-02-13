@@ -15,7 +15,6 @@
 		AA486AAC2986ACCF00E2CF89 /* StationInfoClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA486AAA2986ACCF00E2CF89 /* StationInfoClient.swift */; };
 		AA486AAD2986ACCF00E2CF89 /* StationInfoClientLive.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA486AAB2986ACCF00E2CF89 /* StationInfoClientLive.swift */; };
 		AA486B1D2986B01B00E2CF89 /* SharedModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA486B1C2986B01B00E2CF89 /* SharedModels.framework */; };
-		AA486B1E2986B01B00E2CF89 /* SharedModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA486B1C2986B01B00E2CF89 /* SharedModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,20 +26,6 @@
 			remoteInfo = StationInfoClient;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		AA486B1F2986B01B00E2CF89 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				AA486B1E2986B01B00E2CF89 /* SharedModels.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		AA2CDDDE298ECABF007CAEE0 /* StationList221023.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = StationList221023.plist; sourceTree = "<group>"; };
@@ -151,7 +136,6 @@
 				AA486A8A2986AC9900E2CF89 /* Sources */,
 				AA486A8B2986AC9900E2CF89 /* Frameworks */,
 				AA486A8C2986AC9900E2CF89 /* Resources */,
-				AA486B1F2986B01B00E2CF89 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

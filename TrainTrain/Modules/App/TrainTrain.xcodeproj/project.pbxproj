@@ -21,7 +21,6 @@
 		AA486B262986B15100E2CF89 /* Arrival.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA486B252986B15100E2CF89 /* Arrival.framework */; };
 		AA486B272986B15100E2CF89 /* Arrival.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA486B252986B15100E2CF89 /* Arrival.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AA486BA62986B84200E2CF89 /* WidgetHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA486BA52986B84200E2CF89 /* WidgetHelper.framework */; };
-		AA486BA72986B84200E2CF89 /* WidgetHelper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA486BA52986B84200E2CF89 /* WidgetHelper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AA486BA92986B8A700E2CF89 /* TrainTrainWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA486BA82986B8A700E2CF89 /* TrainTrainWidgetBundle.swift */; };
 		AA486BD52986BA1700E2CF89 /* Selection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA486BD42986BA1700E2CF89 /* Selection.framework */; };
 		AA486BD62986BA1700E2CF89 /* Selection.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AA486BD42986BA1700E2CF89 /* Selection.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -33,7 +32,6 @@
 		AAEE43F32986A3A900F10709 /* TTDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAEE43F02986A3A900F10709 /* TTDesignSystem.framework */; };
 		AAEE43F42986A3A900F10709 /* TTDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AAEE43F02986A3A900F10709 /* TTDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AAEE43F62986A54300F10709 /* TTDesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAEE43F52986A54300F10709 /* TTDesignSystem.framework */; };
-		AAEE43F72986A54300F10709 /* TTDesignSystem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AAEE43F52986A54300F10709 /* TTDesignSystem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CC4236CD297D51E7000BC7B4 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC4236CC297D51E7000BC7B4 /* WidgetKit.framework */; };
 		CC4236CF297D51E7000BC7B4 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC4236CE297D51E7000BC7B4 /* SwiftUI.framework */; };
 		CC4236DD297D51E8000BC7B4 /* TrainTrainWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = CC4236CA297D51E7000BC7B4 /* TrainTrainWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -60,18 +58,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		AA07081A298672E7004A3C43 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				AA486BA72986B84200E2CF89 /* WidgetHelper.framework in Embed Frameworks */,
-				AAEE43F72986A54300F10709 /* TTDesignSystem.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		AA07081F29867303004A3C43 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -318,7 +304,6 @@
 				CC4236C6297D51E7000BC7B4 /* Sources */,
 				CC4236C7297D51E7000BC7B4 /* Frameworks */,
 				CC4236C8297D51E7000BC7B4 /* Resources */,
-				AA07081A298672E7004A3C43 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -516,7 +501,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = GMASX5K78J;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -529,7 +514,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = space.codable.trainHard.TrainTrainWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -551,7 +536,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = GMASX5K78J;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -564,7 +549,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = space.codable.trainHard.TrainTrainWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -700,7 +685,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = GMASX5K78J;
@@ -719,7 +704,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = space.codable.trainHard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -743,7 +728,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = GMASX5K78J;
@@ -762,7 +747,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = space.codable.trainHard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

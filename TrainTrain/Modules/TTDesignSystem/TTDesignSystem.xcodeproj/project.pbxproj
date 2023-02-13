@@ -22,22 +22,7 @@
 		AAEE43E62986A34700F10709 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEE43DC2986A34700F10709 /* Color+Extension.swift */; };
 		AAEE43E72986A34700F10709 /* TTDesignSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = AAEE43DD2986A34700F10709 /* TTDesignSystem.h */; };
 		AAEE43EC2986A36700F10709 /* SharedModels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAEE43EB2986A36700F10709 /* SharedModels.framework */; };
-		AAEE43ED2986A36700F10709 /* SharedModels.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AAEE43EB2986A36700F10709 /* SharedModels.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		AAEE43EE2986A36700F10709 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				AAEE43ED2986A36700F10709 /* SharedModels.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		AA4869E12986A79900E2CF89 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -201,7 +186,6 @@
 				AAEE43C12986A2FE00F10709 /* Sources */,
 				AAEE43C22986A2FE00F10709 /* Frameworks */,
 				AAEE43C32986A2FE00F10709 /* Resources */,
-				AAEE43EE2986A36700F10709 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
