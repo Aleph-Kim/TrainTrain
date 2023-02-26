@@ -109,6 +109,16 @@
                ReferencedContainer = "container:../WidgetHelper/WidgetHelper.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CC06F4BF29AB251800B4FE08"
+               BuildableName = "SharedModelsTests.xctest"
+               BlueprintName = "SharedModelsTests"
+               ReferencedContainer = "container:../SharedModels/SharedModels.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

@@ -27,7 +27,7 @@ public struct TrainInfo: Decodable, Identifiable, Equatable {
   /// 첫 번째 도착 메세지 - 진입, 도착, 출발과 같은 구체적 상태 또는 분/초로 표시한 ETA 를 표시합니다.
   public var firstMessage: String
   /// 두 번째 도착 메세지 - 직전 역의 이름을 표시합니다.
-  public var secondMessage: String
+  public var secondMessage: String?
   /// 도착코드 (0:진입, 1:도착, 2:출발, 3:전역출발, 4:전역진입, 5:전역도착, 99:운행중)
   public var arrivalState: ArrivalState
 
@@ -102,7 +102,7 @@ public struct TrainInfo: Decodable, Identifiable, Equatable {
     terminusStationName = try container.decode(String.self, forKey: .terminusStationName)
     createdAt = try container.decode(String.self, forKey: .createdAt)
     firstMessage = try container.decode(String.self, forKey: .firstMessage)
-    secondMessage = try container.decode(String.self, forKey: .secondMessage)
+    secondMessage = try? container.decode(String.self, forKey: .secondMessage)
     
     id = try container.decode(String.self, forKey: .trainNumber)
 

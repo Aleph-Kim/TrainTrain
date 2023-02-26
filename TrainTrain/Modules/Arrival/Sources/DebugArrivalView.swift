@@ -56,7 +56,7 @@ public struct DebugArrivalView: View {
                 .fontWeight(.bold)
                 .foregroundColor(.blue)
               Text("메시지1: \(trainInfo.firstMessage)")
-              Text("메시지2: \(trainInfo.secondMessage)")
+              Text("메시지2: \(trainInfo.secondMessage ?? "두번째 메세지 없음")")
               Text("도착코드: \(trainInfo.arrivalState.rawValue) - \(arrivalStateMessage(trainInfo))")
               Text("막차 여부: \(trainInfo.trainDestination.contains("막차") ? "⚠️ 막차!" : "false")")
             } else if !trainInfo.trainDestination.contains(directionStationName), trainInfo.firstMessage.contains("진입") {
@@ -65,7 +65,7 @@ public struct DebugArrivalView: View {
               Text("💨 \(selectedStation.stationName)역에 진입 중입니다.")
                 .foregroundColor(.blue)
               Text("메시지1: \(trainInfo.firstMessage)")
-              Text("메시지2: \(trainInfo.secondMessage)")
+              Text("메시지2: \(trainInfo.secondMessage ?? "두번째 메세지 없음")")
               Text("도착코드: \(trainInfo.arrivalState.rawValue) - \(arrivalStateMessage(trainInfo))")
             } else if !trainInfo.trainDestination.contains(directionStationName), trainInfo.firstMessage.contains("도착") {
               Text("ID: \(trainInfo.id)")
@@ -73,7 +73,7 @@ public struct DebugArrivalView: View {
               Text("🏁 \(selectedStation.stationName)역에 도착했습니다.")
                 .foregroundColor(.blue)
               Text("메시지1: \(trainInfo.firstMessage)")
-              Text("메시지2: \(trainInfo.secondMessage)")
+              Text("메시지2: \(trainInfo.secondMessage ?? "두번째 메세지 없음")")
               Text("도착코드: \(trainInfo.arrivalState.rawValue) - \(arrivalStateMessage(trainInfo))")
             } else {
               Text("ID: \(trainInfo.id)")
