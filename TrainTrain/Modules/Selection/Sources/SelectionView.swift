@@ -107,10 +107,11 @@ public struct SelectionView: View {
     VStack(alignment: .leading, spacing: 10) {
       Spacer()
       let firstSetting = userDefaultsManager.firstSetting
+      let infoMessage = firstSetting ? "영차열차로\n확인하고 싶은 👀\n역을 선택해주세요." : "완료됐습니다! 🎉\n이제 미리보기로\n확인해보세요."
       
-      if !firstSetting, let selectedLine = SubwayLine(rawValue: selectedStation.subwayLineID)! {
+      if let selectedLine = SubwayLine(rawValue: selectedStation.subwayLineID) {
         let lineColor = selectedLine.color
-        Text("완료됐습니다! 🎉\n이제 미리보기로\n확인해보세요.")
+        Text(infoMessage)
           .font(.title)
           .lineSpacing(6)
           .minimumScaleFactor(0.6)
@@ -138,7 +139,7 @@ public struct SelectionView: View {
           }
         }
       } else {
-        Text("영차열차로\n확인하고 싶은 👀\n역을 선택해주세요.")
+        Text(infoMessage)
           .font(.title)
           .lineSpacing(6)
           .minimumScaleFactor(0.6)
