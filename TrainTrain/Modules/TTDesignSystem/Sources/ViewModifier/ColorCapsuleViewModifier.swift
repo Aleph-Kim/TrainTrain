@@ -1,4 +1,4 @@
-import SharedModels
+import SubwayModels
 import SwiftUI
 
 struct ColorCapsuleViewModifier: ViewModifier {

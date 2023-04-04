@@ -1,0 +1,29 @@
+#include "../Shared.xcconfig"
+
+ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME=AccentColor
+ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME=WidgetBackground
+CLANG_ENABLE_MODULES=YES
+CODE_SIGN_IDENTITY=Apple Development
+CODE_SIGN_IDENTITY[sdk=iphoneos*]=iPhone Developer
+CODE_SIGN_STYLE=Manual
+CURRENT_PROJECT_VERSION=1
+DEVELOPMENT_TEAM=
+DEVELOPMENT_TEAM[sdk=iphoneos*]=GMASX5K78J
+GENERATE_INFOPLIST_FILE=YES
+INFOPLIST_FILE=../Widget/SupportFiles/Info.plist
+INFOPLIST_KEY_CFBundleDisplayName=TrainTrainWidget
+INFOPLIST_KEY_NSHumanReadableCopyright=
+IPHONEOS_DEPLOYMENT_TARGET=16.1
+MARKETING_VERSION=2.0.1
+PRODUCT_BUNDLE_IDENTIFIER=space.codable.trainHard.TrainTrainWidget
+PRODUCT_NAME=$(TARGET_NAME)
+PROVISIONING_PROFILE_SPECIFIER=
+PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]=TrainTrain_Profile_Widget_Development_230108
+SKIP_INSTALL=YES
+SWIFT_EMIT_LOC_STRINGS=YES
+SWIFT_VERSION=5.0
+TARGETED_DEVICE_FAMILY=1,2
+
+LD_RUNPATH_SEARCH_PATHS[config=Debug]=$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks
+LD_RUNPATH_SEARCH_PATHS[config=Release]=$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks
+SWIFT_OPTIMIZATION_LEVEL[config=Debug]=-Onone
