@@ -15,7 +15,7 @@ extension SubwayAPI: APIRoutable {
 
   public var route: Route {
     switch self {
-    case .realTimeStationArrival(let arrival):
+    case .realtimeStationArrival(let arrival):
       return .get("/\(arrival.authKey)/json/realtimeStationArrival/\(arrival.startIndex)/\(arrival.endIndex)/\(arrival.stationName)")
     }
   }

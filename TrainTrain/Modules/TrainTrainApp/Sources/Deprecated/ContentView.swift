@@ -1,4 +1,5 @@
 import Arrival
+import ComposableArchitecture
 import Selection
 import SubwayModels
 import StationInfoClient
@@ -6,29 +7,28 @@ import SubwayInfoClient
 import SwiftUI
 import UserDefaultsClient
 
+@available(*, deprecated, renamed: "RealtimeStationArrivalView")
 struct ContentView: View {
 
   private let stationInfoClient: StationInfoClient
   private let subwayInfoClient: SubwayInfoClient
-  private let userDefaultsManager: UserDefaultsManager
+  private let userDefaultsClient: UserDefaultsClient
   @State private var selectedStation: StationInfo
   @State private var directionStationID: String
   @State private var selectedSubwayLine: SubwayLine
   @FocusState private var isKeyboardUp: Bool
 
-  private let arrivalViewHeight: CGFloat = 160
+  init() {
+    @Dependency(\.stationInfoClient) var stationInfoClient
+    @Dependency(\.subwayInfoClient) var subwayInfoClient
+    @Dependency(\.userDefaultsClient) var userDefaultsClient
 
-  init(
-    stationInfoClient: StationInfoClient,
-    subwayInfoClient: SubwayInfoClient,
-    userDefaultsManager: UserDefaultsManager
-  ) {
     self.stationInfoClient = stationInfoClient
     self.subwayInfoClient = subwayInfoClient
-    self.userDefaultsManager = userDefaultsManager
-    self.selectedStation = stationInfoClient.findStationInfo(from: userDefaultsManager.selectedStationID)
-    self.directionStationID = userDefaultsManager.directionStationID
-    self.selectedSubwayLine = SubwayLine(rawValue: userDefaultsManager.subwayLine) ?? .line2
+    self.userDefaultsClient = userDefaultsClient
+    self.selectedStation = stationInfoClient.findStationInfo(from: userDefaultsClient.selectedStationID)
+    self.directionStationID = userDefaultsClient.directionStationID
+    self.selectedSubwayLine = SubwayLine(rawValue: userDefaultsClient.subwayLine) ?? .line2
   }
 
   var body: some View {
@@ -44,20 +44,23 @@ struct ContentView: View {
 
   @ViewBuilder
   private func upperSectionView() -> some View {
-    ArrivalView(
-      stationInfoClient: stationInfoClient,
-      subwayInfoClient: subwayInfoClient,
-      selectedStationInfo: $selectedStation,
-      directionStationID: $directionStationID,
-      selectedSubwayLine: $selectedSubwayLine)
+    ArrivalDashboardView(
+      store: Store(
+        initialState: ArrivalDashboardFeature.State(
+          trainLane: TrainLaneFeature.State(
+            trains: []
+          ),
+          etaSummary: ETASummaryFeature.State()
+        ),
+        reducer: ArrivalDashboardFeature()
+      )
+    )
     .dynamicTypeSize(.medium)
-    .frame(maxWidth: .infinity)
-    .frame(height: arrivalViewHeight)
     .padding()
 
-#if DEBUG
+    #if DEBUG
     debugLogView()
-#endif
+    #endif
 
     Divider()
       .padding(.horizontal)
@@ -66,12 +69,11 @@ struct ContentView: View {
   @ViewBuilder
   private func lowerSectionView() -> some View {
     SelectionView(
-      stationInfoClient: stationInfoClient,
-      userDefaultsManager: userDefaultsManager,
-      selectedStation: $selectedStation,
-      directionStationID: $directionStationID,
-      selectedLine: $selectedSubwayLine,
-      isKeyboardUp: _isKeyboardUp)
+      store: Store(
+        initialState: SelectionFeature.State(),
+        reducer: SelectionFeature()
+      )
+    )
     .padding(.top)
     .padding(.bottom, 5)
 
@@ -102,22 +104,5 @@ struct ContentView: View {
     }
     .foregroundColor(.secondary)
     .font(.system(size: 10))
-  }
-}
-
-// MARK: SwiftUI previews
-
-struct ContentView_Previews: PreviewProvider {
-  static let stationInfoClient: StationInfoClient = .live()
-  static let subwayInfoClient: SubwayInfoClient = .live(
-    apiClient: .live(),
-    stationInfoClient: stationInfoClient
-  )
-  static var previews: some View {
-    ContentView(
-      stationInfoClient: stationInfoClient,
-      subwayInfoClient: subwayInfoClient,
-      userDefaultsManager: UserDefaultsManager()
-    )
   }
 }

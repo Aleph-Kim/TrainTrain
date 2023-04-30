@@ -33,6 +33,7 @@ let project: Project = .feature(
       ],
       dependencies: [
         .target(name: "SubwayModels"),
+        .project(target: "CoreLibraries", path: "../ThirdPartyLibraries"),
       ]
     ),
     TargetConfiguration(

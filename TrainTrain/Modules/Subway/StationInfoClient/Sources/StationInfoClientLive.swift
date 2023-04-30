@@ -5,6 +5,7 @@
 //  Created by Geonhee on 2023/01/14.
 //
 
+import Dependencies
 import Foundation
 import SubwayModels
 
@@ -45,5 +46,16 @@ public extension StationInfoClient {
         return allStationList.first(where: { $0.stationID == stationID })!
       }
     )
+  }
+}
+
+private enum StationInfoClientKey: DependencyKey {
+  static let liveValue = StationInfoClient.live()
+}
+
+public extension DependencyValues {
+  var stationInfoClient: StationInfoClient {
+    get { self[StationInfoClientKey.self] }
+    set { self[StationInfoClientKey.self] = newValue }
   }
 }

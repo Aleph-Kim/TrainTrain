@@ -6,23 +6,25 @@
 //
 
 import APIClient
+import Dependencies
 import SubwayModels
 import StationInfoClient
 
 public extension SubwayInfoClient {
-  static func live(
-    apiClient: APIClient<SubwayAPI>,
-    stationInfoClient: StationInfoClient
-  ) -> Self {
+  static func live() -> Self {
+    @Dependency(\.apiClient) var apiClient
+    @Dependency(\.stationInfoClient) var stationInfoClient
+
     /// 특정 지하철역을 기준으로 접근하는 모든 방향의 실시간 도착정보를 배열 형태로 가져옵니다.
     @Sendable
     func fetch(stationID: String) async throws -> ArrivalInfo {
       let stationName = stationInfoClient.findStationName(from: stationID)
 
-      return try await apiClient.request(
-        .realTimeStationArrival(.init(stationName: stationName)),
-        as: ArrivalInfo.self
+      let response = try await apiClient.request(
+        SubwayAPI.realtimeStationArrival(.init(stationName: stationName)),
+        as: ArrivalInfo.Response.self
       )
+      return response.toDomain()
     }
 
     /// 목표역과 방향이 일치하면서 목표역에 근접한 열차를 제외한 열차 목록을 가져옵니다.
@@ -44,7 +46,7 @@ public extension SubwayInfoClient {
       }
       let isNotAtTargetStation: (TrainInfo) -> Bool = { trainInfo in
         // 목표역 근처에서 정확도가 낮으므로 목표역에 있는 열차를 제외. 목표역 근처 열차는 nextList에서 획득한 열차를 사용
-        return trainInfo.secondMessage != targetStation.stationName
+        return trainInfo.formattedDrivingStatus != targetStation.stationName
       }
       return arrivalInfo.realtimeArrivalList
         .filter(isSameDirection)
@@ -73,7 +75,7 @@ public extension SubwayInfoClient {
       return nextInfo.realtimeArrivalList
         .filter(isNextStationOfTargetStation)
         .filter(hasArrivedStation)
-        .map { TrainInfo(from: $0, eta: "0") } // 도착한 열차이므로 ETA는 0 (기존 ETA는 목표역 다음역에 도착하기까지의 ETA)
+        .map { TrainInfo(from: $0, eta: 0) } // 도착한 열차이므로 ETA는 0 (기존 ETA는 목표역 다음역에 도착하기까지의 ETA)
     }
 
     return Self(
@@ -92,12 +94,24 @@ public extension SubwayInfoClient {
             targetStation: targetStation,
             directionStationID: directionStationID
           )
-          return try await (sameDirectionExceptApproachingTrainInfoList + approachingTrainInfoList)
+          let result = try await (sameDirectionExceptApproachingTrainInfoList + approachingTrainInfoList)
+          return result.sorted(by: { $0.eta < $1.eta })
         } catch {
           print("⚠️ 통신 중 에러 발생 -> \(error)")
           return []
         }
       }
     )
+  }
+}
+
+private enum SubwayInfoClientKey: DependencyKey {
+  static let liveValue = SubwayInfoClient.live()
+}
+
+public extension DependencyValues {
+  var subwayInfoClient: SubwayInfoClient {
+    get { self[SubwayInfoClientKey.self] }
+    set { self[SubwayInfoClientKey.self] = newValue }
   }
 }

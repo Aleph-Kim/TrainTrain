@@ -38,27 +38,30 @@ jobs:
             ${{ runner.os }}-tuist-
 
       - name: Install Tuist if not present
+        working-directory: TrainTrain
         run: |
-          cd TrainTrain
           if ! command -v tuist > /dev/null 2>&1; then
             curl -Ls https://install.tuist.io | bash
           fi
 
       - name: Fetch Tuist dependencies
-        run: |
-          cd TrainTrain
-          tuist fetch
+        working-directory: TrainTrain
+        run: tuist fetch
 
       - name: Build TrainTrainApp
+        working-directory: TrainTrain
         run: |
-          cd TrainTrain
-          tuist build "${{ env.APP_SCHEME }}"
+          if tuist build "${{ env.APP_SCHEME }}"; then
+            echo "Build succeeded"
+          else
+            echo "Build failed, performing clean build..."
+            tuist build --clean "${{ env.APP_SCHEME }}"
+          fi
         env:
           TUIST_IS_CI: 1
 
       - name: Test all modules
-        run: |
-          cd TrainTrain
-          tuist test
+        working-directory: TrainTrain
+        run: tuist test
         env:
           TUIST_IS_CI: 1

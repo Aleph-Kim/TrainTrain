@@ -8,7 +8,9 @@ let project: Project = .feature(
       name: "APIClient",
       targetTypes: [],
         productType: .framework,
-        dependencies: []
+        dependencies: [
+          .project(target: "CoreLibraries", path: "../ThirdPartyLibraries"),
+        ]
     ),
     TargetConfiguration(
       name: "TTFoundation",
@@ -20,7 +22,9 @@ let project: Project = .feature(
       name: "UserDefaultsClient",
       targetTypes: [],
         productType: .framework,
-        dependencies: []
+        dependencies: [
+          .project(target: "CoreLibraries", path: "../ThirdPartyLibraries"),
+        ]
     ),
   ],
   packages: [],

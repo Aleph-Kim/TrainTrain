@@ -5,9 +5,10 @@
 //  Created by Geonhee on 2023/02/08.
 //
 
+import Dependencies
 import Foundation
 
-public final class UserDefaultsManager {
+public final class UserDefaultsClient {
 
   private let userDefaults: UserDefaults
 
@@ -45,4 +46,17 @@ enum UserDefaultsKey: String {
   case directionStationID
   /// 호선, 출발, 진행방향을 처음 선택하는지 여부
   case firstSetting
+}
+
+// MARK: - Register Dependency
+
+private enum UserDefaultsClientKey: DependencyKey {
+  static let liveValue = UserDefaultsClient(userDefaults: .standard)
+}
+
+public extension DependencyValues {
+  var userDefaultsClient: UserDefaultsClient {
+    get { self[UserDefaultsClientKey.self] }
+    set { self[UserDefaultsClientKey.self] = newValue }
+  }
 }

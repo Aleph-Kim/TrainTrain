@@ -55,25 +55,25 @@ public struct DebugArrivalView: View {
               Text("ETA: \(trainInfo.eta)초 후")
                 .fontWeight(.bold)
                 .foregroundColor(.blue)
-              Text("메시지1: \(trainInfo.firstMessage)")
-              Text("메시지2: \(trainInfo.secondMessage ?? "두번째 메세지 없음")")
+              Text("메시지1: \(trainInfo.formattedDrivingStatus)")
+              Text("메시지2: \(trainInfo.previousStationName ?? "두번째 메세지 없음")")
               Text("도착코드: \(trainInfo.arrivalState.rawValue) - \(arrivalStateMessage(trainInfo))")
               Text("막차 여부: \(trainInfo.trainDestination.contains("막차") ? "⚠️ 막차!" : "false")")
-            } else if !trainInfo.trainDestination.contains(directionStationName), trainInfo.firstMessage.contains("진입") {
+            } else if !trainInfo.trainDestination.contains(directionStationName), trainInfo.formattedDrivingStatus.contains("진입") {
               Text("ID: \(trainInfo.id)")
                 .fontWeight(.bold)
               Text("💨 \(selectedStation.stationName)역에 진입 중입니다.")
                 .foregroundColor(.blue)
-              Text("메시지1: \(trainInfo.firstMessage)")
-              Text("메시지2: \(trainInfo.secondMessage ?? "두번째 메세지 없음")")
+              Text("메시지1: \(trainInfo.formattedDrivingStatus)")
+              Text("메시지2: \(trainInfo.previousStationName ?? "두번째 메세지 없음")")
               Text("도착코드: \(trainInfo.arrivalState.rawValue) - \(arrivalStateMessage(trainInfo))")
-            } else if !trainInfo.trainDestination.contains(directionStationName), trainInfo.firstMessage.contains("도착") {
+            } else if !trainInfo.trainDestination.contains(directionStationName), trainInfo.formattedDrivingStatus.contains("도착") {
               Text("ID: \(trainInfo.id)")
                 .fontWeight(.bold)
               Text("🏁 \(selectedStation.stationName)역에 도착했습니다.")
                 .foregroundColor(.blue)
-              Text("메시지1: \(trainInfo.firstMessage)")
-              Text("메시지2: \(trainInfo.secondMessage ?? "두번째 메세지 없음")")
+              Text("메시지1: \(trainInfo.formattedDrivingStatus)")
+              Text("메시지2: \(trainInfo.previousStationName ?? "두번째 메세지 없음")")
               Text("도착코드: \(trainInfo.arrivalState.rawValue) - \(arrivalStateMessage(trainInfo))")
             } else {
               Text("ID: \(trainInfo.id)")
@@ -147,26 +147,11 @@ public struct DebugArrivalView: View {
 
 struct DebugArrivalView_Previews: PreviewProvider {
   static let stationInfoClient: StationInfoClient = .live()
-  static let subwayInfoClient: SubwayInfoClient = .live(
-    apiClient: .live(),
-    stationInfoClient: stationInfoClient
-  )
+  static let subwayInfoClient: SubwayInfoClient = .live()
 
   static var previews: some View {
     DebugArrivalView(
-      selectedStation: .constant(
-        StationInfo(
-          subwayLineID: "1002",
-          stationID: "1002000228",
-          stationName: "서울대입구",
-          lowerStationID_1: "1002000229",
-          lowerStationETA_1: 60,
-          lowerStationID_2: "",
-          lowerStationETA_2: "",
-          upperStationID_1: "1002000227",
-          upperStationETA_1: 120,
-          upperStationID_2: "",
-          upperStationETA_2: "")),
+      selectedStation: .constant(.mock),
       directionStationID: .constant("1002000227"),
       stationInfoClient: .live(),
       subwayInfoClient: subwayInfoClient)

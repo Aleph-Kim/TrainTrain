@@ -1,157 +1,94 @@
-import ConfettiSwiftUI
+//
+//  NewSelectionView.swift
+//  Arrival
+//
+//  Created by Geonhee on 2023/04/02.
+//
+
+import ComposableArchitecture
 import SubwayModels
-import StationInfoClient
 import SwiftUI
 import TTDesignSystem
 import TTFoundation
-import UserDefaultsClient
+import ConfettiSwiftUI
 
 public struct SelectionView: View {
 
-  public enum SelectionStep: CaseIterable {
-    case pre
-    case lineNumber
-    case station
-    case direction
+  public let store: StoreOf<SelectionFeature>
+  @FocusState private var focus: SelectionFeature.State.Field?
+  private let tabTransitionAnimation: Animation = .easeInOut(duration: 0.25)
 
-    static var maxIndex: Int {
-      SelectionStep.allCases.count - 1
-    }
+  public init(store: StoreOf<SelectionFeature>) {
+    self.store = store
   }
 
-  private let stationInfoClient: StationInfoClient
-  private let userDefaultsManager: UserDefaultsManager
-  @Binding var selectedStation: StationInfo
-  @Binding var directionStationID: String
-  @Binding var selectedLine: SubwayLine
-  @FocusState var isKeyboardUp: Bool
-
-  // MARK: - 선택화면 확정전 정보입니다.
-  @State private var temporarySelection: Selection = Selection()
-  @State private var selectionStep: SelectionStep = .pre
-  @State private var stationList: [StationInfo] = []
-  @State private var searchText = ""
-  @State private var confetti: Int = .zero
-
-  private let customAnimation: Animation = .linear(duration: 0.1)
-
-  public init(
-    stationInfoClient: StationInfoClient,
-    userDefaultsManager: UserDefaultsManager,
-    selectedStation: Binding<StationInfo>,
-    directionStationID: Binding<String>,
-    selectedLine: Binding<SubwayLine>,
-    isKeyboardUp: FocusState<Bool>,
-    selectionStep: SelectionStep = .pre,
-    stationList: [StationInfo] = [],
-    searchText: String = "",
-    confetti: Int = .zero
-  ) {
-    self.stationInfoClient = stationInfoClient
-    self.userDefaultsManager = userDefaultsManager
-    self._selectedStation = selectedStation
-    self._directionStationID = directionStationID
-    self._selectedLine = selectedLine
-    self._isKeyboardUp = isKeyboardUp
-    self.selectionStep = selectionStep
-    self.stationList = stationList
-    self.searchText = searchText
-    self.confetti = confetti
-  }
-
-  // MARK: - body
   public var body: some View {
-    VStack {
-      TabView(selection: $selectionStep) {
-        preSelectionPage()
-          .tag(SelectionStep.pre)
+    WithViewStore(store, observe: { $0 }) { viewStore in
+      TabView(selection: viewStore.binding(\.$selectionStep)) {
+        preSelectionPage(viewStore: viewStore)
+          .tag(SelectionFeature.State.SelectionStep.pre)
           .highPriorityGesture(DragGesture())
-        lineNumberSelectionPage()
-          .tag(SelectionStep.lineNumber)
+
+        lineNumberSelectionPage(viewStore: viewStore)
+          .tag(SelectionFeature.State.SelectionStep.lineNumber)
           .highPriorityGesture(DragGesture())
-        stationSelectionPage()
-          .tag(SelectionStep.station)
+
+        stationSelectionPage(viewStore: viewStore)
+          .tag(SelectionFeature.State.SelectionStep.station)
           .highPriorityGesture(DragGesture())
-        directionSelectionPage()
-          .tag(SelectionStep.direction)
+
+        directionSelectionPage(viewStore: viewStore)
+          .tag(SelectionFeature.State.SelectionStep.direction)
           .highPriorityGesture(DragGesture())
       }
       .tabViewStyle(.page(indexDisplayMode: .never))
-
-      // MARK: - 커스텀 페이지 인디케이터
-      HStack(spacing: 10) {
-        ForEach(SelectionStep.allCases.indices, id: \.self) { index in
-          Circle()
-            .fill(isCurrentPage(for: index) ? .secondary : .quaternary)
-            .frame(width: 8, height: 8)
-        }
-      }
-      .animation(nil, value: selectionStep)
-    }
-    .confettiCannon(
-      counter: $confetti,
-      rainHeight: 400,
-      openingAngle: .degrees(45),
-      closingAngle: .degrees(135),
-      repetitions: 1)
-    .onChange(of: directionStationID) { newDirectionStationID in
-      userDefaultsManager.selectedStationID = selectedStation.stationID
-      userDefaultsManager.directionStationID = newDirectionStationID
-      userDefaultsManager.subwayLine = selectedLine.rawValue
-      userDefaultsManager.firstSetting = false
+      .confettiCannon(
+        counter: viewStore.binding(\.$confetti),
+        rainHeight: 400,
+        openingAngle: .degrees(45),
+        closingAngle: .degrees(135),
+        repetitions: 1
+      )
     }
   }
 
   // MARK: - 선택해주세요 / 완료 페이지
-  private func preSelectionPage() -> some View {
+  private func preSelectionPage(viewStore: ViewStoreOf<SelectionFeature>) -> some View {
     VStack(alignment: .leading, spacing: 10) {
       Spacer()
-      let firstSetting = userDefaultsManager.firstSetting
-      let infoMessage = firstSetting ? "영차열차로\n확인하고 싶은 👀\n역을 선택해주세요." : "완료됐습니다! 🎉\n이제 미리보기로\n확인해보세요."
+      let infoMessage = "영차열차로\n확인하고 싶은 👀\n역을 선택해주세요."
 
-      if let selectedLine = SubwayLine(rawValue: selectedStation.subwayLineID) {
-        let lineColor = selectedLine.color
-        Text(infoMessage)
-          .font(.title)
-          .lineSpacing(6)
-          .minimumScaleFactor(0.6)
-          .onAppear {
-            if temporarySelection.isSelectionCompleted {
-              commitSelection()
-              temporarySelection.removeAllSelction()
-            }
-          }
+      Text(infoMessage)
+        .font(.title)
+        .lineSpacing(6)
+        .minimumScaleFactor(0.6)
+        .onAppear {
+          viewStore.send(.commitSelection)
+        }
 
-        Spacer()
+      Spacer()
 
-        VStack(alignment: .leading, spacing: 4) {
-          Text(selectedLine.name)
+      let lineColor = viewStore.selectedSubwayLine.color
+
+      VStack(alignment: .leading, spacing: 4) {
+        Text(viewStore.selectedSubwayLine.name)
+          .colorCapsule(lineColor)
+
+        HStack {
+          Text(viewStore.selectedStation.stationName)
             .colorCapsule(lineColor)
 
-          HStack {
-            Text(selectedStation.stationName)
-              .colorCapsule(lineColor)
+          Image(systemName: "arrow.right")
 
-            Image(systemName: "arrow.right")
-
-            Text(stationInfoClient.findStationName(from: directionStationID))
-              .colorCapsule(lineColor)
-          }
+          Text(viewStore.directionStation.stationName)
+            .colorCapsule(lineColor)
         }
-      } else {
-        Text(infoMessage)
-          .font(.title)
-          .lineSpacing(6)
-          .minimumScaleFactor(0.6)
       }
 
       Spacer()
 
       Button {
-        withAnimation(customAnimation) {
-          selectionStep = .pre
-          selectionStep = .lineNumber
-        }
+        viewStore.send(.startSelectionButtonTapped, animation: tabTransitionAnimation)
       } label: {
         Text("선택 시작 →")
           .font(.title3)
@@ -167,39 +104,19 @@ public struct SelectionView: View {
   }
 
   // MARK: - 호선 선택 페이지
-  private func lineNumberSelectionPage() -> some View {
+  private func lineNumberSelectionPage(viewStore: ViewStoreOf<SelectionFeature>) -> some View {
     VStack(spacing: 10) {
-      HStack {
-        Text("몇 호선 인가요?")
-          .askCapsule()
-        Spacer()
-
-        Button {
-          withAnimation(customAnimation) {
-            selectionStep = .lineNumber
-            selectionStep = .pre
-            isKeyboardUp = false // 키보드 내리기
-          }
-        } label: {
-          Image(systemName: "arrow.uturn.left")
-            .askCapsule(bold: false)
-            .tint(.primary)
-        }
-        .buttonStyle(ReactiveButton())
+      header(title: "몇 호선 인가요?") {
+        viewStore.send(.selectSubwayLineBackButtonTapped, animation: tabTransitionAnimation)
       }
 
       ScrollView(showsIndicators: false) {
         VStack(alignment: .leading, spacing: 20) {
-          ForEach(SubwayLine.allCases) { line in
+          ForEach(SubwayLine.allCases) { subwayLine in
             Button {
-              withAnimation(customAnimation) {
-                temporarySelection.selectedLine = line
-                selectionStep = .lineNumber
-                selectionStep = .station
-                stationList = stationInfoClient.stationList(on: line)
-              }
+              viewStore.send(.subwayLineTapped(subwayLine), animation: tabTransitionAnimation)
             } label: {
-              HalfCapsule(line: line)
+              HalfCapsule(line: subwayLine)
                 .padding(.leading, 20)
             }
           }
@@ -213,56 +130,61 @@ public struct SelectionView: View {
     .padding(.horizontal)
   }
 
+  private func header(title: String, backButtonAction: @escaping () -> Void) -> some View {
+    HStack {
+      headerTitle(title)
+      Spacer()
+      backButton(action: backButtonAction)
+    }
+  }
+
+  private func headerTitle(_ title: String) -> some View {
+    Text(title)
+      .askCapsule()
+  }
+
+  private func backButton(action: @escaping () -> Void) -> some View {
+    Button(action: action) {
+      Image(systemName: "arrow.uturn.left")
+        .askCapsule(bold: false)
+        .tint(.primary)
+    }
+    .buttonStyle(ReactiveButton())
+  }
+
   // MARK: - 역 선택 페이지
-  private func stationSelectionPage() -> some View {
+  private func stationSelectionPage(viewStore: ViewStoreOf<SelectionFeature>) -> some View {
     VStack(spacing: 10) {
+
       HStack {
-        if let temporarySelectedLine = temporarySelection.selectedLine {
-          let lineColor = temporarySelectedLine.color
-          Text(temporarySelectedLine.name)
+        if let selectedSubwayLine = viewStore.selectionState.selectedLine {
+          let lineColor = selectedSubwayLine.color
+          Text(selectedSubwayLine.name)
             .colorCapsule(lineColor)
         }
-
-        Text("어느 역에서 탑승하세요?")
-          .askCapsule()
-
-        Spacer()
-
-        Button {
-          withAnimation(customAnimation) {
-            selectionStep = .station
-            selectionStep = .lineNumber
-            isKeyboardUp = false // 키보드 내리기
-          }
-        } label: {
-          Image(systemName: "arrow.uturn.left")
-            .askCapsule(bold: false)
-            .tint(.primary)
+        header(title: "어느 역에서 탑승하세요?") {
+          viewStore.send(.selectStationBackButtonTapped, animation: tabTransitionAnimation)
         }
-        .buttonStyle(ReactiveButton())
       }
 
       VStack(spacing: .zero) {
-        TextField("➡️ 탑승역 검색", text: $searchText)
+        TextField("➡️ 탑승역 검색", text: viewStore.binding(\.$searchText))
           .textFieldStyle(.roundedBorder)
           .cornerRadius(10)
           .padding(.horizontal, 8)
           .padding(.top, 8)
           .submitLabel(.search)
-          .focused($isKeyboardUp, equals: true)
+          .focused($focus, equals: .searchStationField)
+          .bind(viewStore.binding(\.$focus), to: $focus)
 
-        List(searchText.cleaned.isEmpty
-             ? stationList
-             : stationList.filter { $0.stationName.contains(searchText.cleaned) }
-             , id: \.stationID) { station in
+        let cleanedSearchText = viewStore.searchText.cleaned
+        let filteredStationList = cleanedSearchText.isEmpty
+          ? viewStore.stationList
+          : viewStore.stationList.filter { $0.stationName.contains(cleanedSearchText) }
+
+        List(filteredStationList, id: \.stationID) { station in
           Button {
-            withAnimation(customAnimation) {
-              temporarySelection.selectedStation = station
-              selectionStep = .station
-              selectionStep = .direction
-              searchText = ""
-              isKeyboardUp = false // 키보드 내리기
-            }
+            viewStore.send(.stationTapped(station), animation: tabTransitionAnimation)
           } label: {
             HStack {
               Text(station.stationName)
@@ -278,120 +200,42 @@ public struct SelectionView: View {
         .padding(8)
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
-      .background(temporarySelection.selectedLine?.color ?? selectedLine.color)
+      .background(viewStore.selectionState.selectedLine?.color)
       .cornerRadius(16)
     }
     .padding(.horizontal)
   }
 
   // MARK: - 방향 선택 페이지
-  private func directionSelectionPage() -> some View {
+  private func directionSelectionPage(viewStore: ViewStoreOf<SelectionFeature>) -> some View {
     VStack(spacing: 10) {
-      HStack {
-        Text("어느 방향으로 가세요?")
-          .askCapsule()
-        Spacer()
-
-        Button {
-          withAnimation(customAnimation) {
-            selectionStep = .direction
-            selectionStep = .station
-            isKeyboardUp = false // 키보드 내리기
-          }
-        } label: {
-          Image(systemName: "arrow.uturn.left")
-            .askCapsule(bold: false)
-            .tint(.primary)
-        }
-        .buttonStyle(ReactiveButton())
+      header(title: "어느 방향으로 가세요?") {
+        viewStore.send(.selectDirectionStationBackButtonTapped, animation: tabTransitionAnimation)
       }
 
       VStack(spacing: 3) {
         HStack(spacing: 3) {
-          // 상행선 1번
-          if let upper1 = temporarySelection.selectedStation?.upperStationID_1 {
-            Button {
-              withAnimation(customAnimation) {
-                temporarySelection.directionStationID = upper1
-                selectionStep = .direction
-                selectionStep = .pre
-                confetti += 1
-              }
-            } label: {
-              Text(stationInfoClient.findStationName(from: upper1))
-                .bold()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .padding(.horizontal, 10)
-                .background(temporarySelection.selectedLine?.color ?? selectedLine.color)
-                .cornerRadius(16)
-            }
-            .buttonStyle(ReactiveButton())
+          if let upper1DirectionStation = viewStore.upper1DirectionStation {
+            selectDirectionStationButton(viewStore: viewStore, directionStation: upper1DirectionStation)
           } else {
-            selectedLine.color
-              .opacity(0.5)
-              .cornerRadius(16)
+            emptyDirectionStationView(selectedSubwayLineColor: viewStore.selectionState.selectedLine?.color)
           }
 
-          // 하행선 1번
-          if let lower1 = temporarySelection.selectedStation?.lowerStationID_1 {
-            Button {
-              withAnimation(customAnimation) {
-                temporarySelection.directionStationID = lower1
-                selectionStep = .direction
-                selectionStep = .pre
-                confetti += 1
-              }
-            } label: {
-              Text(stationInfoClient.findStationName(from: lower1))
-                .bold()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .padding(.horizontal, 10)
-                .background(temporarySelection.selectedLine?.color ?? selectedLine.color)
-                .cornerRadius(16)
-            }
-            .buttonStyle(ReactiveButton())
+          if let lower1DirectionStation = viewStore.lower1DirectionStation {
+            selectDirectionStationButton(viewStore: viewStore, directionStation: lower1DirectionStation)
           } else {
-            selectedLine.color
-              .opacity(0.5)
-              .cornerRadius(16)
+            emptyDirectionStationView(selectedSubwayLineColor: viewStore.selectionState.selectedLine?.color)
           }
         }
 
-        // 상행선 2번 또는 하행선 2번 (둘 다 존재하는 케이스는 없음)
         Group {
-          if let upper2 = temporarySelection.selectedStation?.upperStationID_2 {
-            Button {
-              withAnimation(customAnimation) {
-                temporarySelection.directionStationID = upper2
-                selectionStep = .direction
-                selectionStep = .pre
-                confetti += 1
-              }
-            } label: {
-              Text(stationInfoClient.findStationName(from: upper2))
-                .bold()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(temporarySelection.selectedLine?.color ?? selectedLine.color)
-                .cornerRadius(16)
-            }
-            .buttonStyle(ReactiveButton())
-          } else if let lower2 = temporarySelection.selectedStation?.lowerStationID_2 {
-            Button {
-              withAnimation(customAnimation) {
-                temporarySelection.directionStationID = lower2
-                selectionStep = .direction
-                selectionStep = .pre
-                confetti += 1
-              }
-            } label: {
-              Text(stationInfoClient.findStationName(from: lower2))
-                .bold()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .padding(.horizontal, 10)
-                .background(temporarySelection.selectedLine?.color ?? selectedLine.color)
-                .cornerRadius(16)
-            }
-            .buttonStyle(ReactiveButton())
+          // 상행선 2번 또는 하행선 2번 (둘 다 존재하는 케이스는 없음)
+          if let upper2DirectionStation = viewStore.upper2DirectionStation {
+            selectDirectionStationButton(viewStore: viewStore, directionStation: upper2DirectionStation)
+          }
+
+          if let lower2DirectionStation = viewStore.lower2DirectionStation {
+            selectDirectionStationButton(viewStore: viewStore, directionStation: lower2DirectionStation)
           }
         }
         .frame(maxHeight: UIScreen.main.bounds.height * 0.15)
@@ -401,8 +245,10 @@ public struct SelectionView: View {
       .foregroundColor(.white)
       .cornerRadius(16)
       .overlay(alignment: .top) {
-        Text(temporarySelection.selectedStation?.stationName ?? selectedStation.stationName)
-          .bold()
+        let selectedStationName = viewStore.selectionState.selectedStation?.stationName ?? viewStore.selectedStation.stationName
+
+        Text(selectedStationName)
+          .fontWeight(.bold)
           .foregroundColor(.black)
           .padding(.horizontal, 20)
           .padding(.vertical, 12)
@@ -414,45 +260,26 @@ public struct SelectionView: View {
     .padding(.horizontal)
   }
 
-  // MARK: 커스텀 인디케이터를 위한 페이지 판단 메서드
-  private func isCurrentPage(`for` index: Int) -> Bool {
-    let safeIndex = index.clamped(to: 0...SelectionStep.maxIndex)
-    return selectionStep == SelectionStep.allCases[safeIndex]
-  }
-
-  private func commitSelection() {
-    if let temporarySelectedLine = temporarySelection.selectedLine,
-       let temporarySelectedStation = temporarySelection.selectedStation,
-       let temporaryDirectionStationID = temporarySelection.directionStationID {
-      selectedLine = temporarySelectedLine
-      selectedStation = temporarySelectedStation
-      directionStationID = temporaryDirectionStationID
+  private func selectDirectionStationButton(
+    viewStore: ViewStoreOf<SelectionFeature>,
+    directionStation: StationInfo
+  ) -> some View {
+    Button {
+      viewStore.send(.directionStationTapped(directionStation), animation: tabTransitionAnimation)
+    } label: {
+      Text(directionStation.stationName)
+        .bold()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(.horizontal, 10)
+        .background(viewStore.selectionState.selectedLine?.color)
+        .cornerRadius(16)
     }
+    .buttonStyle(ReactiveButton())
   }
-}
 
-// MARK: SwiftUI previews
-
-struct SelectionView_Previews: PreviewProvider {
-  static var previews: some View {
-    SelectionView(
-      stationInfoClient: .live(),
-      userDefaultsManager: UserDefaultsManager(),
-      selectedStation: .constant(
-        StationInfo(
-          subwayLineID: "1002",
-          stationID: "1002000228",
-          stationName: "서울대입구",
-          lowerStationID_1: "1002000229",
-          lowerStationETA_1: 60,
-          lowerStationID_2: "",
-          lowerStationETA_2: "",
-          upperStationID_1: "1002000227",
-          upperStationETA_1: 120,
-          upperStationID_2: "",
-          upperStationETA_2: "")),
-      directionStationID: .constant("1002000227"),
-      selectedLine: .constant(.line2),
-      isKeyboardUp: FocusState<Bool>())
+  private func emptyDirectionStationView(selectedSubwayLineColor: Color?) -> some View {
+    selectedSubwayLineColor
+      .opacity(0.5)
+      .cornerRadius(16)
   }
 }

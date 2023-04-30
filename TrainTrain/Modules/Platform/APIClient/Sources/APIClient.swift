@@ -9,8 +9,8 @@ import Foundation
 
 public typealias APIResponse = (data: Data, urlResponse: URLResponse)
 
-public struct APIClient<APIRoute: APIRoutable> {
-  public var request: @Sendable (APIRoute) async throws -> APIResponse
+public struct APIClient {
+  public var request: @Sendable (APIRoutable) async throws -> APIResponse
 
   public init(
     request: @Sendable @escaping (APIRoutable) async throws -> APIResponse
@@ -18,11 +18,11 @@ public struct APIClient<APIRoute: APIRoutable> {
     self.request = request
   }
 
-  public func request(_ route: APIRoute) async throws -> APIResponse {
+  public func request(_ route: APIRoutable) async throws -> APIResponse {
     return try await request(route)
   }
 
-  public func request<Decoded: Decodable>(_ route: APIRoute, as: Decoded.Type) async throws -> Decoded {
+  public func request<Decoded: Decodable>(_ route: APIRoutable, as: Decoded.Type) async throws -> Decoded {
     let (data, _) = try await request(route)
 
     do {

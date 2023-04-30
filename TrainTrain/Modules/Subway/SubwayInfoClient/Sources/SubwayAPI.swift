@@ -9,10 +9,10 @@ import Foundation
 
 public enum SubwayAPI {
   /// [서울시 지하철 실시간 도착정보](https://data.seoul.go.kr/dataList/OA-12764/F/1/datasetView.do)
-  case realTimeStationArrival(RealTimeStationArrival)
+  case realtimeStationArrival(RealtimeStationArrival)
 
   /// 샘플 URL: http://swopenAPI.seoul.go.kr/api/subway/(인증키)/json/realtimeStationArrival/0/5/서울
-  public struct RealTimeStationArrival {
+  public struct RealtimeStationArrival {
     public let authKey: String
     public var startIndex: Int
     public var endIndex: Int

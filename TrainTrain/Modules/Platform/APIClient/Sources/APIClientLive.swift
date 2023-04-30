@@ -5,6 +5,7 @@
 //  Created by Geonhee on 2022/12/24.
 //
 
+import Dependencies
 import Foundation
 
 public extension APIClient {
@@ -58,5 +59,16 @@ fileprivate extension Data {
           let data = try? JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted),
           let stringified = String(data: data, encoding: .utf8) else { return nil }
     return stringified
+  }
+}
+
+private enum APIClientKey: DependencyKey {
+  static let liveValue = APIClient.live(session: .shared)
+}
+
+public extension DependencyValues {
+  var apiClient: APIClient {
+    get { self[APIClientKey.self] }
+    set { self[APIClientKey.self] = newValue }
   }
 }

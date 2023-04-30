@@ -51,3 +51,20 @@ public struct StationInfo: Equatable {
     self.upperStationETA_2 = "\(upperStationETA_2)".isEmpty ? nil : upperStationETA_2 as? Int
   }
 }
+
+extension StationInfo {
+
+  public static let mock = StationInfo(
+    subwayLineID: "1002",
+    stationID: "1002000228",
+    stationName: "서울대입구",
+    lowerStationID_1: "1002000229",
+    lowerStationETA_1: 60,
+    lowerStationID_2: "",
+    lowerStationETA_2: "",
+    upperStationID_1: "1002000227",
+    upperStationETA_1: 120,
+    upperStationID_2: "",
+    upperStationETA_2: ""
+  )
+}
